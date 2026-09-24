@@ -76,6 +76,10 @@ select:focus,input:focus,textarea:focus{border-color:var(--brand2);box-shadow:0 
 .chip.oa{background:var(--green-soft);color:var(--green)}
 .chip.top{background:#eaeef4;color:#1f3a5f}
 .chip.hot{background:var(--accent-soft);color:var(--accent)}
+.chip.if{background:#eef0fb;color:#3a4a9e}
+.chip.if.loading{opacity:.5}
+.chip.if.none{background:#f1efe8;color:#8a877e}
+body.no-if .ifbadge{display:none}
 
 /* ===== 论文卡片 ===== */
 .paper{padding:18px 20px;margin-bottom:14px;position:relative}
@@ -759,6 +763,11 @@ html[data-theme="dark"] .ph-x:hover{background:#3d424c}
       <input type="text" id="setModel" placeholder="deepseek-chat">
       <label>联系邮箱（选填，OpenAlex 礼貌池，可提升 API 速度）</label>
       <input type="text" id="setMail" placeholder="you@example.com">
+      <label style="display:flex;align-items:center;gap:8px;margin-top:16px;cursor:pointer;font-weight:600">
+        <input type="checkbox" id="setShowIF" style="width:auto;margin:0">
+        <span>论文卡片显示影响因子（IF）</span>
+      </label>
+      <p class="hint" style="margin-top:4px">取自 OpenAlex「近两年篇均被引」，与 JCR 影响因子口径接近；首次遇到某期刊时自动获取并缓存，之后不再重复请求。中文期刊因 CNKI 未被收录，数值通常偏低，仅供参考。</p>
       <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">
         <button class="btn pri" id="btnSaveSet">保存设置</button>
         <button class="btn" id="btnTestAi">测试 AI 连接</button>
@@ -1368,6 +1377,7 @@ if((settings._ver||0) < SETTINGS_VER){
   // 已有筛选则完全保留用户的勾选；仅升级 _ver 标记，避免重复合并
   settings._ver = SETTINGS_VER;
 }
+if(typeof settings.showIF !== 'boolean') settings.showIF = true;
 let reads = store.get('reads', []);
 let followedAuthors = store.get('authors', []);
 let dailyWorks = [], dailyFiltered = [], dailyShown = 20, raWorks = [], raShown = 24, raFiltered = [], browsePage = 1, worksCache = {}, raCursor='*', raHasMore=false, citeBasket = store.get('citebasket',[]);
@@ -1456,6 +1466,102 @@ async function fetchDaily(region, days){
   works.sort((a,b)=>(b.publication_date||'').localeCompare(a.publication_date||''));
   return works;
 }
+
+/* ================= 影响因子（OpenAlex 期刊指标） =================
+   OpenAlex 不直接给 JCR 影响因子，这里用 source.summary_stats['2yr_mean_citedness']
+   （该刊近两年发表论文的平均被引次数）作为等价指标：口径与 JCR IF 相同（两年 / 篇均），
+   只是收录范围更广（含 Scopus、PubMed、DOAJ 等，不限于 WoS）。
+   数据按期刊维度缓存，同一期刊只请求一次。 */
+const IF_KEY = 'ifcache_v1';
+let ifCache = store.get(IF_KEY, {});
+let ifPending = {};
+let ifTimer = null;
+function ifSidOf(w){
+  const s = w && w.primary_location ? w.primary_location.source : null;
+  if(!s || !s.id) return null;
+  const m = String(s.id).match(/(S\d+)$/);
+  return m ? m[1] : null;
+}
+function ifTitle(c){
+  return '影响因子 '+c.v.toFixed(1)+'（OpenAlex 近两年篇均被引，近似 JCR IF）'+(c.h?(' · H 指数 '+c.h):'')+(c.n?(' · '+c.n):'');
+}
+function ifNoneTitle(c){
+  return (c.n? c.n+'：':'')+'OpenAlex 暂未收录该刊的引文数据（多为中文期刊，因 CNKI 未接入），故无法计算影响因子；中文期刊请查阅 CNKI《中国学术期刊影响因子年报》的复合影响因子。';
+}
+function ifBadge(w){
+  const s = w && w.primary_location ? w.primary_location.source : null;
+  if(!s || !s.id) return '';
+  if(s.type && s.type !== 'journal') return '';   // 工作论文 / 预印本 / 书籍没有影响因子
+  const sid = ifSidOf(w); if(!sid) return '';
+  const c = ifCache[sid];
+  if(c && typeof c.v === 'number'){
+    if(c.v <= 0) return '<span class="chip if ifbadge none" data-sid="'+sid+'" data-has="1" title="'+esc(ifNoneTitle(c))+'">IF 暂无</span>';
+    return '<span class="chip if ifbadge" data-sid="'+sid+'" data-has="1" title="'+esc(ifTitle(c))+'">IF '+c.v.toFixed(1)+'</span>';
+  }
+  return '<span class="chip if ifbadge loading" data-sid="'+sid+'" data-has="0" title="正在获取影响因子…">IF …</span>';
+}
+// 批量补齐当前页面上缺失的影响因子（每批最多 50 个期刊，一次请求搞定）
+function hydrateIF(){
+  const els = document.querySelectorAll('.ifbadge[data-has="0"]');
+  if(!els.length) return;
+  const sids = [];
+  els.forEach(function(e){
+    const s = e.getAttribute('data-sid');
+    if(s && !ifCache[s] && !ifPending[s] && sids.indexOf(s) < 0) sids.push(s);
+  });
+  if(!sids.length) return;
+  for(let i=0;i<sids.length;i+=50) fetchIF(sids.slice(i,i+50));
+}
+async function fetchIF(sids){
+  sids.forEach(function(s){ ifPending[s]=1; });
+  try{
+    const url = OA+'/sources?filter='+encodeURIComponent('ids.openalex:'+sids.join('|'))+'&per-page=50&select=id,display_name,summary_stats';
+    const r = await oaFetch(url);
+    const got = {};
+    (r.results||[]).forEach(function(s){
+      const m = String(s.id||'').match(/(S\d+)$/); if(!m) return;
+      const st = s.summary_stats||{};
+      const v = (typeof st['2yr_mean_citedness'] === 'number') ? st['2yr_mean_citedness'] : 0;
+      ifCache[m[1]] = {v:v, h:st.h_index||0, n:s.display_name||'', t:Date.now()};
+      got[m[1]] = 1;
+    });
+    sids.forEach(function(s){ if(!got[s]) ifCache[s] = {v:0, h:0, n:'', t:Date.now()}; });
+    store.set(IF_KEY, ifCache);
+    paintIF();
+  }catch(e){
+    console.warn('影响因子获取失败', e);
+  }finally{
+    sids.forEach(function(s){ delete ifPending[s]; });
+  }
+}
+// 用 DOM 补丁更新，避免整列表重渲染导致弹层 / 展开状态丢失
+function paintIF(){
+  document.querySelectorAll('.ifbadge').forEach(function(e){
+    const c = ifCache[e.getAttribute('data-sid')];
+    if(!c) return;
+    if(typeof c.v !== 'number') return;
+    e.setAttribute('data-has','1');
+    e.classList.remove('loading');
+    if(c.v > 0){
+      e.textContent = 'IF '+c.v.toFixed(1);
+      e.title = ifTitle(c);
+    }else{
+      e.classList.add('none');
+      e.textContent = 'IF 暂无';
+      e.title = ifNoneTitle(c);
+    }
+  });
+}
+function bootIF(){
+  try{ document.body.classList.toggle('no-if', settings.showIF === false); }catch(e){}
+  if(typeof MutationObserver === 'undefined') return;
+  const ob = new MutationObserver(function(){
+    if(ifTimer) clearTimeout(ifTimer);
+    ifTimer = setTimeout(hydrateIF, 150);
+  });
+  ob.observe(document.body, {childList:true, subtree:true});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', bootIF); else bootIF();
 
 /* ================= 渲染论文卡片 ================= */
 function journalOf(w){
@@ -1596,7 +1702,7 @@ function paperCard(w, opts={}){
       <button class="iconbtn" title="结构化摘要（问题/方法/数据/结论）" onclick="showStructure('${wid}',this)">🧩</button>
     </div>
     <h3><a class="plink" href="${esc(link)}" target="_blank" rel="noopener" onclick="markRead('${wid}')">${esc(w.title)}</a></h3>
-    <div class="meta">${chip}${oaChip}${topChip}${hotChip}<b>${esc(src)}</b><span>${w.publication_date||w.publication_year||''}${vol}</span><span>被引 ${w.cited_by_count??0}</span><a class="plink" href="${esc(link)}" target="_blank" rel="noopener" style="font-weight:600" onclick="markRead('${wid}')">🔗 原文链接</a> <a class="plink" href="javascript:void(0)" onclick="relatedPapers('${wid}',this)" style="font-weight:600">📎 相似文献</a></div>
+    <div class="meta">${chip}${ifBadge(w)}${oaChip}${topChip}${hotChip}<b>${esc(src)}</b><span>${w.publication_date||w.publication_year||''}${vol}</span><span>被引 ${w.cited_by_count??0}</span><a class="plink" href="${esc(link)}" target="_blank" rel="noopener" style="font-weight:600" onclick="markRead('${wid}')">🔗 原文链接</a> <a class="plink" href="javascript:void(0)" onclick="relatedPapers('${wid}',this)" style="font-weight:600">📎 相似文献</a></div>
     <div class="authors">${authors||'<span style="color:var(--ink3)">作者信息暂缺</span>'}</div>
     ${abs? `<div class="abs clamp" onclick="if(event.target.closest('.term'))return; this.classList.toggle('open')">${glossaryWrap(abs)}</div>` : '<div class="abs" style="color:var(--ink3)">（摘要暂未收录，点击标题查看原文）</div>'}
     ${notes[wid]?`<div class="noteview"><span class="ntag">📝 我的笔记</span>${esc(notes[wid].text)}</div>`:''}
@@ -2129,6 +2235,7 @@ function applyMethodFilter(arr, sel){ if(!sel) return arr; return arr.filter(w=>
 function initSettings(){
   $('#setBase').value=settings.base; $('#setKey').value=settings.key;
   $('#setModel').value=settings.model; $('#setMail').value=settings.mail||'';
+  $('#setShowIF').checked = settings.showIF !== false;
   // 兼容旧版：单一「学期目标」自动升级为年度目标
   if(settings.goalYear===undefined && settings.goal!==undefined){ settings.goalYear=Math.max(0,parseInt(settings.goal)||0); }
   $('#setGoalYear').value=settings.goalYear||'';
@@ -2188,6 +2295,7 @@ function petEvolve(){
 function saveSettings(){
   settings.base=$('#setBase').value.trim(); settings.key=$('#setKey').value.trim();
   settings.model=$('#setModel').value.trim(); settings.mail=$('#setMail').value.trim();
+  settings.showIF = !!($('#setShowIF') && $('#setShowIF').checked);
   settings.journals=[...document.querySelectorAll('#journalChecks input:checked')].map(i=>i.value);
   if(!settings.journals.length){ toast('至少勾选一本期刊'); return; }
   store.set('settings',settings); toast('设置已保存 ✓'); loadDaily();
@@ -2644,6 +2752,13 @@ $('#btnRaMore').onclick=loadMoreRa;
 $('#btnRaIdea').onclick=()=>raGenerate('idea');
 $('#btnRaReview').onclick=()=>raGenerate('review');
 $('#btnSaveSet').onclick=saveSettings;
+(function(){ const sw=$('#setShowIF'); if(!sw) return;
+  sw.onchange=function(){
+    settings.showIF=!!this.checked; store.set('settings',settings);
+    document.body.classList.toggle('no-if', !this.checked);
+    if(this.checked) setTimeout(hydrateIF,0);
+  };
+})();
 $('#btnRestoreJournals').onclick=restoreJournals;
 $('#btnTestAi').onclick=testAi;
 // 外观与阅读目标

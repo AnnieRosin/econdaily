@@ -324,6 +324,110 @@ html[data-theme="dark"] .api-more>summary{background:#223049}
 .pet-level{position:absolute;top:-6px;left:-6px;min-width:20px;height:20px;padding:0 4px;border-radius:10px;background:#fffefb;border:1px solid var(--line);box-shadow:var(--shadow);font-size:12px;line-height:18px;text-align:center;display:none;align-items:center;justify-content:center;pointer-events:none}
 .pet-level.on{display:flex}
 
+/* ===== 每日一签（个性化抽签） ===== */
+.fortune-btn{position:relative;display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:15px;border:1px solid #e6d3a6;background:linear-gradient(135deg,#fffaf0,#fdf1dc);color:#8a5a1b;font-size:12.5px;font-weight:700;box-shadow:var(--shadow);cursor:pointer;transition:.15s;white-space:nowrap;font-family:var(--sans)}
+.fortune-btn:hover{transform:translateY(-1px);border-color:#dcae5c}
+.fortune-btn:active{transform:translateY(0) scale(.96)}
+.fortune-btn.done{background:#f6f7f9;color:var(--ink3);border-color:var(--line)}
+.fortune-btn.todo::after{content:"";position:absolute;top:-2px;right:-2px;width:8px;height:8px;border-radius:50%;background:#e0483c;box-shadow:0 0 0 2px #fff}
+.fortune-btn.pulse{animation:fpulse 2.8s ease-in-out infinite}
+@keyframes fpulse{0%,100%{box-shadow:var(--shadow)}50%{box-shadow:0 0 0 6px rgba(224,72,60,.14)}}
+html[data-theme="dark"] .fortune-btn{background:linear-gradient(135deg,#3a352b,#2e2a22);color:#e5c98d;border-color:#4e4535}
+html[data-theme="dark"] .fortune-btn.done{background:#2a2d34;color:#9aa3b2;border-color:#3a3f49}
+.fpaper{max-width:430px!important;position:relative;background:linear-gradient(170deg,#fffdf6 0%,#fdf3e0 100%);border:1px solid #e8d5ae;border-radius:18px;padding:0;overflow:hidden;box-shadow:0 24px 60px rgba(60,40,10,.3)}
+.fpaper::before{content:"";position:absolute;inset:8px;border:1px solid rgba(200,160,90,.32);border-radius:12px;pointer-events:none}
+.f-wrap{position:relative;padding:22px 20px 18px;text-align:center}
+.f-date{font-size:11.5px;color:#9a7b4f;letter-spacing:1.5px}
+.f-level{display:inline-block;margin-top:12px;padding:5px 15px;border-radius:999px;color:#fff;font-size:12.5px;font-weight:800;letter-spacing:2px;box-shadow:0 3px 10px rgba(0,0,0,.14)}
+.f-name{margin-top:12px;font-size:27px;font-weight:800;color:#b02a1e;letter-spacing:4px;line-height:1.3}
+.f-poem{margin-top:9px;font-size:14.5px;line-height:2;color:#5c4526;letter-spacing:1px;font-family:"Kaiti SC","KaiTi","STKaiti","Songti SC","SimSun",serif}
+.f-sec{margin:14px 20px 0;background:rgba(255,255,255,.66);border:1px solid rgba(200,170,110,.35);border-radius:12px;padding:11px 13px;font-size:13px;line-height:1.85;color:#4b3b23;text-align:left}
+.f-sec b{color:#8a5a1b}
+.f-yj{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 20px 0}
+.f-yj>div{border-radius:12px;padding:10px 12px;font-size:12.5px;line-height:1.7;text-align:left}
+.f-yi{background:rgba(45,125,70,.09);border:1px solid rgba(45,125,70,.26);color:#2c6141}
+.f-ji{background:rgba(176,42,30,.07);border:1px solid rgba(176,42,30,.22);color:#8c3226}
+.f-lucky{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin:13px 20px 0}
+.f-lucky span{background:rgba(255,255,255,.8);border:1px solid rgba(200,170,110,.4);border-radius:999px;padding:4px 11px;font-size:12px;color:#7a5a2a}
+.f-cat{margin:14px 20px 0;background:rgba(255,255,255,.6);border:1px dashed rgba(200,170,110,.55);border-radius:12px;padding:10px 13px;font-size:12.8px;line-height:1.75;color:#6b5433;text-align:left}
+.f-foot{margin:15px 20px 0;padding-top:13px;border-top:1px dashed rgba(200,170,110,.5);display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.f-streak{font-size:12px;color:#9a7b4f}
+.f-shake{animation:fshake .5s ease-in-out infinite}
+@keyframes fshake{0%,100%{transform:rotate(-9deg)}50%{transform:rotate(9deg)}}
+.f-loading{padding:44px 20px;text-align:center;color:#8a5a1b}
+.f-loading .f-ico{display:inline-block;font-size:40px}
+.f-tip{margin:0 20px 6px;font-size:12px;color:#9a7b4f;line-height:1.7;text-align:left}
+html[data-theme="dark"] .fpaper{background:linear-gradient(170deg,#26282f,#1d1f25);border-color:#443c30}
+html[data-theme="dark"] .fpaper::before{border-color:rgba(190,155,95,.24)}
+html[data-theme="dark"] .f-date,html[data-theme="dark"] .f-streak{color:#a89472}
+html[data-theme="dark"] .f-name{color:#e8695c}
+html[data-theme="dark"] .f-poem{color:#d8cbb2}
+html[data-theme="dark"] .f-sec{background:rgba(255,255,255,.05);border-color:rgba(190,155,95,.24);color:#cbc3b2}
+html[data-theme="dark"] .f-sec b{color:#e0c68e}
+html[data-theme="dark"] .f-yi{background:rgba(78,180,110,.1);border-color:rgba(78,180,110,.26);color:#8fd3a4}
+html[data-theme="dark"] .f-ji{background:rgba(230,105,92,.09);border-color:rgba(230,105,92,.24);color:#e39a90}
+html[data-theme="dark"] .f-lucky span{background:rgba(255,255,255,.06);border-color:rgba(190,155,95,.3);color:#cbb389}
+html[data-theme="dark"] .f-cat{background:rgba(255,255,255,.04);border-color:rgba(190,155,95,.3);color:#bfb49f}
+html[data-theme="dark"] .f-tip{color:#a89472}
+@media(max-width:520px){.f-yj{grid-template-columns:1fr}.f-name{font-size:23px}}
+
+/* ===== 留言墙 · 弹幕 ===== */
+.danmu-bar{position:relative;height:98px;overflow:hidden;background:linear-gradient(90deg,#f4f7fc 0%,#eaf1fa 55%,#f4f7fc 100%);border-bottom:1px solid var(--line)}
+.danmu-bar.off{display:none}
+.danmu-lane{position:absolute;left:0;right:0;height:30px}
+.danmu-item{position:absolute;left:100%;top:0;white-space:nowrap;display:inline-flex;align-items:center;gap:7px;
+  background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 13px;font-size:12.8px;color:var(--ink);
+  box-shadow:0 3px 10px rgba(30,40,60,.09);animation:dfly 18s linear forwards;cursor:pointer;transition:border-color .15s}
+.danmu-item:hover{border-color:var(--brand2)}
+@keyframes dfly{from{transform:translateX(0)}to{transform:translateX(calc(-100vw - 100%))}}
+.danmu-bar:hover .danmu-item{animation-play-state:paused}
+.dm-tag{flex:none;border-radius:999px;padding:1px 7px;font-size:11px;font-weight:700}
+.dm-t-good{background:#e6f5ec;color:#22794a}
+.dm-t-idea{background:#e8f0fe;color:#2c5aa0}
+.dm-t-ask{background:#fdf0e2;color:#a2661f}
+.dm-t-bug{background:#fdeaea;color:#b0342b}
+.dm-like{flex:none;font-size:11.5px;color:var(--ink3)}
+.dm-res{flex:none;font-size:11px;color:#22794a}
+.danmu-side{position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:3;display:flex;gap:6px;align-items:center}
+.danmu-empty{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:12.5px;color:var(--ink3)}
+/* 折叠态：压缩成一条细条，只留入口，不占版面 */
+.danmu-bar.folded{height:38px;background:linear-gradient(90deg,#f7f9fd 0%,#eef4fb 100%);transition:height .22s ease}
+.danmu-bar.folded .danmu-lane,.danmu-bar.folded .danmu-empty{display:none}
+.danmu-fold-tip{display:none;position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:12.5px;color:var(--ink3);align-items:center;gap:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(100% - 220px)}
+.danmu-bar.folded .danmu-fold-tip{display:flex}
+.danmu-fold-tip b{color:var(--brand2);font-weight:700}
+.danmu-fold-tip .fold-open{color:var(--brand2);text-decoration:underline;text-underline-offset:2px}
+.btn-fold{min-width:74px;justify-content:center}
+.wall-box{max-width:620px!important}
+.wall-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.wall-mode{font-size:12px;border-radius:999px;padding:3px 10px;background:var(--brand-soft);color:var(--ink2)}
+.wall-mode.local{background:#fdf0e2;color:#a2661f}
+.wall-form{border:1px solid var(--line);border-radius:12px;padding:11px 12px;background:var(--bg)}
+.wall-form textarea{width:100%;min-height:62px;resize:vertical;border:1px solid var(--line);border-radius:10px;padding:9px 11px;font-size:13.5px;line-height:1.7;font-family:var(--sans);color:var(--ink);background:var(--card)}
+.wall-row{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap}
+.wall-row input[type=text]{flex:1;min-width:110px}
+.wall-seg{display:flex;gap:5px;flex-wrap:wrap}
+.wall-seg button{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:4px 11px;font-size:12px;cursor:pointer;color:var(--ink2)}
+.wall-seg button.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.wall-list{margin-top:12px;max-height:46vh;overflow:auto}
+.wall-item{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--bg);margin-bottom:8px}
+.wall-item.done{opacity:.6;background:repeating-linear-gradient(45deg,transparent,transparent 9px,rgba(120,180,140,.08) 9px,rgba(120,180,140,.08) 18px)}
+.wall-top{display:flex;gap:6px;align-items:center;font-size:11.5px;color:var(--ink3);flex-wrap:wrap}
+.wall-body{font-size:13.5px;line-height:1.75;color:var(--ink);margin:6px 0 9px;word-break:break-word;white-space:pre-wrap}
+.wall-acts{display:flex;gap:6px;flex-wrap:wrap}
+.wall-act{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:3px 10px;font-size:12px;cursor:pointer;color:var(--ink2);transition:.15s}
+.wall-act:hover{border-color:var(--brand2);color:var(--brand)}
+.wall-act.on{background:#e6f5ec;border-color:#7fc79b;color:#22794a}
+.wall-act.liked{background:var(--brand-soft);border-color:var(--brand2);color:var(--brand)}
+.wall-empty{text-align:center;color:var(--ink3);font-size:13px;padding:22px 0;line-height:1.8}
+html[data-theme="dark"] .danmu-bar{background:linear-gradient(90deg,#1b1e24,#212530 55%,#1b1e24);border-color:#2c313b}
+html[data-theme="dark"] .danmu-item{background:#262a33;border-color:#383e49;color:#dfe5ee}
+html[data-theme="dark"] .dm-t-good{background:rgba(80,200,130,.16);color:#79d19b}
+html[data-theme="dark"] .dm-t-idea{background:rgba(90,150,240,.16);color:#8fb6f2}
+html[data-theme="dark"] .dm-t-ask{background:rgba(230,170,70,.16);color:#e2b673}
+html[data-theme="dark"] .dm-t-bug{background:rgba(230,105,92,.16);color:#e89083}
+@media(max-width:560px){.danmu-bar{height:84px}.danmu-side{right:8px}.danmu-lane:nth-of-type(3){display:none}}
+
 /* ===== 我的笔记（富文本，仿飞书云文档） ===== */
 .notes-wrap{display:grid;grid-template-columns:250px 1fr;gap:16px;align-items:start}
 .notes-side{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;position:sticky;top:14px;max-height:calc(100vh - 120px);overflow:auto}
@@ -503,6 +607,18 @@ html[data-theme="dark"] .ph-x:hover{background:#3d424c}
     <div id="searchResults" class="search-results hidden"></div>
   </div>
 </div></header>
+
+<div id="danmuBar" class="danmu-bar off">
+  <div class="danmu-lane" style="top:8px"></div>
+  <div class="danmu-lane" style="top:38px"></div>
+  <div class="danmu-lane" style="top:68px"></div>
+  <div class="danmu-empty" id="danmuEmpty">还没有人留言，来当第一个吧 💬</div>
+  <div class="danmu-fold-tip" id="danmuFoldTip"><span>💬 弹幕已收起 · 共 <b id="danmuFoldCount">0</b> 条留言</span><span class="fold-open">点击展开</span></div>
+  <div class="danmu-side">
+    <button class="btn" id="btnWall" type="button">💬 留言墙</button>
+    <button class="btn btn-fold" id="btnDanmuFold" type="button" title="收起弹幕，只留入口">⌄ 收起</button>
+  </div>
+</div>
 
 <div class="wrap">
 
@@ -737,6 +853,18 @@ html[data-theme="dark"] .ph-x:hover{background:#3d424c}
 <div id="tab-setting" class="hidden">
   <div class="set-grid">
     <div class="card set-card">
+      <h3>🎂 我的小档案</h3>
+      <label for="setBirth">出生日期（用于「🎴 今日一签」个性化签文）</label>
+      <input type="date" id="setBirth">
+      <p class="hint" style="margin-top:6px">只保存在<b>你自己这台电脑的浏览器</b>里，不会上传任何服务器，也不会同步到云端。填了之后，每天点小猫旁边的「🎴 今日一签」，就能按你的星座、生肖、幸运数字抽到当天的专属签（好签居多，用来调剂科研疲惫）。不填也能抽，只是少了个性化。</p>
+      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn" id="btnSaveBirth">💾 保存生日</button>
+        <button class="btn" id="btnClearBirth">🗑️ 清除</button>
+        <button class="btn pri" id="btnTryFortune">🎴 立刻抽一签</button>
+      </div>
+      <p class="hint" id="birthMsg" style="margin-top:8px"></p>
+    </div>
+    <div class="card set-card">
       <h3>📚 追踪的期刊</h3>
       <div class="jlist" id="journalChecks"></div>
       <p class="hint" style="margin-top:10px">勾选后「今日推荐」将聚合这些期刊的最新论文。</p>
@@ -892,6 +1020,51 @@ alter table econdaily_notes enable row level security;
 create policy "own_notes" on econdaily_notes
   for all using (auth.uid() = user_id)
   with check (auth.uid() = user_id);</pre>
+      </details>
+    </div>
+    <div class="card set-card">
+      <h3>💬 留言墙（免登录 · 弹幕滚动）</h3>
+      <p class="hint">访客<b>不用登录</b>就能在网页顶部留下评价，会以弹幕形式滚动播放，其他人可以「👍 点赞」、作者可以点「✅ 已解决」。当前状态：<b id="wallStatusTxt">检测中…</b></p>
+      <label style="display:flex;align-items:center;gap:8px;margin-top:12px;cursor:pointer;font-weight:600">
+        <input type="checkbox" id="setShowDanmu" style="width:auto;margin:0">
+        <span>在页面顶部显示弹幕留言条</span>
+      </label>
+      <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn pri" id="btnOpenWall2">💬 打开留言墙</button>
+        <button class="btn" id="btnCopyWallSql">📋 复制建表 SQL</button>
+        <button class="btn" id="btnWallReload">🔄 重新拉取</button>
+      </div>
+      <details style="margin-top:10px">
+        <summary style="cursor:pointer;color:var(--ink2);font-size:12.5px">🚀 怎么让所有人都能看到留言（3 步，约 3 分钟）</summary>
+        <div style="font-size:12.5px;line-height:1.9;color:var(--ink2);margin-top:6px">
+          <b>1.</b> 打开 <a href="https://supabase.com" target="_blank" rel="noopener">supabase.com</a> 建一个免费项目（若上面「云端同步」已建过，直接用同一个即可）。<br>
+          <b>2.</b> 左侧 <b>SQL Editor</b> → 粘贴下面这段 SQL → 点 <b>Run</b>。<br>
+          <b>3.</b> 把项目 URL 与 anon key 填到上面的「云端同步」并点<b>连接云端</b> —— 不需要任何人登录，留言立刻变成<b>全网公开</b>。<br>
+          <span style="color:#b4232a">⚠️ 未配置时是「本地预览模式」：只有你自己能看到自己写的留言。</span>
+        </div>
+        <pre id="wallSql" style="background:var(--brand-soft);border-radius:8px;padding:10px;font-size:11.5px;overflow:auto;margin-top:6px;white-space:pre-wrap">create table if not exists econdaily_wall (
+  id bigint generated always as identity primary key,
+  body text not null,
+  nick text default '匿名同学',
+  tag text default 'good',
+  likes int not null default 0,
+  resolved boolean not null default false,
+  created_at timestamptz not null default now()
+);
+alter table econdaily_wall enable row level security;
+create policy "wall_read" on econdaily_wall for select using (true);
+create policy "wall_insert" on econdaily_wall for insert to anon, authenticated
+  with check (char_length(body) &lt;= 200);
+create or replace function wall_like(_id bigint) returns void
+language sql security definer as $$
+  update econdaily_wall set likes = likes + 1 where id = _id;
+$$;
+create or replace function wall_resolve(_id bigint, _v boolean) returns void
+language sql security definer as $$
+  update econdaily_wall set resolved = _v where id = _id;
+$$;
+grant execute on function wall_like(bigint) to anon, authenticated;
+grant execute on function wall_resolve(bigint, boolean) to anon, authenticated;</pre>
       </details>
     </div>
   </div>
@@ -1378,6 +1551,8 @@ if((settings._ver||0) < SETTINGS_VER){
   settings._ver = SETTINGS_VER;
 }
 if(typeof settings.showIF !== 'boolean') settings.showIF = true;
+if(typeof settings.showDanmu !== 'boolean') settings.showDanmu = true;
+if(typeof settings.danmuFolded !== 'boolean') settings.danmuFolded = false;
 let reads = store.get('reads', []);
 let followedAuthors = store.get('authors', []);
 let dailyWorks = [], dailyFiltered = [], dailyShown = 20, raWorks = [], raShown = 24, raFiltered = [], browsePage = 1, worksCache = {}, raCursor='*', raHasMore=false, citeBasket = store.get('citebasket',[]);
@@ -2236,6 +2411,7 @@ function initSettings(){
   $('#setBase').value=settings.base; $('#setKey').value=settings.key;
   $('#setModel').value=settings.model; $('#setMail').value=settings.mail||'';
   $('#setShowIF').checked = settings.showIF !== false;
+  if($('#setShowDanmu')) $('#setShowDanmu').checked = settings.showDanmu !== false;
   // 兼容旧版：单一「学期目标」自动升级为年度目标
   if(settings.goalYear===undefined && settings.goal!==undefined){ settings.goalYear=Math.max(0,parseInt(settings.goal)||0); }
   $('#setGoalYear').value=settings.goalYear||'';
@@ -2296,6 +2472,7 @@ function saveSettings(){
   settings.base=$('#setBase').value.trim(); settings.key=$('#setKey').value.trim();
   settings.model=$('#setModel').value.trim(); settings.mail=$('#setMail').value.trim();
   settings.showIF = !!($('#setShowIF') && $('#setShowIF').checked);
+  settings.showDanmu = !($('#setShowDanmu') && $('#setShowDanmu').checked === false);
   settings.journals=[...document.querySelectorAll('#journalChecks input:checked')].map(i=>i.value);
   if(!settings.journals.length){ toast('至少勾选一本期刊'); return; }
   store.set('settings',settings); toast('设置已保存 ✓'); loadDaily();
@@ -2927,6 +3104,516 @@ function petSay(msg){const b=document.getElementById('petBubble');if(!b)return;b
 function petGreet(){ petSay('喵～我是你的伴读小猫，卡住了就点我聊两句俏皮话 🐾'); }
 function petTalk(){petSay(petPick(PET_TALK));}
 function petCheer(){petSay(petPick(PET_CHEER));}
+/* ================= 留言墙（免登录 · 弹幕滚动） ================= */
+const WALL_TABLE='econdaily_wall', WALL_LK='wall_local', WALL_VK='wall_voted', WALL_LAST='wall_last';
+const WALL_TAGS={good:{n:'好评',c:'dm-t-good'},idea:{n:'建议',c:'dm-t-idea'},ask:{n:'求助',c:'dm-t-ask'},bug:{n:'报错',c:'dm-t-bug'}};
+const WALL_DEMO=[
+ {id:'d1',body:'影响因子那个标签太实用了，选刊的时候一眼就能比较。',nick:'经管小硕',tag:'good',likes:12,resolved:false},
+ {id:'d2',body:'希望期刊浏览能按发表年份筛选，找经典文献有点费劲。',nick:'匿名同学',tag:'idea',likes:5,resolved:false},
+ {id:'d3',body:'今天抽到「早睡一签」，猫猫说得对，我这就去睡。',nick:'夜猫子',tag:'good',likes:8,resolved:true},
+ {id:'d4',body:'中文期刊的影响因子显示「暂无」，能不能加 CNKI 的参考值？',nick:'匿名同学',tag:'ask',likes:3,resolved:false}
+].map((x,i)=>Object.assign(x,{created_at:new Date(Date.now()-(4-i)*86400000).toISOString()}));
+let wallItems=[], wallTag='good', wallOnlyOpen=false, wallTimer=null, wallLane=0, wallCursor=0, wallLoading=false;
+
+function wallClient(){ try{ return (_cloud && _cloud.client) ? _cloud.client : null; }catch(_){ return null; } }
+function wallMode(){ return wallClient()?'cloud':'local'; }
+function wallIsLocal(id){ return typeof id==='string' && id.charAt(0)==='L'; }
+function wallIsDemo(id){ return typeof id==='string' && id.charAt(0)==='d'; }
+function wallVoted(){ try{ return store.get(WALL_VK,[])||[] }catch(_){ return [] } }
+function wallTagOf(t){ return WALL_TAGS[t]||WALL_TAGS.good; }
+function wallSaveLocal(){
+  try{ store.set(WALL_LK, wallItems.filter(x=>wallIsLocal(x.id)).slice(0,200)); }catch(_){}
+}
+async function wallLoad(){
+  if(wallLoading) return; wallLoading=true;
+  try{
+    const c=wallClient();
+    if(c){
+      const {data,error}=await c.from(WALL_TABLE).select('*').order('created_at',{ascending:false}).limit(200);
+      if(!error && data){ wallItems=data; wallStatus(); return; }
+      if(error) console.warn('wall pull',error.message);
+    }
+    wallItems=(store.get(WALL_LK,[])||[]).slice(0,200);
+  }catch(e){ wallItems=(store.get(WALL_LK,[])||[]).slice(0,200); }
+  finally{ wallLoading=false; wallStatus(); }
+}
+/* 展示用列表：云端为空且本地无留言时，追加示例（不写入存储） */
+function wallView(){
+  const list=wallItems.slice();
+  if(!list.length) return WALL_DEMO.slice();
+  return list;
+}
+function wallTime(iso){
+  const t=new Date(iso); if(isNaN(t.getTime())) return '';
+  const diff=(Date.now()-t.getTime())/1000;
+  if(diff<60) return '刚刚';
+  if(diff<3600) return Math.floor(diff/60)+' 分钟前';
+  if(diff<86400) return Math.floor(diff/3600)+' 小时前';
+  if(diff<86400*30) return Math.floor(diff/86400)+' 天前';
+  return (t.getMonth()+1)+'月'+t.getDate()+'日';
+}
+function wallStatus(){
+  const el=$('#wallStatusTxt'); if(!el) return;
+  const cloud=wallMode()==='cloud';
+  el.innerHTML=cloud
+    ? '☁️ <b>全网公开</b> —— 已连云端，所有访客免登录可见、可留言'
+    : '💻 <b>本地预览模式</b> —— 留言只存在这台设备的浏览器里，<b>换手机 / 换电脑看不到</b>（按下方 3 步配置后即为全网公开，手机端同样可见）';
+  const m=$('#wallMode'); if(m){ m.textContent=cloud?'☁️ 云端公开':'💻 本地预览'; m.classList.toggle('local',!cloud); }
+}
+async function wallSend(){
+  const el=$('#wallInput'); const body=(el?el.value:'').trim();
+  if(!body){ toast('先写点什么吧～'); return; }
+  if(body.length>140){ toast('最多 140 字，请精简一下'); return; }
+  const last=store.get(WALL_LAST,0)||0;
+  if(Date.now()-last<20000){ toast('慢一点～20 秒后再发一条'); return; }
+  let nick=($('#wallNick')?$('#wallNick').value:'').trim();
+  if(nick.length>12) nick=nick.slice(0,12);
+  if(!nick) nick='匿名同学';
+  const btn=$('#wallSend'); if(btn) btn.disabled=true;
+  try{
+    const c=wallClient();
+    if(c){
+      const {data,error}=await c.from(WALL_TABLE).insert({body:body,nick:nick,tag:wallTag}).select().single();
+      if(error){ toast('发布失败：'+error.message); return; }
+      wallItems.unshift(data);
+      toast('已发布到留言墙 🎉');
+    }else{
+      // 加随机后缀，避免同一毫秒内生成重复 id（会导致点赞/删除误伤相邻留言）
+      wallItems.unshift({id:'L'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),body:body,nick:nick,tag:wallTag,likes:0,resolved:false,created_at:new Date().toISOString()});
+      wallSaveLocal();
+      toast('已发布（本地预览模式）');
+    }
+    store.set(WALL_LAST,Date.now());
+    if(el) el.value='';
+  }catch(e){ toast('发布失败，请检查网络或云端配置'); }
+  finally{ if(btn) btn.disabled=false; wallRender(); wallStatus(); }
+}
+async function wallLike(id){
+  const it=wallItems.filter(x=>String(x.id)===String(id))[0];
+  if(!it){ toast('这是示例留言，点赞无效哦'); return; }
+  const v=wallVoted();
+  if(v.indexOf(String(id))>=0){ toast('你已经赞过这条啦'); return; }
+  it.likes=(it.likes||0)+1;
+  const c=wallClient();
+  if(c && !wallIsLocal(id)){ try{ await c.rpc('wall_like',{_id:id}); }catch(e){} }
+  else if(wallIsLocal(id)) wallSaveLocal();
+  try{ store.set(WALL_VK, v.concat([String(id)])); }catch(_){}
+  wallRender(); toast('已点赞 👍');
+}
+async function wallResolve(id){
+  const it=wallItems.filter(x=>String(x.id)===String(id))[0];
+  if(!it){ toast('示例留言无需处理'); return; }
+  it.resolved=!it.resolved;
+  const c=wallClient();
+  if(c && !wallIsLocal(id)){ try{ await c.rpc('wall_resolve',{_id:id,_v:it.resolved}); }catch(e){} }
+  else if(wallIsLocal(id)) wallSaveLocal();
+  wallRender(); toast(it.resolved?'已标记为「已解决」✅':'已撤销「已解决」');
+}
+function wallDel(id){
+  const it=wallItems.filter(x=>String(x.id)===String(id))[0];
+  if(!it) return;
+  if(!wallIsLocal(id)){ toast('云端留言无法删除'); return; }
+  wallItems=wallItems.filter(x=>String(x.id)!==String(id));
+  wallSaveLocal(); wallRender(); toast('已删除');
+}
+function wallRender(){
+  const box=$('#wallList'); if(!box) return;
+  let list=wallItems.slice();
+  const demo=!list.length;
+  const voted=wallVoted();
+  if(demo) list=WALL_DEMO.slice();
+  if(wallOnlyOpen) list=list.filter(x=>!x.resolved);
+  list.sort((a,b)=>new Date(b.created_at||0)-new Date(a.created_at||0));
+  if(!list.length){
+    box.innerHTML='<div class="wall-empty">还没有留言。<br>写下第一条，它会立刻出现在网页顶部的弹幕里 💬</div>';
+    return;
+  }
+  box.innerHTML=(demo?'<p class="hint" style="margin:0 0 8px">下面是<b>示例留言</b>（仅供预览效果）。发布第一条真实留言后，示例会自动消失。</p>':'')+list.map(it=>{
+    const tg=wallTagOf(it.tag);
+    const liked=voted.indexOf(String(it.id))>=0;
+    return '<div class="wall-item'+(it.resolved?' done':'')+'">'
+      +'<div class="wall-top"><span class="dm-tag '+tg.c+'">'+tg.n+'</span><b>'+esc(it.nick||'匿名同学')+'</b>'
+      +'<span>'+esc(wallTime(it.created_at))+'</span>'+(it.resolved?'<span class="dm-res">✅ 已解决</span>':'')+'</div>'
+      +'<div class="wall-body">'+esc(it.body)+'</div>'
+      +'<div class="wall-acts">'
+      +'<button class="wall-act'+(liked?' liked':'')+'" data-wact="like" data-wid="'+esc(String(it.id))+'">👍 '+(it.likes||0)+'</button>'
+      +'<button class="wall-act'+(it.resolved?' on':'')+'" data-wact="res" data-wid="'+esc(String(it.id))+'">'+(it.resolved?'✅ 已解决':'✅ 标记已解决')+'</button>'
+      +(wallIsLocal(it.id)?'<button class="wall-act" data-wact="del" data-wid="'+esc(String(it.id))+'">🗑 删除</button>':'')
+      +'</div></div>';
+  }).join('');
+  box.querySelectorAll('[data-wact]').forEach(b=>{
+    b.onclick=()=>{ const a=b.getAttribute('data-wact'), id=b.getAttribute('data-wid');
+      if(a==='like') wallLike(id); else if(a==='res') wallResolve(id); else if(a==='del') wallDel(id); };
+  });
+}
+/* ---- 折叠弹幕条（只留一条细入口，状态记在本机） ---- */
+function wallClearDanmu(){
+  const bar=$('#danmuBar'); if(!bar) return;
+  [].slice.call(bar.querySelectorAll('.danmu-item')).forEach(e=>{ try{ e.remove(); }catch(_){} });
+}
+function wallApplyFold(){
+  const bar=$('#danmuBar'); if(!bar) return;
+  const v=!!settings.danmuFolded;
+  bar.classList[v?'add':'remove']('folded');
+  const b=$('#btnDanmuFold');
+  if(b){ b.textContent=v?'⌃ 展开':'⌄ 收起'; b.title=v?'展开弹幕':'收起弹幕，只留入口'; b.setAttribute('aria-expanded',v?'false':'true'); }
+  const n=$('#danmuFoldCount'); if(n) n.textContent=String(wallView().length);
+}
+function wallSetFold(v){
+  settings.danmuFolded=!!v;
+  try{ store.set('settings',settings); }catch(_){}
+  if(v){ wallStopDanmu(); wallClearDanmu(); }   // 收起后不再投放，省资源
+  wallApplyFold();
+  if(!v && wallDanmuOn()) wallStartDanmu();
+  toast(v?'弹幕已收起，需要时点「⌃ 展开」':'弹幕已展开');
+}
+function wallToggleFold(){ wallSetFold(!settings.danmuFolded); }
+/* ---- 弹幕 ---- */
+function wallDanmuOn(){ return settings.showDanmu!==false; }
+function wallStopDanmu(){ if(wallTimer){ clearTimeout(wallTimer); wallTimer=null; } }
+function wallSpawn(){
+  const bar=$('#danmuBar'); if(!bar) return;
+  const list=wallView(); if(!list.length) return;
+  const lanes=[].slice.call(bar.querySelectorAll('.danmu-lane')).filter(l=>l.getBoundingClientRect().height>0);
+  if(!lanes.length) return;
+  const it=list[wallCursor%list.length]; wallCursor++;
+  const lane=lanes[wallLane%lanes.length]; wallLane++;
+  const tg=wallTagOf(it.tag);
+  const el=document.createElement('div');
+  el.className='danmu-item';
+  el.innerHTML='<span class="dm-tag '+tg.c+'">'+tg.n+'</span><span>'+esc(it.body)+'</span>'
+    +(it.likes?'<span class="dm-like">👍 '+it.likes+'</span>':'')+(it.resolved?'<span class="dm-res">✅ 已解决</span>':'');
+  el.title='点击查看完整留言墙';
+  el.addEventListener('click',()=>wallOpen());
+  lane.appendChild(el);
+  const w=el.offsetWidth||Math.max(120,(it.body||'').length*14);
+  const dur=Math.max(11,Math.min(28,w/46+8));
+  el.style.animationDuration=dur.toFixed(1)+'s';
+  el.addEventListener('animationend',()=>{ try{ el.remove(); }catch(_){} });
+  setTimeout(()=>{ try{ if(el.parentNode) el.remove(); }catch(_){} }, (dur+3)*1000);
+}
+function wallStartDanmu(){
+  const bar=$('#danmuBar'); if(!bar) return;
+  wallStopDanmu();
+  const empty=$('#danmuEmpty');
+  if(!wallDanmuOn()){ bar.classList.add('off'); return; }
+  bar.classList.remove('off');
+  wallApplyFold();                                  // 同步折叠态与条数
+  if(settings.danmuFolded){ wallClearDanmu(); return; }  // 收起时不投放弹幕
+  if(empty) empty.style.display=wallView().length?'none':'';
+  const tick=()=>{ try{ wallSpawn(); }catch(_){} wallTimer=setTimeout(tick,2700); };
+  wallTimer=setTimeout(tick,600);
+}
+function wallOpen(){
+  const m=$('#wallModal'); wallBind();
+  if(!m){ toast('留言墙加载中，刷新一下页面就好'); return; }
+  m.classList.remove('hidden');
+  wallStatus(); wallRender();
+  const i=$('#wallInput'); if(i) setTimeout(()=>{ try{ i.focus(); }catch(_){} },60);
+}
+function wallCloseModal(){ const m=$('#wallModal'); if(m) m.classList.add('hidden'); }
+function wallSetTag(t){
+  wallTag=t;
+  const seg=$('#wallTags');
+  if(seg) seg.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.getAttribute('data-tag')===t));
+}
+/* 幂等绑定：#wallModal / #btnWall 位于主脚本之后，需 DOMContentLoaded 兜底 */
+function wallBind(){
+  const m=$('#wallModal');
+  if(m && m._wbound!==true){
+    m._wbound=true;
+    m.addEventListener('click',e=>{ if(e.target===m) wallCloseModal(); });
+  }
+  const wc=$('#wallClose'); if(wc && wc._wbound!==true){ wc._wbound=true; wc.onclick=wallCloseModal; }
+  const ws=$('#wallSend'); if(ws && ws._wbound!==true){ ws._wbound=true; ws.onclick=()=>{ wallSend(); }; }
+  const b1=$('#btnWall'); if(b1 && b1._wbound!==true){ b1._wbound=true; b1.addEventListener('click',e=>{ e.preventDefault(); wallOpen(); }); }
+  const b2=$('#btnOpenWall2'); if(b2 && b2._wbound!==true){ b2._wbound=true; b2.addEventListener('click',e=>{ e.preventDefault(); wallOpen(); }); }
+  const bf=$('#btnDanmuFold'); if(bf && bf._wbound!==true){ bf._wbound=true; bf.addEventListener('click',e=>{ e.preventDefault(); e.stopPropagation(); wallToggleFold(); }); }
+  const ft=$('#danmuFoldTip'); if(ft && ft._wbound!==true){ ft._wbound=true; ft.style.cursor='pointer'; ft.title='点击展开弹幕';
+    ft.addEventListener('click',e=>{ e.preventDefault(); if(settings.danmuFolded) wallSetFold(false); }); }
+  const b3=$('#btnCopyWallSql'); if(b3 && b3._wbound!==true){ b3._wbound=true; b3.addEventListener('click',e=>{ e.preventDefault();
+      const p=$('#wallSql'); copyText(p?p.textContent:''); toast('建表 SQL 已复制，去 Supabase SQL Editor 粘贴执行'); }); }
+  const b4=$('#btnWallReload'); if(b4 && b4._wbound!==true){ b4._wbound=true; b4.addEventListener('click',e=>{ e.preventDefault(); wallLoad().then(()=>{ wallStartDanmu(); wallRender(); toast('已重新拉取留言'); }); }); }
+  const seg=$('#wallTags');
+  if(seg && seg._wbound!==true){ seg._wbound=true;
+    seg.addEventListener('click',e=>{ const b=e.target.closest?e.target.closest('button'):null; if(b&&b.getAttribute('data-tag')) wallSetTag(b.getAttribute('data-tag')); }); }
+  const oo=$('#wallOnlyOpen'); if(oo && oo._wbound!==true){ oo._wbound=true; oo.addEventListener('change',()=>{ wallOnlyOpen=!!oo.checked; wallRender(); }); }
+  const sd=$('#setShowDanmu'); if(sd && sd._wbound!==true){ sd._wbound=true; sd.addEventListener('change',()=>{
+      settings.showDanmu=!!sd.checked; store.set('settings',settings); wallStartDanmu(); toast(sd.checked?'弹幕已开启':'弹幕已关闭'); }); }
+  return !!m;
+}
+function wallBoot(){
+  if(!wallBind() && document.readyState==='loading') document.addEventListener('DOMContentLoaded',wallBind);
+  const sd=$('#setShowDanmu'); if(sd) sd.checked=settings.showDanmu!==false;
+  wallLoad().then(()=>{ wallStartDanmu(); wallRender(); });
+}
+
+/* ================= 每日一签（个性化 · 生日仅存本机） ================= */
+const F_BIRTH='birthday', F_KEY='fortune';
+function getBirth(){ try{ return localStorage.getItem('econdaily_'+F_BIRTH)||''; }catch(_){ return ''; } }
+function setBirth(v){ try{ if(v) localStorage.setItem('econdaily_'+F_BIRTH,v); else localStorage.removeItem('econdaily_'+F_BIRTH); }catch(_){} }
+
+/* 五个等级，全部为吉/平签，不含凶签 —— 好签居多（上上+上+中吉 约占七成） */
+const F_LEVELS=[
+  {k:'ss', n:'上上签', w:12, ico:'🌸', c:'#c0392b'},
+  {k:'s',  n:'上签',   w:26, ico:'🌟', c:'#d35400'},
+  {k:'m',  n:'中吉签', w:30, ico:'🍀', c:'#2d7d46'},
+  {k:'l',  n:'小吉签', w:22, ico:'🌿', c:'#3d7ea6'},
+  {k:'p',  n:'平安签', w:10, ico:'🍃', c:'#7a6a58'}
+];
+const FORTUNES={
+ss:[
+ {n:'云开月明',p:'雾散山青见远峰，<br>一笔落纸万缘通',m:'卡了很久的那个识别策略或模型设定，会在你放松下来的时候突然通了。今天不必硬扛，把卡点写下来去做点别的，答案自己会浮上来。',y:'重读引言与假设、把思路讲给别人听',j:'通宵硬扛、反复刷新邮箱'},
+ {n:'一稿中的',p:'丹墀对策三千字，<br>一纸风行四海知',m:'投稿、送审、开题这类「交出去」的事，这几天容易有好消息。正在改投的话，挑匹配度最高的那本直接投，别再自我怀疑。',y:'投出那一稿、主动问编辑进度',j:'无休止地调格式自我消耗'},
+ {n:'春风得意',p:'马蹄踏遍长安花，<br>一日看尽十年书',m:'你的努力被看见了。导师的肯定、同行的引用、评审的友善意见，会在近期陆续到来。',y:'汇报进展、去组会露个脸',j:'谦虚到不敢开口争取'},
+ {n:'金榜题名',p:'十年窗下无人问，<br>一举成名天下知',m:'升学、答辩、评奖、项目这类有明确结果的事，签象极佳。该是你的，跑不掉。',y:'准备答辩稿、提交申请材料',j:'临时抱佛脚改题目'},
+ {n:'水到渠成',p:'山泉到海自滔滔，<br>何用人工日夜劳',m:'数据突然跑通、回归终于显著、稳健性一次通过 —— 这种「运气」其实是积累到了临界点。',y:'复现昨天的代码、记得存版本',j:'大改变量定义推倒重来'},
+ {n:'良师益友',p:'夜半有客来相访，<br>一盏清茶胜万金',m:'会遇到一个愿意认真看你论文的人，一句话点醒你。多发邮件、多去 seminar，别闷头做。',y:'请教老师或师兄、去听一场报告',j:'闭门造车'},
+ {n:'厚积薄发',p:'十年树木今成荫，<br>一枝一叶总关情',m:'你读过的文献没有一篇白读。综述、理论框架这类需要沉淀的部分，今天下笔格外顺。',y:'写文献综述、梳理理论脉络',j:'只刷新论文不回头整理'},
+ {n:'双喜临门',p:'喜鹊双双噪屋檐，<br>好事从来不单行',m:'好事成双 —— 论文有进展的同时，生活里也有小惊喜。留意今天收到的消息。',y:'处理积压的小事、回复邮件',j:'把自己关在工位一整天'}
+],
+s:[
+ {n:'渐入佳境',p:'行到水穷云起处，<br>坐看山色上栏杆',m:'前段时间的笨拙期过去了，手感正在回来。今天的效率会比上周明显高。',y:'啃最难的那一段',j:'换题重开'},
+ {n:'顺风扬帆',p:'好风凭借力，<br>送我上青云',m:'有外部助力 —— 新数据、新政策、新合作者。顺势而为，别错过。',y:'申请数据权限、找合作者',j:'什么都想自己扛'},
+ {n:'拨云见日',p:'云里忽开三两丈，<br>日光依旧照人来',m:'困扰你的那条评审意见或审稿人质疑，其实没那么难回答，今天能想出解法。',y:'逐条写 response',j:'生审稿人的闷气'},
+ {n:'佳音将至',p:'雁字回时月满楼，<br>音书千里不须愁',m:'一封你等了很久的邮件（返修、录取、数据、合作回复）快到了。',y:'检查垃圾邮件、礼貌催一次',j:'一天刷十次邮箱'},
+ {n:'磨刀不误',p:'磨刀不误砍柴工，<br>慢处从来是真功',m:'今天适合做看起来没产出的事：整理代码、清理文献库、写注释 —— 它们会省下你下周三天。',y:'整理文献库、重构代码',j:'要求今天必须有新结果'},
+ {n:'行稳致远',p:'不疾而速终须到，<br>稳步何愁路几千',m:'你的进度比自己以为的快。别跟别人比，按你的节奏写完就是赢。',y:'定一个小到一定能完成的日目标',j:'刷同门的朋友圈焦虑'},
+ {n:'贵人相助',p:'陌上相逢皆旧识，<br>一回相见一回亲',m:'有人会在不经意处帮你一把 —— 也许是同门分享的数据，也许是陌生作者的回信。',y:'开口求助、礼貌致谢',j:'怕麻烦别人而硬撑'},
+ {n:'新芽破土',p:'一夜春雷惊蛰后，<br>满园新绿向人来',m:'一个新想法正在冒头，值得记下来。哪怕只有一句话，也先存进笔记里。',y:'记录灵感、开一个 idea 文档',j:'嫌不成熟就丢掉'}
+],
+m:[
+ {n:'稳中求进',p:'稳坐中流舟自正，<br>任他风浪起层层',m:'今天没有惊喜也没有惊吓，这恰恰是做事的好日子。把计划里的一件做完就够。',y:'完成一件计划内的事',j:'同时开三个新坑'},
+ {n:'细水长流',p:'细水长流终到海，<br>不必一夜变江河',m:'每天两小时，胜过月末两天两夜。今天照常推进就好。',y:'保持日常节奏',j:'熬夜赶进度'},
+ {n:'守得云开',p:'守得云开见月明，<br>忍过今宵是好人',m:'你正处在「再坚持一下」的阶段。结果还看不见，但它确实在形成。',y:'重复实验、跑稳健性',j:'中途换方法'},
+ {n:'静水流深',p:'静水从来深不测，<br>好文章是慢慢来',m:'深度比速度重要。今天适合读一篇难啃的经典，慢一点没关系。',y:'精读一篇经典文献',j:'只追求读了多少篇'},
+ {n:'小有所成',p:'小园新种两三株，<br>也向东风展一舒',m:'一个小的进展也值得庆祝 —— 写完一节、修好一个 bug、理清一张图。',y:'给自己记一笔进步',j:'觉得这点事不算什么'},
+ {n:'缓步登高',p:'缓步何曾输捷足，<br>山高只怕不停人',m:'慢的人只要不停，最后都在山顶。今天继续走就行。',y:'推进一点点',j:'和别人比进度'},
+ {n:'柳暗花明',p:'山重水复疑无路，<br>柳暗花明又一村',m:'看似走不通的路，其实拐个弯就是。换个数据库或者换个变量就活了。',y:'换一个数据来源或识别策略',j:'死磕同一条死路'},
+ {n:'知足常乐',p:'一壶浊酒喜相逢，<br>古今多少事都付笑谈中',m:'今天适合降低对自己的要求。论文是长跑，允许自己状态平平。',y:'做一点轻松的整理工作',j:'为效率不高而自责'}
+],
+l:[
+ {n:'蓄势待发',p:'弓开如满月，<br>发处不须忙',m:'现在是攒力气的阶段，还没到发力的时候。多读少写，也很好。',y:'大量阅读、做笔记',j:'急着出结果'},
+ {n:'春日播种',p:'春种一粒粟，<br>秋收万颗子',m:'今天埋下的东西要很久才发芽 —— 选题、开题、学新方法都算。别急。',y:'学一个新方法或软件',j:'立刻就要产出'},
+ {n:'以退为进',p:'退一步海阔天空，<br>让三分心平气和',m:'暂时放下那个卡住的章节，去写别的部分，回来时会顺很多。',y:'换一章先写',j:'死磕同一段文字'},
+ {n:'随遇而安',p:'行到水穷处，<br>坐看云起时',m:'计划被打乱也没关系。今天顺其自然，反而会遇到有意思的东西。',y:'随手翻翻今日推荐',j:'因计划被打乱而烦躁'},
+ {n:'养精蓄锐',p:'蓄之久者发必速，<br>闭门正是读书时',m:'你的疲惫是真的，不是懒。今天早点收工，睡一觉比多熬两小时值。',y:'早睡、散步、好好吃饭',j:'靠咖啡续命到凌晨'},
+ {n:'清风徐来',p:'清风明月本无价，<br>近水远山皆有情',m:'出去走走。好的想法常常诞生在走路、洗澡、坐地铁的时候。',y:'出门散步半小时',j:'久坐一整天'},
+ {n:'静待花开',p:'静待花开须有时，<br>莫催莫问莫伤悲',m:'投稿、申请这类事，催也没用。把等待的时间用在下一篇上。',y:'开始下一项工作',j:'反复催问进度'},
+ {n:'拾阶而上',p:'拾级不须愁路远，<br>一层更比一层高',m:'从最小的那一步开始 —— 打开文档就算赢。阶梯是一级一级上的。',y:'先做十分钟',j:'等到状态好再开始'}
+],
+p:[
+ {n:'平安是福',p:'无病无灾即是福，<br>何须更问利名场',m:'今天没有坏消息，就是好消息。健康地坐在工位上，本身已胜过很多人。',y:'好好吃饭、按时下班',j:'用健康换进度'},
+ {n:'心宽事顺',p:'心宽一寸，<br>路宽一丈',m:'放宽对今天的要求。你对自己太严了，而科研本来就是失败率很高的事。',y:'原谅一次「没做完」',j:'自我否定'},
+ {n:'早睡一签',p:'黄昏灯火三更梦，<br>不若早眠一夜安',m:'今天最该做的事是早点睡。明天的你会感谢今天的你。',y:'23 点前放下电脑',j:'通宵改格式'},
+ {n:'一杯热茶',p:'寒夜客来茶当酒，<br>竹炉汤沸火初红',m:'给自己买杯喜欢的饮料，找个能晒到太阳的位置坐一会儿。这不是浪费时间。',y:'休息十五分钟',j:'边吃饭边看文献'},
+ {n:'无咎即吉',p:'无咎无誉亦安然，<br>此身且在五云边',m:'没有进展也不等于失败。空白期是思考的一部分。',y:'允许今天原地踏步',j:'因为停滞而焦虑'},
+ {n:'稳住基本盘',p:'守得家中三亩地，<br>任他门外雨风狂',m:'别开新坑。把手里已有的事做扎实，就是今天最大的功劳。',y:'收尾旧任务',j:'开启新项目'},
+ {n:'有人记挂',p:'千里相思一线牵，<br>人间最苦是相关',m:'给家人或朋友发条消息吧。被惦记着的人，抗压能力会高一倍。',y:'联系一个你在乎的人',j:'一个人闷着'},
+ {n:'重新开局',p:'昨日种种譬如死，<br>今日种种譬如生',m:'昨天搞砸的、被拒的、写坏的一切，今天都可以不算数。重新打开文档就行。',y:'清掉旧版本从头来',j:'反复回味失败'}
+]};
+const F_CAT=[
+ '喵～这签是我用爪子替你摇出来的，准不准你都得信我。',
+ '喵：科研很苦，但今天的你是被好运选中的人。',
+ '猫猫把这条签藏进你的口袋了，卡住的时候摸一摸。',
+ '喵呜……这签好到我都想替你高兴地打呼噜了。',
+ '猫爪按印：本签有效，有效期一整天。',
+ '喵：别硬撑，累了就趴我身上歇会儿，我毛很软。',
+ '这签是我从一千支里挑的，专门留给今天还在努力的你。',
+ '喵～记得喝水。签里没写，但猫猫额外嘱咐一句。'
+];
+const F_COLORS=['藏青','松绿','暖橙','朱红','月白','秋香','天青','藕荷','赭石','黛紫','杏黄','烟灰蓝'];
+const F_TIMES=['清晨 6–9 点','上午 9–11 点','午后 13–15 点','傍晚 17–19 点','夜里 21–23 点'];
+const F_ZODIAC=[[1,20,'水瓶'],[2,19,'双鱼'],[3,21,'白羊'],[4,20,'金牛'],[5,21,'双子'],[6,22,'巨蟹'],[7,23,'狮子'],[8,23,'处女'],[9,23,'天秤'],[10,24,'天蝎'],[11,23,'射手'],[12,22,'摩羯']];
+const F_ANIMAL=['鼠','牛','虎','兔','龙','蛇','马','羊','猴','鸡','狗','猪'];
+const F_WEEK=['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+
+function fHash(s){ let h=2166136261>>>0; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619); } return h>>>0; }
+function fRng(seed){ let a=seed>>>0; return function(){ a=(a+0x6D2B79F5)|0; let t=Math.imul(a^(a>>>15),1|a); t=(t+Math.imul(t^(t>>>7),61|t))^t; return ((t^(t>>>14))>>>0)/4294967296; }; }
+function fZodiac(m,d){ let z='摩羯'; for(let i=0;i<F_ZODIAC.length;i++){ const e=F_ZODIAC[i]; if(m>e[0]||(m===e[0]&&d>=e[1])) z=e[2]; } return z; }
+function fAnimal(y){ return F_ANIMAL[(((y-1900)%12)+12)%12]; }
+function fSeason(m){ return (m>=3&&m<=5)?'春':(m>=6&&m<=8)?'夏':(m>=9&&m<=11)?'秋':'冬'; }
+function fTodayStr(d){ const t=d||new Date(); return t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0'); }
+function fProfile(birth,today){
+  const p={birth:birth||'',zodiac:'',animal:'',season:fSeason(today.getMonth()+1),lifeNum:0,isBday:false,isBdayMonth:false,daysToBday:null,age:null};
+  if(!birth) return p;
+  const bp=String(birth).split('-');
+  const by=+bp[0], bm=+bp[1], bd=+bp[2];
+  if(!by||!bm||!bd) return p;
+  p.zodiac=fZodiac(bm,bd); p.animal=fAnimal(by);
+  let n=(String(by)+String(bm)+String(bd)).split('').reduce((a,c)=>a+(+c||0),0);
+  while(n>9) n=String(n).split('').reduce((a,c)=>a+(+c||0),0);
+  p.lifeNum=n||1;
+  p.age=today.getFullYear()-by;
+  const now=new Date(today.getFullYear(),today.getMonth(),today.getDate());
+  p.isBday=(today.getMonth()+1===bm && today.getDate()===bd);
+  p.isBdayMonth=(today.getMonth()+1===bm);
+  let nb=new Date(today.getFullYear(),bm-1,bd);
+  if(nb.getTime()<now.getTime()) nb=new Date(today.getFullYear()+1,bm-1,bd);
+  p.daysToBday=Math.round((nb.getTime()-now.getTime())/86400000);
+  return p;
+}
+/* 按「日期 + 生日」确定性抽签：同一天永远同一支签，换一天自动换新签 */
+function fDraw(birth,dateStr){
+  const prof=fProfile(birth,new Date(dateStr+'T00:00:00'));
+  const rnd=fRng(fHash(dateStr+'#'+(birth||'anon')));
+  const total=F_LEVELS.reduce((a,l)=>a+l.w,0);
+  let r=rnd()*total, lv=F_LEVELS[F_LEVELS.length-1];
+  for(let i=0;i<F_LEVELS.length;i++){ if(r<F_LEVELS[i].w){ lv=F_LEVELS[i]; break; } r-=F_LEVELS[i].w; }
+  const pool=FORTUNES[lv.k];
+  let idx=Math.floor(rnd()*pool.length); if(idx>=pool.length) idx=pool.length-1;
+  let item=pool[idx], special='';
+  if(prof.isBday){
+    lv=F_LEVELS[0]; item={n:'生辰上上',p:'一年一度此日到，<br>万事从头尽可期',m:'生日快乐！这一签猫猫替你留了最好的一支：新的一岁，论文会顺、身体会好、爱你的人都在。今天允许自己什么都不做。',y:'收下祝福、吃块蛋糕',j:'生日还在改论文'};
+    special='🎂 今天是你的生日，这一签我给你留了最好的一支。';
+  }else if(prof.isBdayMonth){
+    special='🎂 本月是你的生辰月，整月都有额外好运加成。';
+  }else if(prof.daysToBday!==null && prof.daysToBday<=7){
+    special='🎁 还有 '+prof.daysToBday+' 天就是你的生日，好运提前来了。';
+  }
+  const lucky={
+    num:(((prof.lifeNum||3)+Math.floor(rnd()*9))-1)%9+1,
+    color:F_COLORS[Math.floor(F_COLORS.length*rnd())%F_COLORS.length],
+    time:F_TIMES[Math.floor(F_TIMES.length*rnd())%F_TIMES.length]
+  };
+  return {date:dateStr,level:lv.k,levelName:lv.n,levelIco:lv.ico,levelColor:lv.c,idx:idx,item:item,prof:prof,lucky:lucky,special:special,cat:F_CAT[Math.floor(F_CAT.length*rnd())%F_CAT.length]};
+}
+function fState(){ try{ return store.get(F_KEY,null)||{}; }catch(_){ return {}; } }
+function fIsYesterday(s){
+  const y=new Date(); y.setDate(y.getDate()-1); return fTodayStr(y)===s;
+}
+/* 今日签：当天首次点击才生成并落盘；之后再点只是重看 */
+function fToday(){
+  const st=fState(), t=fTodayStr();
+  if(st.date===t && st.level){ return {st:st, rec:fDraw(getBirth(),t), fresh:false}; }
+  const rec=fDraw(getBirth(),t);
+  st.streak=(st.date&&fIsYesterday(st.date))?((st.streak||0)+1):1;
+  st.total=(st.total||0)+1;
+  st.date=t; st.level=rec.level; st.levelName=rec.levelName; st.name=rec.item.n;
+  st.history=(((st.history)||[]).concat([{d:t,l:rec.level,n:rec.item.n}])).slice(-60);
+  try{ store.set(F_KEY,st); }catch(_){}
+  return {st:st, rec:rec, fresh:true};
+}
+function fReadsToday(){
+  try{ const t=fTodayStr(); return (reads||[]).filter(r=>r&&r.date&&String(r.date).slice(0,10)===t).length; }catch(_){ return 0; }
+}
+function closeFortune(){ const m=$('#fortuneModal'); if(m) m.classList.add('hidden'); }
+function openFortune(){
+  const m=$('#fortuneModal');
+  bindFortuneBtns();
+  if(!m){ toast('抽签面板加载中，刷新一下页面就好'); return; }
+  if(m._fbound!==true){ m._fbound=true; m.addEventListener('click',e=>{ if(e.target===m) closeFortune(); }); }
+  if(!getBirth()){ fRenderSetup(); m.classList.remove('hidden'); return; }
+  const r=fToday();
+  m.classList.remove('hidden');
+  $('#fBody').innerHTML='<div class="f-loading"><div class="f-ico f-shake">🎴</div><div style="margin-top:14px;font-size:13px">猫猫正在为你摇签…</div></div>';
+  setTimeout(()=>{ fRender(r); }, r.fresh?900:240);
+  updateFortuneBtn();
+}
+function fRenderSetup(){
+  const b=$('#fBody'); if(!b) return;
+  b.innerHTML='<div class="f-wrap">'
+    +'<div class="f-date">每 日 一 签 · 摇 一 支 属 于 今 天 的 签</div>'
+    +'<div style="font-size:40px;margin-top:16px">🎴</div>'
+    +'<div class="f-name" style="font-size:19px;letter-spacing:1px;margin-top:10px">先告诉猫猫你的生日</div>'
+    +'<p class="f-tip">填了生日，签文会带上你的星座、生肖和幸运数字，每天一支、好签居多。生日只保存在<b>你自己这台电脑的浏览器</b>里，不上传、不同步。</p>'
+    +'<div style="margin:14px 20px 0"><input type="date" id="fBirthInput" style="width:100%"></div>'
+    +'<div style="margin-top:12px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">'
+    +'<button class="btn pri" id="fBirthSave">💾 保存并抽签</button>'
+    +'<button class="btn" id="fSkipBirth">不填，直接抽</button></div>'
+    +'<div class="f-foot"><span class="f-streak">随时可在「设置 → 我的小档案」修改</span><button class="btn" id="fClose">关闭</button></div>'
+    +'</div>';
+  const i=$('#fBirthInput'); if(i){ const v=getBirth(); if(v) i.value=v; }
+  const sv=$('#fBirthSave'); if(sv) sv.onclick=fSaveInline;
+  const sk=$('#fSkipBirth'); if(sk) sk.onclick=()=>{ setBirth(''); const r=fToday(); fRender(r); updateFortuneBtn(); };
+  const cc=$('#fClose'); if(cc) cc.onclick=closeFortune;
+}
+function fSaveInline(){
+  const v=$('#fBirthInput')?$('#fBirthInput').value:'';
+  if(!v){ toast('请先选择一个日期'); return; }
+  const d=new Date(v+'T00:00:00');
+  if(isNaN(d.getTime())||d.getFullYear()<1900||d.getTime()>Date.now()){ toast('这个日期看起来不太对'); return; }
+  setBirth(v);
+  try{ const st=fState(); st.date=''; store.set(F_KEY,st); }catch(_){}
+  if($('#setBirth')) $('#setBirth').value=v;
+  const r=fToday(); fRender(r); updateFortuneBtn();
+  toast('生日已保存在本机 ✓');
+}
+function fRender(r){
+  const b=$('#fBody'); if(!b) return;
+  const rec=r.rec, st=r.st, p=rec.prof, it=rec.item;
+  const d=new Date(rec.date+'T00:00:00');
+  const head=[d.getFullYear()+'年'+(d.getMonth()+1)+'月'+d.getDate()+'日', F_WEEK[d.getDay()]];
+  if(p.zodiac) head.push(p.zodiac+'座');
+  if(p.animal) head.push('属'+p.animal);
+  const rt=fReadsToday();
+  const lucky='<div class="f-lucky"><span>🔢 幸运数字 '+rec.lucky.num+'</span><span>🎨 幸运色 '+rec.lucky.color+'</span><span>🕐 '+rec.lucky.time+'</span></div>';
+  const note=rec.special?('<p class="f-tip" style="margin-top:12px">'+esc(rec.special)+'</p>'):'';
+  b.innerHTML='<div class="f-wrap">'
+    +'<div class="f-date">'+esc(head.join(' · '))+'</div>'
+    +'<div class="f-level" style="background:'+rec.levelColor+'">'+rec.levelIco+' '+esc(rec.levelName)+'</div>'
+    +'<div class="f-name">'+esc(it.n)+'</div>'
+    +'<div class="f-poem">'+it.p+'</div>'
+    +'<div class="f-sec"><b>📜 解签</b><br>'+esc(it.m)+'</div>'
+    +note
+    +'<div class="f-yj"><div class="f-yi"><b>✅ 宜</b><br>'+esc(it.y)+'</div><div class="f-ji"><b>⛔ 忌</b><br>'+esc(it.j)+'</div></div>'
+    +lucky
+    +'<div class="f-cat">🐱 '+esc(rec.cat)+'</div>'
+    +'<div class="f-foot"><span class="f-streak">🔥 连抽 '+((st.streak)||1)+' 天 · 累计 '+((st.total)||1)+' 签'+(rt>0?(' · 今日已读 '+rt+' 篇'):'')+'</span>'
+    +'<span style="display:flex;gap:6px"><button class="btn" id="fCopy">📋 复制</button><button class="btn pri" id="fOk">收下这签</button></span></div>'
+    +'</div>';
+  const ok=$('#fOk'); if(ok) ok.onclick=closeFortune;
+  const cp=$('#fCopy'); if(cp) cp.onclick=()=>{
+    const txt='【EconDaily 每日一签】'+rec.date+' '+rec.levelName+' · '+it.n+'\n'
+      +it.p.replace(/<br>/g,'\n')+'\n解签：'+it.m+'\n宜：'+it.y+'\n忌：'+it.j
+      +'\n幸运数字 '+rec.lucky.num+' · 幸运色 '+rec.lucky.color+' · '+rec.lucky.time;
+    copyText(txt);
+  };
+  try{ petSay(rec.levelIco+' 今日一签：'+it.n+' —— 好签收好，累了就歇会儿。'); }catch(_){}
+}
+function updateFortuneBtn(){
+  const b=$('#fortuneBtn'); if(!b) return;
+  let done=false;
+  try{ const st=fState(); done=(st.date===fTodayStr()); }catch(_){}
+  b.classList.toggle('done',done);
+  b.classList.toggle('todo',!done);
+  b.classList.toggle('pulse',!done);
+  b.textContent=done?'🎴 今日已抽':'🎴 今日一签';
+  b.title=done?'今天已经抽过啦，可以再看一遍（明天换新签）':'点我抽今天的签（好签居多 🐾）';
+}
+/* 幂等绑定：主脚本早于 #fortuneModal / #fortuneBtn 解析，必须在 DOMContentLoaded 后再绑一次 */
+function bindFortuneBtns(){
+  const fb=$('#fortuneBtn');
+  if(fb && fb._fbound!==true){ fb._fbound=true; fb.addEventListener('click',e=>{ e.preventDefault(); e.stopPropagation(); openFortune(); }); }
+  const s1=$('#btnTryFortune'); if(s1 && s1._fbound!==true){ s1._fbound=true; s1.addEventListener('click',e=>{ e.preventDefault(); openFortune(); }); }
+  const s2=$('#btnSaveBirth'); if(s2 && s2._fbound!==true){ s2._fbound=true; s2.addEventListener('click',e=>{ e.preventDefault(); fSaveFromSettings(); }); }
+  const s3=$('#btnClearBirth'); if(s3 && s3._fbound!==true){ s3._fbound=true; s3.addEventListener('click',e=>{ e.preventDefault(); fClearBirth(); }); }
+  const sb=$('#setBirth'); if(sb && getBirth()) sb.value=getBirth();
+  return !!fb;
+}
+function fSaveFromSettings(){
+  const el=$('#setBirth'); const msg=$('#birthMsg');
+  const v=el?el.value:'';
+  if(!v){ if(msg) msg.textContent='⚠️ 请先选择一个日期'; toast('请先选择日期'); return; }
+  const d=new Date(v+'T00:00:00');
+  if(isNaN(d.getTime())||d.getFullYear()<1900||d.getTime()>Date.now()){ if(msg) msg.textContent='⚠️ 日期看起来不太对'; return; }
+  setBirth(v);
+  try{ const st=fState(); st.date=''; store.set(F_KEY,st); }catch(_){}
+  if(msg) msg.textContent='✅ 已保存（仅本机）：'+v+'，现在可以去抽签了 🎴';
+  updateFortuneBtn(); toast('生日已保存在本机 ✓');
+}
+function fClearBirth(){
+  setBirth('');
+  if($('#setBirth')) $('#setBirth').value='';
+  try{ const st=fState(); st.date=''; store.set(F_KEY,st); }catch(_){}
+  const msg=$('#birthMsg'); if(msg) msg.textContent='已清除生日，抽签将不再个性化。';
+  updateFortuneBtn(); toast('已清除生日');
+}
+function bootFortune(){
+  if(!bindFortuneBtns() && document.readyState==='loading') document.addEventListener('DOMContentLoaded',bindFortuneBtns);
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',updateFortuneBtn); else updateFortuneBtn();
+}
+
 function petInit(){
   const btn=document.getElementById('petBtn');
   const el=document.getElementById('petCat');
@@ -2942,9 +3629,11 @@ function petInit(){
         el.style.left=x+'px'; el.style.top=y+'px'; el.style.right='auto'; el.style.bottom='auto';
       }
     }catch(_){}
-    let down=false, moved=false, sx=0, sy=0, ox=0, oy=0;
+    let down=false, moved=false, sx=0, sy=0, ox=0, oy=0, onBtn=false;
     el.addEventListener('pointerdown',e=>{
       down=true; moved=false; sx=e.clientX; sy=e.clientY;
+      // 起点若在「今日一签」按钮上，松手时不要让猫抢话，交给按钮自己处理
+      onBtn=!!(e.target && e.target.closest && e.target.closest('#fortuneBtn'));
       const r=el.getBoundingClientRect(); ox=r.left; oy=r.top;
       el.classList.add('pet-dragging');
     });
@@ -2967,8 +3656,8 @@ function petInit(){
         justDragged=true;
         setTimeout(()=>justDragged=false,300);
         try{ localStorage.setItem('econdaily_petpos',JSON.stringify({x:parseFloat(el.style.left),y:parseFloat(el.style.top)})); }catch(_){}
-      }else if(btn){
-        petTap();   // 没移动 → 视为单击，说一句俏皮话
+      }else if(btn && onBtn===false){
+        petTap();   // 没移动 → 视为单击，说一句俏皮话（起点在签筒按钮上时不抢话）
       }
     };
     el.addEventListener('pointerup',end);
@@ -3266,6 +3955,8 @@ async function connectCloud(){
     _cloud.user=session?session.user:null;
     if(_cloud.user) await pullCloud();
     setSyncTxt(); renderSbUI();
+    // 连上云端后留言墙立刻切换为全网公开模式并重新拉取
+    try{ wallLoad().then(()=>{ wallStartDanmu(); wallRender(); }); }catch(_){}
     toast(_cloud.user?'已连接云端，已拉取笔记':'已连接，请登录以同步');
   }catch(e){ toast('连接失败：'+ (e&&e.message?e.message:e)); }
 }
@@ -3374,7 +4065,7 @@ $('#sbSignIn').onclick=sbSignIn;
 $('#sbSignUp').onclick=sbSignUp;
 $('#sbSignOut').onclick=sbSignOut;
 
-bootAskModal(); applyTheme(); initSettings(); updateFolderBadge(); loadDaily();
+bootAskModal(); bootFortune(); wallBoot(); applyTheme(); initSettings(); updateFolderBadge(); loadDaily();
 </script>
 <div id="tab-notes" class="hidden">
   <div class="notes-wrap">
@@ -3458,8 +4149,47 @@ bootAskModal(); applyTheme(); initSettings(); updateFolderBadge(); loadDaily();
   </div>
 </div>
 
+<div class="modal hidden" id="wallModal">
+  <div class="box wall-box">
+    <div class="wall-head">
+      <h3 style="margin:0">💬 留言墙 · 大家的评价</h3>
+      <span class="wall-mode" id="wallMode">💻 本地预览</span>
+    </div>
+    <div class="wall-form">
+      <textarea id="wallInput" maxlength="140" placeholder="说说你的感受、建议，或者哪里不好用……（免登录，最多 140 字）"></textarea>
+      <div class="wall-row">
+        <input type="text" id="wallNick" maxlength="12" placeholder="昵称（可留空）">
+        <button class="btn pri" id="wallSend" type="button">发布</button>
+      </div>
+      <div class="wall-row">
+        <div class="wall-seg" id="wallTags">
+          <button type="button" data-tag="good" class="on">好评</button>
+          <button type="button" data-tag="idea">建议</button>
+          <button type="button" data-tag="ask">求助</button>
+          <button type="button" data-tag="bug">报错</button>
+        </div>
+        <label style="display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink2);cursor:pointer">
+          <input type="checkbox" id="wallOnlyOpen" style="width:auto;margin:0"> 只看未解决
+        </label>
+      </div>
+    </div>
+    <div class="wall-list" id="wallList"></div>
+    <div style="margin-top:12px;display:flex;gap:8px;justify-content:space-between;align-items:center;flex-wrap:wrap">
+      <span style="font-size:11.5px;color:var(--ink3)">留言内容公开可见，请勿填写个人信息</span>
+      <button class="btn" id="wallClose" type="button">关闭</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal hidden" id="fortuneModal">
+  <div class="box fpaper">
+    <div id="fBody"></div>
+  </div>
+</div>
+
 <div id="petCat" class="pet" aria-live="polite">
   <div id="petBubble" class="pet-bubble hidden"></div>
+  <button id="fortuneBtn" class="fortune-btn" type="button" title="点我抽今天的签（好签居多 🐾）">🎴 今日一签</button>
   <button id="petBtn" class="pet-btn" type="button" aria-label="学习伙伴小猫" title="单击陪你聊两句俏皮话；按住我可以把我拖到任意位置">
     <span class="pet-ico">
       <svg viewBox="0 0 64 64" width="42" height="42" aria-hidden="true">

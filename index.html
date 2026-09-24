@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>经管论文推送小助手 · EconDaily</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2064%2064'%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D'bg'%20x1%3D'0'%20y1%3D'0'%20x2%3D'1'%20y2%3D'1'%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D'0'%20stop-color%3D'%232b4d7a'%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D'1'%20stop-color%3D'%230f2444'%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D'64'%20height%3D'64'%20rx%3D'14'%20fill%3D'url(%23bg)'%2F%3E%0A%20%20%3Cpath%20d%3D'M10%2022c6-2%2014-2%2022%201%208-3%2016-3%2022-1v32c-6-2-14-2-22%201-8-3-16-3-22-1z'%20fill%3D'%23fff'%2F%3E%0A%20%20%3Cpath%20d%3D'M32%2023v32'%20stroke%3D'%232b4d7a'%20stroke-width%3D'1.8'%2F%3E%0A%20%20%3Cline%20x1%3D'14'%20y1%3D'32'%20x2%3D'28'%20y2%3D'32'%20stroke%3D'%232b4d7a'%20stroke-width%3D'0.7'%20opacity%3D'0.45'%2F%3E%0A%20%20%3Cline%20x1%3D'14'%20y1%3D'37'%20x2%3D'28'%20y2%3D'37'%20stroke%3D'%232b4d7a'%20stroke-width%3D'0.7'%20opacity%3D'0.45'%2F%3E%0A%20%20%3Cline%20x1%3D'14'%20y1%3D'42'%20x2%3D'26'%20y2%3D'42'%20stroke%3D'%232b4d7a'%20stroke-width%3D'0.7'%20opacity%3D'0.45'%2F%3E%0A%20%20%3Cline%20x1%3D'36'%20y1%3D'32'%20x2%3D'50'%20y2%3D'32'%20stroke%3D'%232b4d7a'%20stroke-width%3D'0.7'%20opacity%3D'0.45'%2F%3E%0A%20%20%3Cline%20x1%3D'36'%20y1%3D'37'%20x2%3D'50'%20y2%3D'37'%20stroke%3D'%232b4d7a'%20stroke-width%3D'0.7'%20opacity%3D'0.45'%2F%3E%0A%20%20%3Cline%20x1%3D'36'%20y1%3D'42'%20x2%3D'48'%20y2%3D'42'%20stroke%3D'%232b4d7a'%20stroke-width%3D'0.7'%20opacity%3D'0.45'%2F%3E%0A%20%20%3Cpolyline%20points%3D'8%2C18%2018%2C12%2028%2C15%2038%2C8%2050%2C4%2056%2C2'%20stroke%3D'%23f5b840'%20stroke-width%3D'2.2'%20fill%3D'none'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%2F%3E%0A%20%20%3Ccircle%20cx%3D'56'%20cy%3D'2'%20r%3D'2'%20fill%3D'%23f5b840'%2F%3E%0A%3C%2Fsvg%3E">
 <meta name="description" content="经济学与管理学论文阅读工作台：每日顶刊推荐、AI 速读与综述、我的笔记与文件夹、引用导出、阅读目标追踪。">
 <meta property="og:title" content="经管论文推送小助手 · EconDaily">
 <meta property="og:description" content="经管顶刊每日更新 · AI 辅助速读 · 富文本笔记 · 引用一键导出 · 阅读目标追踪">
@@ -31,6 +32,19 @@ button{font-family:var(--sans);cursor:pointer}
 header{position:sticky;top:0;z-index:50;background:rgba(255,254,251,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .hd{max-width:1180px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px}
+.logo-txt{display:flex;flex-direction:column;gap:1px;line-height:1.25}
+.logo-line{display:flex;align-items:baseline;gap:2px}
+.tagline{font-weight:400;font-size:11.5px;color:var(--ink3);letter-spacing:.2px;white-space:nowrap}
+/* 多选筛选 chips（今日推荐：来源 / 方法） */
+#dailyRegionSeg{margin-bottom:0;flex-wrap:wrap}
+.filter-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:10px 0 2px;padding:8px 10px;background:var(--brand-soft);border-radius:10px}
+.filter-row .flabel{font-size:12.5px;font-weight:600;color:var(--ink2);margin-right:2px}
+.filter-row .fhint{font-size:11.5px;color:var(--ink3)}
+.fchip{font-size:12px;padding:4px 11px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink2);cursor:pointer;transition:.15s;line-height:1.6}
+.fchip:hover{border-color:var(--brand2);color:var(--brand)}
+.fchip.on{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:600}
+.fchip.act{background:var(--brand-soft);border-color:var(--brand);color:var(--brand);font-weight:600}
+html[data-theme="dark"] .fchip{background:#262a32}
 .logo .mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#1f3a5f,#34598c);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px}
 .logo small{font-weight:400;color:var(--ink3);font-size:12px;margin-left:2px}
 nav{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
@@ -454,7 +468,20 @@ html[data-theme="dark"] .ph-x:hover{background:#3d424c}
 <body>
 
 <header><div class="hd">
-  <div class="logo"><div class="mark">📊</div>EconDaily<small>经管论文推送小助手</small></div>
+  <div class="logo">
+    <div class="mark" aria-hidden="true"><svg viewBox="0 0 64 64" width="19" height="19">
+      <defs><linearGradient id='mgb' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#2b4d7a'/><stop offset='1' stop-color='#0f2444'/></linearGradient></defs>
+      <rect width='64' height='64' rx='14' fill='url(#mgb)'/>
+      <path d='M10 22c6-2 14-2 22 1 8-3 16-3 22-1v32c-6-2-14-2-22 1-8-3-16-3-22-1z' fill='#fff'/>
+      <path d='M32 23v32' stroke='#2b4d7a' stroke-width='2.4'/>
+      <polyline points='8,18 18,12 28,15 38,8 50,4 56,2' stroke='#f5b840' stroke-width='2.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/>
+      <circle cx='56' cy='2' r='2.2' fill='#f5b840'/>
+    </svg></div>
+    <div class="logo-txt">
+      <div class="logo-line">EconDaily<small>经管论文推送小助手</small></div>
+      <div class="tagline">顶刊每日上新 · 笔记随手记 · 猫猫陪你读 🍃</div>
+    </div>
+  </div>
   <nav>
     <button class="on" data-tab="daily">📅 今日推荐</button>
     <button data-tab="browse">📚 期刊浏览</button>
@@ -491,13 +518,12 @@ html[data-theme="dark"] .ph-x:hover{background:#3d424c}
   </div>
   <div id="dailyJournalView">
   <div class="toolbar">
-    <select id="dailyRegion">
-      <option value="all">🌍 全部来源</option>
-      <option value="intl">🌐 国际经济学顶刊</option>
-      <option value="mgmt">📊 管理学顶刊</option>
-      <option value="cn">🇨🇳 中国经济/管理研究（英文刊）</option>
-      <option value="wp">📝 NBER 工作论文</option>
-    </select>
+    <div class="seg" id="dailyRegionSeg" title="可多选（各来源按期刊归属严格互斥、不重不漏）">
+      <button type="button" class="on" data-region="intl" title="国际经济学顶刊">🌐 国际经济学</button>
+      <button type="button" class="on" data-region="mgmt" title="管理学顶刊">📊 管理学</button>
+      <button type="button" class="on" data-region="cn" title="中国经济/管理研究（英文刊）">🇨🇳 中国研究</button>
+      <button type="button" class="on" data-region="wp" title="NBER 工作论文">📝 NBER</button>
+    </div>
     <select id="dailyDays">
       <option value="14">近 2 周</option>
       <option value="30" selected>近 1 个月</option>
@@ -509,10 +535,13 @@ html[data-theme="dark"] .ph-x:hover{background:#3d424c}
       <option value="0">全部</option>
     </select>
     <input type="text" id="dailyKw" placeholder="🔍 在结果中筛选关键词…" style="width:220px">
-    <select id="methodFilter" title="按研究方法筛选（选填）"></select>
     <div class="sp"></div>
     <button class="btn" id="btnDigest" title="需要在设置中配置 AI 接口">✨ AI 生成今日导读</button>
     <button class="btn pri" id="btnRefresh">↻ 刷新</button>
+  </div>
+  <div class="filter-row" id="dailyMethodRow">
+    <span class="flabel">研究方法</span>
+    <span class="fhint" id="methodHint">（可多选，点选生效 · 未选=全部）</span>
   </div>
 
   <div id="digestBox" class="card ai-panel hidden">
@@ -550,9 +579,11 @@ html[data-theme="dark"] .ph-x:hover{background:#3d424c}
       <option value="cited_by_count:desc">被引最多</option>
     </select>
     <select id="browseYear"></select>
+    <input type="text" id="browseKw" placeholder="🔍 在已加载论文中搜索标题/摘要/作者…" style="width:250px">
     <div class="sp"></div>
     <button class="btn pri" id="btnBrowse">查看</button>
   </div>
+  <div id="browseHint" class="hint" style="margin:6px 2px 0"></div>
   <div id="browseList"></div>
   <div style="text-align:center;margin:10px 0"><button class="btn hidden" id="btnMore">加载更多</button></div>
 </div>
@@ -1340,6 +1371,8 @@ if((settings._ver||0) < SETTINGS_VER){
 let reads = store.get('reads', []);
 let followedAuthors = store.get('authors', []);
 let dailyWorks = [], dailyFiltered = [], dailyShown = 20, raWorks = [], raShown = 24, raFiltered = [], browsePage = 1, worksCache = {}, raCursor='*', raHasMore=false, citeBasket = store.get('citebasket',[]);
+let browseWorks = [];  // 期刊浏览已加载的论文缓存（供关键词在本地筛选，不重新请求接口）
+let dailyMethods = []; // 今日推荐：已选中的研究方法（多选，空数组=全部）
 let folders = store.get('folders', []);   // [{id,name,color,papers:[lite],_open}]
 let notes = store.get('notes', {});       // {wid:{text,title,link,date}}
 let reviewWorks = [];
@@ -1381,8 +1414,14 @@ async function oaFetch(url){
   if(!r.ok) throw new Error('OpenAlex API 请求失败 ('+r.status+')');
   return r.json();
 }
+// region: 'all' | 单个字符串 | 字符串数组（多选）。各期刊只归属一个 region，故多选天然互斥、不重不漏。
 function activeJournals(region){
-  return JOURNALS.filter(j=>settings.journals.includes(j.key) && (region==='all'||j.region===region));
+  const rs = Array.isArray(region) ? region : (region ? [region] : []);
+  return JOURNALS.filter(j=>{
+    if(!settings.journals.includes(j.key)) return false;
+    if(!rs.length || rs.includes('all')) return true;
+    return rs.includes(j.region);
+  });
 }
 async function fetchDaily(region, days){
   const js = activeJournals(region);
@@ -1580,13 +1619,60 @@ function paperCard(w, opts={}){
   </div>`;
 }
 
-/* ================= 今日推荐 ================= */
+/* ================= 今日推荐：来源 / 方法 多选筛选 ================= */
+// 来源：每个期刊只归属一个 region（intl/mgmt/cn/wp），因此多选天然互斥、不重不漏
+function getDailyRegions(){
+  const box=document.getElementById('dailyRegionSeg'); if(!box) return ['all'];
+  const on=Array.prototype.slice.call(box.querySelectorAll('button.on')).map(b=>b.dataset.region).filter(Boolean);
+  return on.length? on : ['all'];   // 一个都没选 → 视为全部
+}
+function updateMethodHint(){
+  const h=document.getElementById('methodHint'); if(!h) return;
+  h.textContent = dailyMethods.length? ('已选 '+dailyMethods.length+' 项（命中任一即可）') : '（可多选，点选生效 · 未选=全部）';
+}
+function initDailyFilters(){
+  // 来源多选（至少保留一项）
+  const rseg=document.getElementById('dailyRegionSeg');
+  if(rseg) rseg.addEventListener('click',e=>{
+    const b=e.target.closest? e.target.closest('button[data-region]') : null; if(!b) return;
+    const all=Array.prototype.slice.call(rseg.querySelectorAll('button[data-region]'));
+    const onCount=all.filter(x=>x.classList.contains('on')).length;
+    if(b.classList.contains('on')){
+      if(onCount<=1){ toast('至少保留一个来源'); return; }
+      b.classList.remove('on');
+    }else b.classList.add('on');
+    loadDaily();
+  });
+  // 方法多选 chips
+  const row=document.getElementById('dailyMethodRow');
+  if(row){
+    const html=METHOD_OPTIONS.map(m=>{
+      const wide=(m==='因果推断')?' title="宽口径：涉及因果识别、但未细分到具体方法的研究"':'';
+      return '<button type="button" class="fchip" data-m="'+esc(m)+'"'+wide+'>'+esc(m)+'</button>';
+    }).join('');
+    row.insertAdjacentHTML('beforeend', html+'<button type="button" class="fchip act" id="btnMethodClear">清空</button>');
+    row.addEventListener('click',e=>{
+      if(e.target.id==='btnMethodClear'){
+        dailyMethods=[];
+        Array.prototype.slice.call(row.querySelectorAll('.fchip')).forEach(c=>c.classList.remove('on'));
+        updateMethodHint(); renderDaily(); return;
+      }
+      const c=e.target.closest? e.target.closest('.fchip') : null; if(!c||!c.dataset.m) return;
+      const m=c.dataset.m, i=dailyMethods.indexOf(m);
+      if(i>=0){ dailyMethods.splice(i,1); c.classList.remove('on'); }
+      else { dailyMethods.push(m); c.classList.add('on'); }
+      updateMethodHint();
+      renderDaily();
+    });
+  }
+  updateMethodHint();
+}
 async function loadDaily(){
   const list=$('#dailyList');
   list.innerHTML='<div class="state"><div class="spinner"></div>正在拉取最新论文…</div>';
-  const region=$('#dailyRegion').value, days=+$('#dailyDays').value;
+  const regions=getDailyRegions(), days=+$('#dailyDays').value;
   try{
-    let works = await fetchDaily(region, days);
+    let works = await fetchDaily(regions, days);
     dailyWorks = works;
     $('#heroNum').textContent = works.length;
     const today=new Date();
@@ -1600,8 +1686,9 @@ function renderDaily(){
   const kw=$('#dailyKw').value.trim().toLowerCase();
   let works=dailyWorks;
   if(kw) works=works.filter(w=>(w.title+' '+invAbs(w.abstract_inverted_index)).toLowerCase().includes(kw));
-  const mk=document.getElementById('methodFilter')?document.getElementById('methodFilter').value:'';
-  if(mk) works=works.filter(w=>methodTags(w).includes(mk));
+  // 方法多选：命中任意一个已选方法即可（并集 / OR）
+  const mks=Array.isArray(dailyMethods)?dailyMethods:[];
+  if(mks.length) works=works.filter(w=>{ const ts=methodTags(w); return mks.some(m=>ts.includes(m)); });
   // 严格按发布日期倒序（最新在前）：fetchDaily 已将 dailyWorks 按 publication_date 降序排列
   dailyFiltered = works;
   dailyShown = DAILY_PAGE;
@@ -1628,19 +1715,40 @@ function loadMoreDaily(){
 }
 
 /* ================= 期刊浏览 ================= */
+// 在已加载的 browseWorks 里按关键词本地筛选（标题 / 摘要 / 作者），不重新请求接口
+function renderBrowse(){
+  const list=$('#browseList'); if(!list) return;
+  const kw=(($('#browseKw')&&$('#browseKw').value)||'').trim().toLowerCase();
+  let arr=browseWorks;
+  if(kw){
+    arr=arr.filter(w=>{
+      const authors=(w.authorships||[]).map(a=>(a.author&&a.author.display_name)||'').join(' ');
+      return ((w.title||'')+' '+invAbs(w.abstract_inverted_index)+' '+authors).toLowerCase().includes(kw);
+    });
+  }
+  list.innerHTML = arr.length
+    ? arr.map(w=>paperCard(w)).join('')
+    : (browseWorks.length
+        ? '<div class="state">已加载的 '+browseWorks.length+' 篇里没有匹配「'+esc(kw)+'」的论文<br><span class="hint">换个关键词，或点「加载更多」扩大范围</span></div>'
+        : '<div class="state">暂无数据</div>');
+  const hint=$('#browseHint');
+  if(hint) hint.textContent = browseWorks.length
+    ? (kw ? `在已加载的 ${browseWorks.length} 篇中匹配到 ${arr.length} 篇` : `已加载 ${browseWorks.length} 篇`)
+    : '';
+}
 async function loadBrowse(reset=true){
   if(reset) browsePage=1; else browsePage++;
   const list=$('#browseList');
-  if(reset) list.innerHTML='<div class="state"><div class="spinner"></div>加载中…</div>';
+  if(reset){ browseWorks=[]; list.innerHTML='<div class="state"><div class="spinner"></div>加载中…</div>'; }
   const key=$('#browseJournal').value, j=JOURNALS.find(x=>x.key===key);
   const sort=$('#browseSort').value, year=$('#browseYear').value;
   let filter = j.issn? `primary_location.source.issn:${j.issn}` : `primary_location.source.id:${j.sourceId}`;
   if(year!=='all') filter+=`,publication_year:${year}`;
   try{
     const d=await oaFetch(`${OA}/works?filter=${filter}&sort=${sort}&per-page=25&page=${browsePage}&select=${SELECT}`);
-    const html=(d.results||[]).filter(w=>w.title).map(w=>paperCard(w)).join('');
-    if(reset) list.innerHTML = html||'<div class="state">暂无数据</div>';
-    else list.insertAdjacentHTML('beforeend',html);
+    const rs=(d.results||[]).filter(w=>w.title);
+    browseWorks = reset? rs : browseWorks.concat(rs);
+    renderBrowse();
     $('#btnMore').classList.toggle('hidden', (d.results||[]).length<25);
   }catch(e){ list.innerHTML=`<div class="state">⚠️ ${esc(e.message)}</div>`; }
 }
@@ -2523,12 +2631,14 @@ document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
   if(b.dataset.tab==='review'){ const t=$('#reviewTopic'); if(t) t.focus(); }
 });
 $('#btnRefresh').onclick=loadDaily;
-$('#dailyRegion').onchange=loadDaily; $('#dailyDays').onchange=loadDaily;
+$('#dailyDays').onchange=loadDaily;
 $('#dailyKw').oninput=()=>renderDaily();
+initDailyFilters();
 $('#btnDailyMore').onclick=loadMoreDaily;
 $('#btnDigest').onclick=aiDigest;
 $('#btnBrowse').onclick=()=>loadBrowse(true);
 $('#btnMore').onclick=()=>loadBrowse(false);
+$('#browseKw').oninput=()=>renderBrowse();
 $('#btnRaSearch').onclick=()=>raSearch(true);
 $('#btnRaMore').onclick=loadMoreRa;
 $('#btnRaIdea').onclick=()=>raGenerate('idea');
@@ -2587,9 +2697,9 @@ $('#globalSearch').addEventListener('keydown', e=>{ if(e.key==='Escape') closeSe
 document.addEventListener('click', ()=>closeAllPops());
 document.addEventListener('click', e=>{ if(!e.target.closest('.searchwrap')) closeSearch(); });
 // 引用篮 / 概念词典 / 弹层 / 方法筛选 / 数据备份（新增）
-$('#methodFilter').onchange=()=>renderDaily();
+// 今日推荐的方法筛选已改为多选 chips（#dailyMethodRow），此处只保留研究助手的下拉
 const _mo='<option value="">全部方法</option>'+METHOD_OPTIONS.map(m=>'<option value="'+m+'">'+m+'</option>').join('');
-$('#methodFilter').innerHTML=_mo; $('#raMethod').innerHTML=_mo;
+$('#raMethod').innerHTML=_mo;
 $('#raMethod').onchange=()=>{ raFiltered=applyMethodFilter(raWorks, $('#raMethod').value); $('#raCount').textContent='按方法筛选（'+($('#raMethod').value||'全部')+'）· 共 '+raFiltered.length+' 篇'; renderRaChunk(true); };
 $('#btnCiteMenu').onclick=e=>{ e.stopPropagation(); document.getElementById('citeMenuWrap').classList.toggle('open'); };
 $('#btnCiteClear').onclick=()=>{ citeBasket=[]; store.set('citebasket',citeBasket); document.querySelectorAll('.citechk input').forEach(b=>b.checked=false); renderCiteBar(); toast('已清空引用篮'); };
@@ -2973,6 +3083,39 @@ function exportNoteWord(){
   try{ const blob=new Blob([doc],{type:'application/msword'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=fname(n.title)+'.doc'; document.body.appendChild(a); a.click(); a.remove(); }catch(e){ toast('导出失败：'+e.message); }
   toast('已导出 Word 文档（.doc）');
 }
+/* 富文本 → 纯文本（供 TXT 导出）：块级元素转换行，待办转 ☐，列表加 - */
+function noteToText(html){
+  const d=document.createElement('div');
+  d.innerHTML=noteCleanHtml(html||'');
+  let out='';
+  (function walk(node){
+    (node.childNodes||[]).forEach(nd=>{
+      if(nd.nodeType===3){ out+=nd.nodeValue; return; }
+      if(nd.nodeType!==1) return;
+      const tag=(nd.tagName||'').toLowerCase();
+      if(tag==='br'){ out+='\n'; return; }
+      if(/^h[1-6]$/.test(tag)){ out+='\n\n'; walk(nd); out+='\n'; return; }
+      if(tag==='li'){ out+='\n- '; walk(nd); return; }
+      if(tag==='p'||tag==='div'||tag==='blockquote'||tag==='pre'||tag==='tr'){ out+='\n'; walk(nd); out+='\n'; return; }
+      walk(nd);
+    });
+  })(d);
+  return out.replace(/[ \t\u00a0]+/g,' ').replace(/\n{3,}/g,'\n\n').split('\n').map(l=>l.trim()).join('\n').trim();
+}
+function exportNoteTxt(){
+  noteSave();
+  const n=noteById(myNoteSel); if(!n) return toast('请先选择一篇笔记');
+  const title=(n.title||'无标题笔记').trim();
+  const body=noteToText(n.html);
+  const txt=title+'\n'+'─'.repeat(Math.max(4,Math.min(title.length*2,40)))+'\n\n'+(body||'（空笔记）')+'\n';
+  try{
+    // 加 BOM，避免 Windows 记事本打开中文乱码
+    const blob=new Blob(['\ufeff'+txt],{type:'text/plain;charset=utf-8'});
+    const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=fname(n.title)+'.txt';
+    document.body.appendChild(a); a.click(); a.remove();
+  }catch(e){ return toast('导出失败：'+e.message); }
+  toast('已导出纯文本（.txt）');
+}
 function exportNotePdf(){
   noteSave();
   const n=noteById(myNoteSel); if(!n) return toast('请先选择一篇笔记');
@@ -3088,7 +3231,7 @@ function initNotes(){
     document.querySelectorAll('#tplMenu [data-tpl]').forEach(b=> b.onclick=()=> insertTpl(b.dataset.tpl));
     document.addEventListener('click', e=>{ const m=$('#tplMenu'); if(m&&m.style.display!=='none'&&!e.target.closest('#tplMenu')&&!e.target.closest('#btnTpl')) m.style.display='none'; });
     const exBtn=$('#btnExportNote'); if(exBtn) exBtn.onclick=(e)=>{ e.stopPropagation(); const m=$('#exportMenu'); if(m) m.style.display = (m.style.display==='none'?'block':'none'); };
-    document.querySelectorAll('#exportMenu [data-x]').forEach(b=> b.onclick=()=>{ const m=$('#exportMenu'); if(m) m.style.display='none'; if(b.dataset.x==='word') exportNoteWord(); else exportNotePdf(); });
+    document.querySelectorAll('#exportMenu [data-x]').forEach(b=> b.onclick=()=>{ const m=$('#exportMenu'); if(m) m.style.display='none'; if(b.dataset.x==='word') exportNoteWord(); else if(b.dataset.x==='txt') exportNoteTxt(); else exportNotePdf(); });
     document.addEventListener('click', e=>{ const m=$('#exportMenu'); if(m&&m.style.display!=='none'&&!e.target.closest('#exportMenu')&&!e.target.closest('#btnExportNote')) m.style.display='none'; });
     const ed=$('#noteEditor'); if(ed) ed.oninput=noteScheduleSave;
     const ti=$('#noteTitle'); if(ti) ti.oninput=noteScheduleSave;
@@ -3140,6 +3283,7 @@ bootAskModal(); applyTheme(); initSettings(); updateFolderBadge(); loadDaily();
           <div class="mp" id="exportMenu" style="display:none;position:absolute;top:42px;right:0;left:auto;z-index:90;background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:6px;min-width:180px">
             <button class="btn" data-x="word" style="display:block;width:100%;text-align:left;margin:2px 0">📄 导出 Word (.doc)</button>
             <button class="btn" data-x="pdf" style="display:block;width:100%;text-align:left;margin:2px 0">📑 导出 PDF（打印）</button>
+            <button class="btn" data-x="txt" style="display:block;width:100%;text-align:left;margin:2px 0">📃 导出 TXT (.txt)</button>
           </div>
         </div>
       </div>

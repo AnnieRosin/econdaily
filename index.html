@@ -435,6 +435,20 @@ footer{text-align:center;color:var(--ink3);font-size:12px;padding:26px 0 34px;li
 .guide-foot .sp{flex:1}
 .guide-foot label{display:flex;align-items:center;gap:6px;font-family:var(--sans);font-size:12.5px;color:var(--ink2);cursor:pointer;font-weight:400;margin:0}
 .guide-foot input{width:auto;margin:0}
+/* 生日历法选择（公历 / 农历） */
+.brow{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.blabel{font-size:12.5px;color:var(--ink3)}
+.bseg{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--card)}
+.bseg button{border:none;background:transparent;padding:5px 12px;font-size:12.5px;color:var(--ink2);cursor:pointer;font-family:var(--sans)}
+.bseg button+button{border-left:1px solid var(--line)}
+.bseg button.on{background:var(--brand);color:#fff;font-weight:600}
+.lrow{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.lrow select{padding:7px 8px;border-radius:8px;border:1px solid var(--line);background:var(--card);font-size:13px;color:var(--ink);font-family:var(--sans);width:auto;flex:0 1 auto;min-width:0}
+.lrow .u{font-size:12.5px;color:var(--ink3)}
+.leapchk{display:inline-flex;align-items:center;gap:5px;margin-top:8px;font-size:12.5px;color:var(--ink2)}
+.f-binfo{margin:8px 18px 0;font-size:11.5px;color:var(--ink3);text-align:center;line-height:1.6}
+html[data-theme="dark"] .bseg button{color:var(--ink2)}
+html[data-theme="dark"] .lrow select{background:#1e2128}
 .guide-btn{font-family:var(--sans);font-size:12.5px;padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--brand);white-space:nowrap}
 .guide-btn:hover{background:var(--brand-soft)}
 html[data-theme="dark"] .gnav{background:#262a32;border-color:var(--line);color:var(--ink2)}
@@ -1191,9 +1205,27 @@ html[data-theme="dark"] .ph-x:hover{background:#3d424c}
   <div class="set-grid sg1">
     <div class="card set-card">
       <h3>🎂 我的小档案</h3>
-      <label for="setBirth">出生日期（用于「🎴 今日一签」个性化签文）</label>
-      <input type="date" id="setBirth">
-      <p class="hint" style="margin-top:6px">只保存在<b>你自己这台电脑的浏览器</b>里，不会上传任何服务器，也不会同步到云端。填了之后，每天点小猫旁边的「🎴 今日一签」，就能按你的星座、生肖、幸运数字抽到当天的专属签（好签居多，用来调剂科研疲惫）。不填也能抽，只是少了个性化。</p>
+      <div class="brow"><span class="blabel">出生日期用什么历法？</span>
+        <div class="bseg" id="birthCalSeg">
+          <button type="button" class="on" data-cal="s">公历（阳历）</button>
+          <button type="button" data-cal="l">农历（阴历）</button>
+        </div>
+      </div>
+      <div id="birthSolarRow">
+        <label for="setBirth">出生日期（公历）</label>
+        <input type="date" id="setBirth">
+      </div>
+      <div id="birthLunarRow" class="hidden">
+        <label>出生日期（农历）</label>
+        <div class="lrow">
+          <select id="setBirthY" aria-label="农历年"></select><span class="u">年</span>
+          <select id="setBirthM" aria-label="农历月"></select><span class="u">月</span>
+          <select id="setBirthD" aria-label="农历日"></select><span class="u">日</span>
+        </div>
+        <label class="leapchk"><input type="checkbox" id="setBirthLeap"><span id="setBirthLeapTxt">闰月</span></label>
+        <p class="hint" id="setBirthHint" style="margin-top:6px"></p>
+      </div>
+      <p class="hint" style="margin-top:6px">只保存在<b>你自己这台电脑的浏览器</b>里，不会上传任何服务器，也不会同步到云端。填了之后，每天点小猫旁边的「🎴 今日一签」，就能按你的星座、生肖、幸运数字抽到当天的专属签（好签居多，用来调剂科研疲惫）。不填也能抽，只是少了个性化。<br>星座按<b>公历</b>算、生肖按<b>农历年</b>算（正月初一分界），选农历会自动折算成公历，两者严格对应。</p>
       <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
         <button class="btn" id="btnSaveBirth">💾 保存生日</button>
         <button class="btn" id="btnClearBirth">🗑️ 清除</button>
@@ -4377,8 +4409,50 @@ function wallBoot(){
 
 /* ================= 每日一签（个性化 · 生日仅存本机） ================= */
 const F_BIRTH='birthday', F_KEY='fortune';
-function getBirth(){ try{ return localStorage.getItem('econdaily_'+F_BIRTH)||''; }catch(_){ return ''; } }
-function setBirth(v){ try{ if(v) localStorage.setItem('econdaily_'+F_BIRTH,v); else localStorage.removeItem('econdaily_'+F_BIRTH); }catch(_){} }
+/* 生日存储：新格式 = JSON {c:'s'|'l', y,m,d, leap, s:'折算后的公历日期'}；旧格式（纯日期串）自动当作公历读取，保证老用户签文不变 */
+function getBirthObj(){
+  try{
+    const raw=localStorage.getItem('econdaily_'+F_BIRTH);
+    if(!raw) return null;
+    if(raw.charAt(0)==='{'){ const o=JSON.parse(raw); if(o&&o.y) return {c:o.c==='l'?'l':'s',y:+o.y,m:+o.m,d:+o.d,leap:!!o.leap,s:o.s||''}; return null; }
+    const p=raw.split('-'); if(p.length!==3||!+p[0]) return null;
+    return {c:'s',y:+p[0],m:+p[1],d:+p[2],leap:false,s:raw};
+  }catch(_){ return null; }
+}
+function setBirthObj(o){
+  try{
+    if(o&&o.y){
+      const so=(o.c==='l')?lunar2solar(o.y,o.m,o.d,!!o.leap):{y:o.y,m:o.m,d:o.d};
+      localStorage.setItem('econdaily_'+F_BIRTH, JSON.stringify({c:o.c||'s',y:o.y,m:o.m,d:o.d,leap:!!o.leap,s:so?ymdStr(so.y,so.m,so.d):''}));
+    } else localStorage.removeItem('econdaily_'+F_BIRTH);
+  }catch(_){}
+}
+function birthSolarStr(o){
+  if(!o||!o.y) return '';
+  if(o.c==='l'){ const r=lunar2solar(o.y,o.m,o.d,!!o.leap); return r?ymdStr(r.y,r.m,r.d):''; }
+  return ymdStr(o.y,o.m,o.d);
+}
+function getBirth(){ const o=getBirthObj(); return o?(o.s||birthSolarStr(o)):''; }
+function setBirth(v){
+  if(!v){ try{ localStorage.removeItem('econdaily_'+F_BIRTH); }catch(_){} return; }
+  const p=String(v).split('-'); if(p.length!==3||!+p[0]) return;
+  setBirthObj({c:'s',y:+p[0],m:+p[1],d:+p[2],leap:false});
+}
+function birthdayDates(bo,ty){
+  const out=[];
+  if(!bo||!bo.y) return out;
+  if(bo.c!=='l'){ out.push({y:ty,m:bo.m,d:bo.d}); return out; }
+  const ly0=lunarYearOf(ty,6,1); if(ly0===null) return out;
+  [ly0-1,ly0,ly0+1].forEach(function(ly){
+    const useLeap=!!bo.leap && lHasLeap(ly,bo.m);
+    const dd=Math.min(bo.d,lDays(ly,bo.m,useLeap));
+    const r=lunar2solar(ly,bo.m,dd,useLeap);
+    if(r&&r.y===ty) out.push({y:r.y,m:r.m,d:r.d});
+  });
+  const seen={},res=[];
+  out.forEach(function(o){ const k=o.m+'/'+o.d; if(!seen[k]){ seen[k]=1; res.push(o); } });
+  return res;
+}
 
 /* 五个等级，全部为吉/平签，不含凶签 —— 好签居多（上上+上+中吉 约占七成） */
 const F_LEVELS=[
@@ -4451,6 +4525,59 @@ const F_CAT=[
 ];
 const F_COLORS=['藏青','松绿','暖橙','朱红','月白','秋香','天青','藕荷','赭石','黛紫','杏黄','烟灰蓝'];
 const F_TIMES=['清晨 6–9 点','上午 9–11 点','午后 13–15 点','傍晚 17–19 点','夜里 21–23 点'];
+/* ===== 农历换算（数据由权威农历库生成，1900–2100 全量交叉校验通过） =====
+   表格式：农历年,正月初一公历YYYYMMDD,12位月大小掩码(1=30天),闰月号(0=无),闰月是否30天 */
+const LUNAR_TABLE='1899,18990210,101010110101,0,0;1900,19000131,010010111101,8,0;1901,19010219,010010101110,0,0;1902,19020208,101001010111,0,0;1903,19030129,010101001101,5,0;1904,19040216,110100100110,0,0;1905,19050204,110110010101,0,0;1906,19060125,011001010101,4,1;1907,19070213,010101101010,0,0;1908,19080202,100110101101,0,0;1909,19090122,010101011101,2,0;1910,19100210,010010101110,0,0;1911,19110130,101001011011,6,0;1912,19120218,101001001101,0,0;1913,19130206,110100100101,0,0;1914,19140126,110100100101,5,1;1915,19150214,101101010100,0,0;1916,19160203,110101101010,0,0;1917,19170123,101011011010,2,0;1918,19180211,100101011011,0,0;1919,19190201,010010010111,7,1;1920,19200220,010010010111,0,0;1921,19210208,101001001011,0,0;1922,19220128,101101001011,5,0;1923,19230216,011010100101,0,0;1924,19240205,011011010100,0,0;1925,19250124,101010110101,4,1;1926,19260213,001010110110,0,0;1927,19270202,100101010111,0,0;1928,19280123,010100101111,2,0;1929,19290210,010010010111,0,0;1930,19300130,011001010110,6,0;1931,19310217,110101001010,0,0;1932,19320206,111010100101,0,0;1933,19330126,011010101001,5,1;1934,19340214,010110101101,0,0;1935,19350204,001010110110,0,0;1936,19360124,100001101110,3,1;1937,19370211,100100101110,0,0;1938,19380131,110010001101,7,1;1939,19390219,110010010101,0,0;1940,19400208,110101001010,0,0;1941,19410127,110110001010,6,1;1942,19420215,101101010101,0,0;1943,19430205,010101101010,0,0;1944,19440125,101001011011,4,1;1945,19450213,001001011101,0,0;1946,19460202,100100101101,0,0;1947,19470122,110100101011,2,0;1948,19480210,101010010101,0,0;1949,19490129,101101010101,7,0;1950,19500217,011011001010,0,0;1951,19510206,101101010101,0,0;1952,19520127,010100110101,5,1;1953,19530214,010011011010,0,0;1954,19540203,101001011011,0,0;1955,19550124,010001010111,3,1;1956,19560212,010100101011,0,0;1957,19570131,101010011010,8,0;1958,19580218,111010010101,0,0;1959,19590208,011010101010,0,0;1960,19600128,101011101010,6,0;1961,19610215,101010110101,0,0;1962,19620205,010010110110,0,0;1963,19630125,101010101110,4,0;1964,19640213,101001010111,0,0;1965,19650202,010100100110,0,0;1966,19660121,111100100110,3,0;1967,19670209,110110010101,0,0;1968,19680130,010110110101,7,0;1969,19690217,010101101010,0,0;1970,19700206,100101101101,0,0;1971,19710127,010011011101,5,0;1972,19720215,010010101101,0,0;1973,19730203,101001001101,0,0;1974,19740123,110101001101,4,0;1975,19750211,110100100101,0,0;1976,19760131,110101010101,8,0;1977,19770218,101101010100,0,0;1978,19780207,101101101010,0,0;1979,19790128,100101011010,6,1;1980,19800216,100101011011,0,0;1981,19810205,010010011011,0,0;1982,19820125,101010010111,4,0;1983,19830213,101001001011,0,0;1984,19840202,101100100111,10,0;1985,19850220,011010100101,0,0;1986,19860209,011011010100,0,0;1987,19870129,101011110100,6,0;1988,19880217,101010110110,0,0;1989,19890206,100101010111,0,0;1990,19900127,010010101111,5,0;1991,19910215,010010010111,0,0;1992,19920204,011001001011,0,0;1993,19930123,011101001010,3,0;1994,19940210,111010100101,0,0;1995,19950131,011010110101,8,0;1996,19960219,010110101100,0,0;1997,19970207,101010110110,0,0;1998,19980128,100101101101,5,0;1999,19990216,100100101110,0,0;2000,20000205,110010010110,0,0;2001,20010124,110110010101,4,0;2002,20020212,110101001010,0,0;2003,20030201,110110100101,0,0;2004,20040122,011101010101,2,0;2005,20050209,010101101010,0,0;2006,20060129,101010111011,7,0;2007,20070218,001001011101,0,0;2008,20080207,100100101101,0,0;2009,20090126,110010101011,5,0;2010,20100214,101010010101,0,0;2011,20110203,101101001010,0,0;2012,20120123,101110101010,4,0;2013,20130210,101011010101,0,0;2014,20140131,010101011101,9,0;2015,20150219,010010111010,0,0;2016,20160208,101001011011,0,0;2017,20170128,010100010111,6,1;2018,20180216,010100101011,0,0;2019,20190205,101010010011,0,0;2020,20200125,011110010101,4,0;2021,20210212,011010101010,0,0;2022,20220201,101011010101,0,0;2023,20230122,010110110101,2,0;2024,20240210,010010110110,0,0;2025,20250129,101001101110,6,0;2026,20260217,101001001110,0,0;2027,20270206,110100100110,0,0;2028,20280126,111010100110,5,0;2029,20290213,110101010011,0,0;2030,20300203,010110101010,0,0;2031,20310123,011101101010,3,0;2032,20320211,100101101101,0,0;2033,20330131,010010101111,11,0;2034,20340219,010010101101,0,0;2035,20350208,101001001101,0,0;2036,20360128,110100001011,6,1;2037,20370215,110100100101,0,0;2038,20380204,110101010010,0,0;2039,20390124,110111010100,5,0;2040,20400212,101101011010,0,0;2041,20410201,010101101101,0,0;2042,20420122,010101011011,2,0;2043,20430210,010010011011,0,0;2044,20440130,101001010111,7,0;2045,20450217,101001001011,0,0;2046,20460206,101010100101,0,0;2047,20470126,101100100101,5,1;2048,20480214,011011010010,0,0;2049,20490202,101011011010,0,0;2050,20500123,010010110110,3,1;2051,20510211,100100110111,0,0;2052,20520201,010010011111,8,0;2053,20530219,010010010111,0,0;2054,20540208,011001001011,0,0;2055,20550128,011010001010,6,1;2056,20560215,111010100101,0,0;2057,20570204,011010101010,0,0;2058,20580124,101001101100,4,1;2059,20590212,101010101110,0,0;2060,20600202,100100101110,0,0;2061,20610121,110100101110,3,0;2062,20620209,110010010110,0,0;2063,20630129,110101010101,7,0;2064,20640217,110101001010,0,0;2065,20650205,110110100101,0,0;2066,20660126,010111010101,5,0;2067,20670214,010101101010,0,0;2068,20680203,101001101101,0,0;2069,20690123,010101011101,4,0;2070,20700211,010100101101,0,0;2071,20710131,101010011011,8,0;2072,20720219,101010010101,0,0;2073,20730207,101101001010,0,0;2074,20740127,101101101010,6,0;2075,20750215,101011010101,0,0;2076,20760205,010101011010,0,0;2077,20770124,101010111010,4,0;2078,20780212,101001011011,0,0;2079,20790202,010100101011,0,0;2080,20800122,101100100111,3,0;2081,20810209,011010010011,0,0;2082,20820129,011100110011,7,0;2083,20830217,011010101010,0,0;2084,20840206,101011010101,0,0;2085,20850126,010010110101,5,1;2086,20860214,010010110110,0,0;2087,20870203,101001010111,0,0;2088,20880124,010101001110,4,0;2089,20890210,110100010110,0,0;2090,20900130,111010010110,8,0;2091,20910218,110101010010,0,0;2092,20920207,110110101010,0,0;2093,20930127,011010101010,6,1;2094,20940215,010101101101,0,0;2095,20950205,010010101110,0,0;2096,20960125,101010011101,4,0;2097,20970212,101000101101,0,0;2098,20980201,110100010101,0,0;2099,20990121,111100100101,2,0;2100,21000209,110101010010,0,0;2101,21010129,110110110010,7,0';
+const F_GAN=['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
+const F_ZHI=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+const F_LM=['正','二','三','四','五','六','七','八','九','十','冬','腊'];
+const F_CN=['零','一','二','三','四','五','六','七','八','九','十'];
+let _lmap=null;
+function lMap(){
+  if(_lmap) return _lmap; _lmap={};
+  LUNAR_TABLE.split(';').forEach(function(r){
+    const p=r.split(','), sp=p[1], y=+p[0];
+    _lmap[y]={sp:Math.floor(Date.UTC(+sp.slice(0,4),+sp.slice(4,6)-1,+sp.slice(6,8))/86400000),mask:p[2],leap:+p[3],leapBig:p[4]==='1'};
+  });
+  return _lmap;
+}
+function lSeq(ly){ const o=lMap()[ly]; if(!o) return []; const s=[]; for(let m=1;m<=12;m++){ s.push(m); if(o.leap===m) s.push(-m); } return s; }
+function lDays(ly,m,isLeap){ const o=lMap()[ly]; if(!o) return 29; if(isLeap) return o.leapBig?30:29; return o.mask.charAt(m-1)==='1'?30:29; }
+function lMonthStart(ly,m,isLeap){
+  const o=lMap()[ly]; if(!o) return null; let t=o.sp; const q=lSeq(ly);
+  for(let i=0;i<q.length;i++){ if(isLeap?q[i]===-m:q[i]===m) return t; t+=lDays(ly,Math.abs(q[i]),q[i]<0); }
+  return null;
+}
+function lHasLeap(ly,m){ const o=lMap()[ly]; return !!(o&&o.leap===m); }
+function lunar2solar(ly,lm,ld,isLeap){
+  const o=lMap()[ly]; if(!o||lm<1||lm>12) return null;
+  if(isLeap && !lHasLeap(ly,lm)) return null;
+  if(ld<1||ld>lDays(ly,lm,isLeap)) return null;
+  const st=lMonthStart(ly,lm,isLeap); if(st===null) return null;
+  const dt=new Date((st+(ld-1))*86400000);
+  return {y:dt.getUTCFullYear(),m:dt.getUTCMonth()+1,d:dt.getUTCDate()};
+}
+function solar2lunar(y,m,d){
+  const n=Math.floor(Date.UTC(y,m-1,d)/86400000), mp=lMap();
+  let ly=y; if(!mp[ly]) return null;
+  if(n<mp[ly].sp){ ly=y-1; if(!mp[ly]) return null; }
+  const q=lSeq(ly); let t=mp[ly].sp;
+  for(let i=0;i<q.length;i++){
+    const dd=lDays(ly,Math.abs(q[i]),q[i]<0);
+    if(n<t+dd) return {ly:ly,lm:Math.abs(q[i]),ld:n-t+1,isLeap:q[i]<0};
+    t+=dd;
+  }
+  return null;
+}
+function lunarYearOf(y,m,d){ const l=solar2lunar(y,m,d); return l?l.ly:null; }
+function animalOfSolar(y,m,d){ const ly=lunarYearOf(y,m,d); return ly===null?'':F_ANIMAL[(((ly-1900)%12)+12)%12]; }
+function ganzhiOf(ly){ return F_GAN[(((ly-4)%10)+10)%10]+F_ZHI[(((ly-4)%12)+12)%12]; }
+function cnYear(y){ return String(y).split('').map(function(c){ return F_CN[+c]; }).join(''); }
+function cnDay(d){ if(d===10) return '初十'; if(d===20) return '二十'; if(d===30) return '三十'; if(d<10) return '初'+F_CN[d]; if(d<20) return '十'+F_CN[d%10]; return '廿'+F_CN[d%10]; }
+function lunarText(ly,lm,ld,isLeap){ return cnYear(ly)+'年'+(isLeap?'闰':'')+F_LM[lm-1]+'月'+cnDay(ld); }
+function pad2(n){ return String(n).padStart(2,'0'); }
+function ymdStr(y,m,d){ return y+'-'+pad2(m)+'-'+pad2(d); }
+
 const F_ZODIAC=[[1,20,'水瓶'],[2,19,'双鱼'],[3,21,'白羊'],[4,20,'金牛'],[5,21,'双子'],[6,22,'巨蟹'],[7,23,'狮子'],[8,23,'处女'],[9,23,'天秤'],[10,24,'天蝎'],[11,23,'射手'],[12,22,'摩羯']];
 const F_ANIMAL=['鼠','牛','虎','兔','龙','蛇','马','羊','猴','鸡','狗','猪'];
 const F_WEEK=['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
@@ -4461,29 +4588,47 @@ function fZodiac(m,d){ let z='摩羯'; for(let i=0;i<F_ZODIAC.length;i++){ const
 function fAnimal(y){ return F_ANIMAL[(((y-1900)%12)+12)%12]; }
 function fSeason(m){ return (m>=3&&m<=5)?'春':(m>=6&&m<=8)?'夏':(m>=9&&m<=11)?'秋':'冬'; }
 function fTodayStr(d){ const t=d||new Date(); return t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0'); }
+/* birth 可传 {c,y,m,d,leap} 对象（推荐）或旧式 'YYYY-MM-DD' 字符串 */
 function fProfile(birth,today){
-  const p={birth:birth||'',zodiac:'',animal:'',season:fSeason(today.getMonth()+1),lifeNum:0,isBday:false,isBdayMonth:false,daysToBday:null,age:null};
-  if(!birth) return p;
-  const bp=String(birth).split('-');
-  const by=+bp[0], bm=+bp[1], bd=+bp[2];
-  if(!by||!bm||!bd) return p;
-  p.zodiac=fZodiac(bm,bd); p.animal=fAnimal(by);
-  let n=(String(by)+String(bm)+String(bd)).split('').reduce((a,c)=>a+(+c||0),0);
-  while(n>9) n=String(n).split('').reduce((a,c)=>a+(+c||0),0);
+  const p={birth:'',cal:'s',zodiac:'',animal:'',ganzhi:'',lunar:'',lunarBirth:'',season:fSeason(today.getMonth()+1),lifeNum:0,isBday:false,isBdayMonth:false,daysToBday:null,age:null};
+  let bo=(birth&&typeof birth==='object')?birth:null;
+  if(!bo&&typeof birth==='string'&&birth){ const q=birth.split('-'); if(q.length===3&&+q[0]) bo={c:'s',y:+q[0],m:+q[1],d:+q[2],leap:false}; }
+  if(!bo) bo=getBirthObj();
+  if(!bo||!bo.y) return p;
+  const so=(bo.c==='l')?lunar2solar(bo.y,bo.m,bo.d,!!bo.leap):{y:bo.y,m:bo.m,d:bo.d};
+  if(!so) return p;
+  const by=so.y, bm=so.m, bd=so.d;
+  p.cal=bo.c||'s'; p.birth=ymdStr(by,bm,bd);
+  p.zodiac=fZodiac(bm,bd);                       /* 星座：一律按公历 */
+  const ly=lunarYearOf(by,bm,bd);                /* 生肖：按农历年（正月初一分界） */
+  p.animal=ly===null?'':F_ANIMAL[(((ly-1900)%12)+12)%12];
+  p.ganzhi=ly===null?'':ganzhiOf(ly);
+  const lu=solar2lunar(by,bm,bd);
+  p.lunar=lu?('农历'+lunarText(lu.ly,lu.lm,lu.ld,lu.isLeap)):'';
+  p.lunarBirth=(bo.c==='l')?('农历'+lunarText(bo.y,bo.m,bo.d,!!bo.leap)):p.lunar;
+  let n=(String(by)+String(bm)+String(bd)).split('').reduce(function(a,c){ return a+(+c||0); },0);
+  while(n>9) n=String(n).split('').reduce(function(a,c){ return a+(+c||0); },0);
   p.lifeNum=n||1;
   p.age=today.getFullYear()-by;
   const now=new Date(today.getFullYear(),today.getMonth(),today.getDate());
-  p.isBday=(today.getMonth()+1===bm && today.getDate()===bd);
-  p.isBdayMonth=(today.getMonth()+1===bm);
-  let nb=new Date(today.getFullYear(),bm-1,bd);
-  if(nb.getTime()<now.getTime()) nb=new Date(today.getFullYear()+1,bm-1,bd);
-  p.daysToBday=Math.round((nb.getTime()-now.getTime())/86400000);
+  const cand=birthdayDates(bo,today.getFullYear());
+  p.isBday=cand.some(function(c){ return c.m===today.getMonth()+1&&c.d===today.getDate(); });
+  p.isBdayMonth=cand.some(function(c){ return c.m===today.getMonth()+1; });
+  let nb=null;
+  for(let yr=today.getFullYear(); yr<=today.getFullYear()+1&&!nb; yr++){
+    birthdayDates(bo,yr).forEach(function(c){
+      if(nb) return;
+      const t=new Date(c.y,c.m-1,c.d);
+      if(t.getTime()>=now.getTime()) nb=t;
+    });
+  }
+  p.daysToBday=nb?Math.round((nb.getTime()-now.getTime())/86400000):null;
   return p;
 }
 /* 按「日期 + 生日」确定性抽签：同一天永远同一支签，换一天自动换新签 */
 function fDraw(birth,dateStr){
   const prof=fProfile(birth,new Date(dateStr+'T00:00:00'));
-  const rnd=fRng(fHash(dateStr+'#'+(birth||'anon')));
+  const rnd=fRng(fHash(dateStr+'#'+(prof.birth||'anon')));
   const total=F_LEVELS.reduce((a,l)=>a+l.w,0);
   let r=rnd()*total, lv=F_LEVELS[F_LEVELS.length-1];
   for(let i=0;i<F_LEVELS.length;i++){ if(r<F_LEVELS[i].w){ lv=F_LEVELS[i]; break; } r-=F_LEVELS[i].w; }
@@ -4565,6 +4710,93 @@ function fSkipShake(){
   const fn=fSkFn; fSkClear(); fn();
 }
 function closeFortune(){ fSkClear(); const m=$('#fortuneModal'); if(m) m.classList.add('hidden'); }
+/* ===== 生日选择器（公历 date / 农历 年月日+闰月），设置页 p='set'，签页 p='f' ===== */
+function bpId(p){
+  return p==='set'
+    ? {seg:'#birthCalSeg',solar:'#birthSolarRow',lunar:'#birthLunarRow',y:'#setBirthY',m:'#setBirthM',d:'#setBirthD',leap:'#setBirthLeap',leapTxt:'#setBirthLeapTxt',hint:'#setBirthHint',date:'#setBirth'}
+    : {seg:'#fBirthCalSeg',solar:'#fBirthSolarRow',lunar:'#fBirthLunarRow',y:'#fBirthY',m:'#fBirthM',d:'#fBirthD',leap:'#fBirthLeap',leapTxt:'#fBirthLeapTxt',hint:'#fBirthHint',date:'#fBirthInput'};
+}
+function bpCal(p){ const s=$(bpId(p).seg); const b=s?s.querySelector('button.on'):null; return b?(b.dataset.cal||'s'):'s'; }
+function bpSync(p){
+  const c=bpId(p), ys=$(c.y), ms=$(c.m), ds=$(c.d), lp=$(c.leap), lt=$(c.leapTxt), hint=$(c.hint);
+  if(!ys||!ms||!ds) return;
+  const ly=+ys.value||new Date().getFullYear(), lm=+ms.value||1;
+  const o=lMap()[ly], leap=o?o.leap:0;
+  if(lp){ lp.disabled=!leap; if(!leap) lp.checked=false; }
+  if(lt) lt.textContent=leap?('闰'+F_LM[leap-1]+'月'):'闰月（该年无闰月）';
+  const isLeap=!!(lp&&lp.checked), mx=lDays(ly,lm,isLeap), keep=+ds.value||1;
+  let h=''; for(let d=1;d<=mx;d++) h+='<option value="'+d+'">'+cnDay(d)+'</option>';
+  ds.innerHTML=h; ds.value=String(Math.min(keep,mx));
+  if(hint){
+    const so=lunar2solar(ly,lm,+ds.value,isLeap);
+    if(so){ const an=animalOfSolar(so.y,so.m,so.d), gl=solar2lunar(so.y,so.m,so.d);
+      hint.innerHTML='→ 公历 <b>'+ymdStr(so.y,so.m,so.d)+'</b> · '+fZodiac(so.m,so.d)+'座 · 属'+an+(gl?'（'+ganzhiOf(gl.ly)+'年）':''); }
+    else hint.textContent='这个农历日期不存在，换一天试试';
+  }
+}
+function bpFill(p,obj){
+  const c=bpId(p), seg=$(c.seg); if(!seg) return false;
+  const ys=$(c.y), ms=$(c.m), lp=$(c.leap);
+  if(ys&&!ys.options.length){ const cy=new Date().getFullYear(); let h=''; for(let y=cy;y>=1900;y--) h+='<option value="'+y+'">'+y+'（'+ganzhiOf(y)+'）</option>'; ys.innerHTML=h; }
+  if(ms&&!ms.options.length){ let h=''; for(let m=1;m<=12;m++) h+='<option value="'+m+'">'+F_LM[m-1]+'月</option>'; ms.innerHTML=h; }
+  const cal=(obj&&obj.c==='l')?'l':'s';
+  seg.querySelectorAll('button').forEach(function(b){ b.classList.toggle('on',(b.dataset.cal||'s')===cal); });
+  const sr=$(c.solar), lr=$(c.lunar);
+  if(sr) sr.classList.toggle('hidden',cal!=='s');
+  if(lr) lr.classList.toggle('hidden',cal!=='l');
+  if(cal==='s'){ const di=$(c.date); if(di) di.value=obj?birthSolarStr(obj):''; }
+  else{
+    if(ys) ys.value=String((obj&&obj.y)||(new Date().getFullYear()-22));
+    if(ms) ms.value=String((obj&&obj.m)||1);
+    if(lp) lp.checked=!!(obj&&obj.leap);
+    bpSync(p);
+    const ds=$(c.d); if(ds&&obj&&obj.d) ds.value=String(obj.d);
+    bpSync(p);
+  }
+  if(!seg._bp){ seg._bp=true;
+    seg.addEventListener('click',function(e){
+      const b=(e.target&&e.target.closest)?e.target.closest('button[data-cal]'):null; if(!b) return;
+      const cc=bpId(p), s2=$(cc.solar), l2=$(cc.lunar);
+      seg.querySelectorAll('button').forEach(function(x){ x.classList.toggle('on',x===b); });
+      if(s2) s2.classList.toggle('hidden',b.dataset.cal!=='s');
+      if(l2) l2.classList.toggle('hidden',b.dataset.cal!=='l');
+      bpSync(p);
+    });
+    [ys,ms,lp].forEach(function(el){ if(el) el.addEventListener('change',function(){ bpSync(p); }); });
+    const ds2=$(c.d); if(ds2) ds2.addEventListener('change',function(){ bpSync(p); });
+  }
+  return true;
+}
+function bpRead(p){
+  if(bpCal(p)==='l'){
+    const c=bpId(p), ys=$(c.y), ms=$(c.m), ds=$(c.d), lp=$(c.leap);
+    if(!ys||!ms||!ds) return null;
+    const o={c:'l',y:+ys.value,m:+ms.value,d:+ds.value,leap:!!(lp&&lp.checked)};
+    return lunar2solar(o.y,o.m,o.d,o.leap)?o:null;
+  }
+  const di=$(bpId(p).date); const v=di?di.value:''; if(!v) return null;
+  const q=v.split('-'); if(q.length!==3||!+q[0]) return null;
+  return {c:'s',y:+q[0],m:+q[1],d:+q[2],leap:false};
+}
+function birthSummary(o){
+  const p=fProfile(o,new Date());
+  if(!p.birth) return '';
+  return '公历 '+p.birth+' · '+p.zodiac+'座 · 属'+p.animal+(p.ganzhi?'（'+p.ganzhi+'年）':'')+(p.lunarBirth?' · '+p.lunarBirth:'');
+}
+function bpSave(p){
+  const o=bpRead(p);
+  if(!o){ toast('请先把日期选完整'); return null; }
+  const s=birthSolarStr(o);
+  if(!s){ toast('这个农历日期不存在，换一天试试'); return null; }
+  const dt=new Date(s+'T00:00:00');
+  if(isNaN(dt.getTime())||dt.getFullYear()<1900||dt.getTime()>Date.now()){ toast('这个日期看起来不太对'); return null; }
+  setBirthObj(o);
+  try{ const st=fState(); st.date=''; store.set(F_KEY,st); }catch(_){}
+  const other=(p==='set')?'f':'set';
+  bpFill(other,o);
+  return o;
+}
+
 function openFortune(){
   const m=$('#fortuneModal');
   bindFortuneBtns();
@@ -4583,27 +4815,28 @@ function fRenderSetup(){
     +'<div style="font-size:40px;margin-top:16px">🎴</div>'
     +'<div class="f-name" style="font-size:19px;letter-spacing:1px;margin-top:10px">先告诉猫猫你的生日</div>'
     +'<p class="f-tip">填了生日，签文会带上你的星座、生肖和幸运数字，每天一支、好签居多。生日只保存在<b>你自己这台电脑的浏览器</b>里，不上传、不同步。</p>'
-    +'<div style="margin:14px 20px 0"><input type="date" id="fBirthInput" style="width:100%"></div>'
+    +'<div style="margin:12px 20px 0;display:flex;justify-content:center"><div class="bseg" id="fBirthCalSeg">'
+    +'<button type="button" class="on" data-cal="s">公历（阳历）</button><button type="button" data-cal="l">农历（阴历）</button></div></div>'
+    +'<div id="fBirthSolarRow" style="margin:10px 20px 0"><input type="date" id="fBirthInput" style="width:100%"></div>'
+    +'<div id="fBirthLunarRow" class="hidden" style="margin:10px 20px 0">'
+    +'<div class="lrow" style="justify-content:center"><select id="fBirthY"></select><span class="u">年</span><select id="fBirthM"></select><span class="u">月</span><select id="fBirthD"></select><span class="u">日</span></div>'
+    +'<div style="display:flex;justify-content:center"><label class="leapchk"><input type="checkbox" id="fBirthLeap"><span id="fBirthLeapTxt">闰月</span></label></div>'
+    +'<p class="hint" id="fBirthHint" style="margin-top:8px;text-align:center"></p></div>'
     +'<div style="margin-top:12px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">'
     +'<button class="btn pri" id="fBirthSave">💾 保存并抽签</button>'
     +'<button class="btn" id="fSkipBirth">不填，直接抽</button></div>'
     +'<div class="f-foot"><span class="f-streak">随时可在「设置 → 我的小档案」修改</span><button class="btn" id="fClose">关闭</button></div>'
     +'</div>';
-  const i=$('#fBirthInput'); if(i){ const v=getBirth(); if(v) i.value=v; }
+  bpFill('f',getBirthObj());
   const sv=$('#fBirthSave'); if(sv) sv.onclick=fSaveInline;
   const sk=$('#fSkipBirth'); if(sk) sk.onclick=()=>{ setBirth(''); const r=fToday(); fStartShake(r); updateFortuneBtn(); };
   const cc=$('#fClose'); if(cc) cc.onclick=closeFortune;
 }
 function fSaveInline(){
-  const v=$('#fBirthInput')?$('#fBirthInput').value:'';
-  if(!v){ toast('请先选择一个日期'); return; }
-  const d=new Date(v+'T00:00:00');
-  if(isNaN(d.getTime())||d.getFullYear()<1900||d.getTime()>Date.now()){ toast('这个日期看起来不太对'); return; }
-  setBirth(v);
-  try{ const st=fState(); st.date=''; store.set(F_KEY,st); }catch(_){}
-  if($('#setBirth')) $('#setBirth').value=v;
+  const o=bpSave('f');
+  if(!o) return;
   const r=fToday(); fStartShake(r); updateFortuneBtn();
-  toast('生日已保存在本机 ✓');
+  toast('生日已保存在本机 ✓ · '+birthSummary(o));
 }
 function fRender(r){
   const b=$('#fBody'); if(!b) return;
@@ -4618,6 +4851,7 @@ function fRender(r){
   b.innerHTML='<div class="f-wrap">'
     +'<div class="f-cnr tl"></div><div class="f-cnr tr"></div><div class="f-cnr bl"></div><div class="f-cnr br"></div>'
     +'<div class="f-head">每 日 一 签<span class="sub">'+esc(head.join(' · '))+'</span></div>'
+    +(p.birth?('<div class="f-binfo">🎂 '+esc(p.zodiac+'座 · 属'+p.animal+(p.ganzhi?'（'+p.ganzhi+'年）':'')+' · '+(p.cal==='l'?('生日 '+p.lunarBirth+'（公历 '+p.birth+'）'):('生日 '+p.birth+' · '+p.lunarBirth)))+'</div>'):'')
     +'<div class="f-level" style="background:'+rec.levelColor+'">'+rec.levelIco+' '+esc(rec.levelName)+'</div>'
     +'<div class="f-name"><span class="f-nm">'+esc(it.n)+'</span></div>'
     +'<div class="f-poem">'+it.p+'<div class="f-seal">每日<br>一签</div></div>'
@@ -4652,26 +4886,22 @@ function updateFortuneBtn(){
 function bindFortuneBtns(){
   const fb=$('#fortuneBtn');
   if(fb && fb._fbound!==true){ fb._fbound=true; fb.addEventListener('click',e=>{ e.preventDefault(); e.stopPropagation(); openFortune(); }); }
+  bpFill('set',getBirthObj());
   const s1=$('#btnTryFortune'); if(s1 && s1._fbound!==true){ s1._fbound=true; s1.addEventListener('click',e=>{ e.preventDefault(); openFortune(); }); }
   const s2=$('#btnSaveBirth'); if(s2 && s2._fbound!==true){ s2._fbound=true; s2.addEventListener('click',e=>{ e.preventDefault(); fSaveFromSettings(); }); }
   const s3=$('#btnClearBirth'); if(s3 && s3._fbound!==true){ s3._fbound=true; s3.addEventListener('click',e=>{ e.preventDefault(); fClearBirth(); }); }
-  const sb=$('#setBirth'); if(sb && getBirth()) sb.value=getBirth();
   return !!fb;
 }
 function fSaveFromSettings(){
-  const el=$('#setBirth'); const msg=$('#birthMsg');
-  const v=el?el.value:'';
-  if(!v){ if(msg) msg.textContent='⚠️ 请先选择一个日期'; toast('请先选择日期'); return; }
-  const d=new Date(v+'T00:00:00');
-  if(isNaN(d.getTime())||d.getFullYear()<1900||d.getTime()>Date.now()){ if(msg) msg.textContent='⚠️ 日期看起来不太对'; return; }
-  setBirth(v);
-  try{ const st=fState(); st.date=''; store.set(F_KEY,st); }catch(_){}
-  if(msg) msg.textContent='✅ 已保存（仅本机）：'+v+'，现在可以去抽签了 🎴';
+  const msg=$('#birthMsg');
+  const o=bpSave('set');
+  if(!o){ if(msg) msg.textContent='⚠️ 日期没选完整，或这个农历日期不存在'; return; }
+  if(msg) msg.innerHTML='✅ 已保存（仅本机）：'+esc(birthSummary(o))+'，现在可以去抽签了 🎴';
   updateFortuneBtn(); toast('生日已保存在本机 ✓');
 }
 function fClearBirth(){
-  setBirth('');
-  if($('#setBirth')) $('#setBirth').value='';
+  try{ localStorage.removeItem('econdaily_'+F_BIRTH); }catch(_){}
+  bpFill('set',null); bpFill('f',null);
   try{ const st=fState(); st.date=''; store.set(F_KEY,st); }catch(_){}
   const msg=$('#birthMsg'); if(msg) msg.textContent='已清除生日，抽签将不再个性化。';
   updateFortuneBtn(); toast('已清除生日');

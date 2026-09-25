@@ -36,7 +36,6 @@ header{position:sticky;top:0;z-index:50;background:rgba(255,254,251,.92);backdro
 .logo-line{display:flex;align-items:baseline;gap:2px}
 .tagline{font-weight:400;font-size:11.5px;color:var(--ink3);letter-spacing:.2px;white-space:nowrap}
 /* 多选筛选 chips（今日推荐：来源 / 方法） */
-#dailyRegionSeg{margin-bottom:0;flex-wrap:wrap}
 .filter-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:10px 0 2px;padding:8px 10px;background:var(--brand-soft);border-radius:10px}
 .filter-row .flabel{font-size:12.5px;font-weight:600;color:var(--ink2);margin-right:2px}
 .filter-row .fhint{font-size:11.5px;color:var(--ink3)}
@@ -169,6 +168,66 @@ html[data-theme="dark"] .set-tab:hover{background:#262a32}
 .jlist{display:grid;grid-template-columns:1fr 1fr;gap:6px}
 .jlist label{display:flex;align-items:center;gap:7px;font-weight:400;font-size:13px;margin:0;padding:5px 8px;border-radius:7px;cursor:pointer}
 .jlist label:hover{background:#efece4}
+/* ===== 期刊两级分类（学科大类 → 子学科） ===== */
+#journalChecks{display:block}
+#journalChecks label{display:inline-flex;align-items:center;gap:6px;font-family:var(--sans);font-size:12.5px;font-weight:400;margin:0;padding:4px 9px;border:1px solid var(--line);border-radius:8px;background:var(--card);cursor:pointer}
+#journalChecks label:hover{background:#efece4}
+#journalChecks label.on{background:var(--brand-soft);border-color:var(--brand)}
+#journalChecks label input{margin:0}
+#journalChecks .jcn{color:var(--ink3);font-size:11px}
+#journalChecks .jnew{background:var(--accent-soft);color:var(--accent);font-size:10.5px;border-radius:4px;padding:0 4px;margin-left:4px}
+.jbanner{display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:var(--accent-soft);border:1px solid #e5d5c8;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-family:var(--sans);font-size:13px}
+/* ---- 学科配色：经济学蓝 / 管理学绿 / 中国经管棕 / 工作论文灰 ---- */
+.c-intl{--cc:#185fa5}.c-mgmt{--cc:#0f6e56}.c-cn{--cc:#8a5a2b}.c-wp{--cc:#5a6472}
+.fcat{color:#fff;background:var(--cc)}
+.fchip.c-intl.on,.fchip.c-mgmt.on,.fchip.c-cn.on,.fchip.c-wp.on{background:var(--cc);border-color:var(--cc);color:#fff;font-weight:600}
+/* ---- 结构化筛选面板（今日推荐） ---- */
+.fpanel{border:1px solid var(--line);border-radius:12px;background:var(--card);margin:10px 0 14px;overflow:hidden}
+.frow{display:flex;gap:12px;align-items:flex-start;padding:9px 13px;border-bottom:1px solid var(--line)}
+.frow:last-child{border-bottom:none}
+.frow .fk{flex:0 0 60px;font-family:var(--sans);font-size:12.5px;font-weight:600;color:var(--ink2);padding-top:5px}
+.frow .fv{flex:1;min-width:0;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.frow .fv .seg{margin-bottom:0}
+.fsubwrap{width:100%;display:flex;flex-direction:column;gap:6px;margin-top:2px}
+.fsubline{display:flex;gap:8px;align-items:flex-start;padding:6px 10px;border-radius:9px;background:var(--brand-soft);border-left:3px solid var(--cc)}
+.fsubline .fcat{flex:0 0 auto;font-family:var(--sans);font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:6px;margin-top:2px}
+.fsubline .fsubs{flex:1;min-width:0;display:flex;flex-wrap:wrap;gap:5px}
+.fsubline .fn{margin-left:auto;font-size:11px;color:var(--ink3);white-space:nowrap;padding-top:3px}
+.fsubsum{width:100%;font-size:11.5px;color:var(--ink3);line-height:1.7}
+.fsubsum b{color:var(--cc)}
+/* ---- 设置页：期刊分类卡片化 ---- */
+.jtools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px;padding:9px 11px;background:var(--brand-soft);border-radius:10px}
+.jtools input[type=text]{flex:1;min-width:160px;padding:6px 10px;border:1px solid var(--line);border-radius:8px;font-size:12.5px;background:var(--card);color:var(--ink);font-family:var(--sans)}
+.jtools .mini,.jcathead .cops .mini{font-family:var(--sans);font-size:11.5px;color:var(--brand);background:var(--card);border:1px solid var(--line);border-radius:7px;padding:4px 9px;cursor:pointer}
+.jtools .mini:hover,.jcathead .cops .mini:hover{border-color:var(--brand)}
+.jtools .mini.on{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:600}
+.jcatcard{border:1px solid var(--line);border-radius:11px;margin-bottom:11px;overflow:hidden;background:var(--card)}
+.jcathead{display:flex;align-items:center;gap:9px;padding:9px 12px;cursor:pointer;background:var(--brand-soft);border-left:4px solid var(--cc)}
+.jcathead .car{font-size:11px;color:var(--ink3);width:10px}
+.jcathead .cn{font-family:var(--sans);font-size:13.5px;font-weight:700;color:var(--ink)}
+.jcathead .cs{font-size:11.5px;color:var(--ink3)}
+.jcathead .cops{margin-left:auto;display:flex;gap:7px}
+.jcatcard.closed .jcatbody{display:none}
+.jcatbody{padding:8px 11px 10px;display:flex;flex-direction:column;gap:6px}
+.jsub{border:1px solid var(--line);border-radius:9px;background:var(--card);overflow:hidden}
+.jsub.hide{display:none}
+.jsubhead{display:flex;align-items:center;gap:8px;padding:7px 10px;cursor:pointer;background:#fbf9f5}
+.jsubhead:hover{background:var(--brand-soft)}
+.jsubhead .jt{font-family:var(--sans);font-size:12.5px;font-weight:600;color:var(--ink)}
+.jsubhead .r{margin-left:auto;font-size:11.5px;color:var(--ink3);font-weight:400;white-space:nowrap}
+.jbar{flex:0 0 42px;height:5px;border-radius:3px;background:var(--line);overflow:hidden}
+.jbar i{display:block;height:100%;background:var(--cc,#185fa5)}
+.jgrp{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:9px 10px;border-top:1px solid var(--line);margin:0 10px 9px 18px;border-left:2px solid var(--line);border-bottom-left-radius:6px}
+.jgrp.hidden{display:none}
+.jops{width:100%;grid-column:1/-1;display:flex;gap:14px;padding:2px 0 0}
+.jops .mini{font-family:var(--sans);font-size:11.5px;color:var(--brand);background:none;border:none;padding:0;cursor:pointer}
+.jops .mini:hover{text-decoration:underline}
+#journalChecks mark{background:#ffe6a3;color:inherit;padding:0 1px;border-radius:2px}
+html[data-theme="dark"] #journalChecks label.on{background:#243a52}
+html[data-theme="dark"] .jbanner{border-color:#4a3b2c}
+html[data-theme="dark"] .jsubhead{background:#23262c}
+html[data-theme="dark"] .jcathead{background:#20242b}
+html[data-theme="dark"] #journalChecks mark{background:#5a4a1e;color:#ffe6a3}
 .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);background:#1a2233;color:#fff;padding:10px 20px;border-radius:10px;font-size:13px;z-index:99;opacity:0;transition:.3s;pointer-events:none}
 .toast.show{opacity:1}
 footer{text-align:center;color:var(--ink3);font-size:12px;padding:26px 0 34px;line-height:1.8}
@@ -283,6 +342,50 @@ footer{text-align:center;color:var(--ink3);font-size:12px;padding:26px 0 34px;li
 .modal{position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:85;display:flex;align-items:center;justify-content:center;padding:20px}
 .modal.hidden{display:none}
 .modal .box{background:#fff;border-radius:16px;max-width:700px;width:100%;max-height:86vh;overflow:auto;padding:22px}
+/* ===== 使用指引 ===== */
+.guide-box{max-width:840px!important;padding:0;display:flex;flex-direction:column;max-height:88vh}
+.guide-head{display:flex;align-items:center;gap:10px;padding:16px 22px 12px;border-bottom:1px solid var(--line)}
+.guide-head h3{margin:0;font-size:18px;flex:1;font-family:var(--sans)}
+.guide-nav{display:flex;gap:7px;flex-wrap:wrap;padding:12px 22px 0}
+.gnav{font-family:var(--sans);font-size:12.5px;padding:6px 13px;border-radius:999px;background:#f2efe8;border:1px solid var(--line);color:var(--ink2)}
+.gnav.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.guide-body{padding:14px 22px 18px;overflow:auto}
+.gsec{display:none;font-family:var(--sans);font-size:13.5px;line-height:1.78;color:var(--ink2)}
+.gsec.on{display:block}
+.gsec h4{font-family:var(--sans);font-size:15px;color:var(--ink);margin:16px 0 8px}
+.gsec h4:first-child{margin-top:2px}
+.gsec p{margin:0 0 10px}
+.gsec b{color:var(--ink)}
+.glead{background:var(--brand-soft);border-left:3px solid var(--brand);border-radius:8px;padding:12px 14px;color:var(--ink);margin-bottom:14px}
+.gsteps{display:flex;flex-direction:column;gap:11px}
+.gstep{display:flex;gap:11px;align-items:flex-start}
+.gstep .n{flex:none;width:24px;height:24px;border-radius:50%;background:var(--brand);color:#fff;font-size:12.5px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.gstep .t{flex:1}
+.gstep .t b{display:block;color:var(--ink);margin-bottom:2px}
+.gtable{width:100%;border-collapse:collapse}
+.gtable td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.gtable tr:last-child td{border-bottom:none}
+.gtable td.k{white-space:nowrap;width:118px;color:var(--ink);font-weight:600}
+.gqa{border-bottom:1px solid var(--line);padding:10px 0}
+.gqa:last-child{border-bottom:none}
+.gqa .q{color:var(--ink);font-weight:600;margin-bottom:3px}
+.glist{margin:0 0 10px;padding-left:18px}
+.glist li{margin-bottom:5px}
+.gtips{margin-top:14px;background:var(--green-soft);border-radius:8px;padding:11px 13px;color:var(--green);font-size:12.5px}
+.guide-foot{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 22px;border-top:1px solid var(--line)}
+.guide-foot .sp{flex:1}
+.guide-foot label{display:flex;align-items:center;gap:6px;font-family:var(--sans);font-size:12.5px;color:var(--ink2);cursor:pointer;font-weight:400;margin:0}
+.guide-foot input{width:auto;margin:0}
+.guide-btn{font-family:var(--sans);font-size:12.5px;padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--brand);white-space:nowrap}
+.guide-btn:hover{background:var(--brand-soft)}
+html[data-theme="dark"] .gnav{background:#262a32;border-color:var(--line);color:var(--ink2)}
+html[data-theme="dark"] .gnav.on{background:var(--brand2)}
+html[data-theme="dark"] .glead{background:#223049}
+html[data-theme="dark"] .gtips{background:#1d3326;color:#9ad3ac}
+html[data-theme="dark"] .guide-btn{background:#262a32;color:var(--ink2)}
+.guide-btn.pulse{border-color:var(--brand);animation:gpulse 2.2s ease-in-out infinite}
+@keyframes gpulse{0%,100%{box-shadow:0 0 0 0 rgba(31,58,95,.38)}50%{box-shadow:0 0 0 7px rgba(31,58,95,0)}}
+@media(max-width:560px){.guide-head,.guide-nav,.guide-foot{padding-left:16px;padding-right:16px}.guide-body{padding:12px 16px 16px}.gtable td.k{width:96px}}
 /* 自定义确认/输入弹窗（替代原生 confirm/prompt，兼容 iframe 沙箱环境） */
 .ask-box{max-width:420px!important}
 .ask-box h3{margin:0 0 8px;font-size:17px}
@@ -392,6 +495,7 @@ html[data-theme="dark"] .f-tip{color:#a89472}
 .danmu-bar{position:relative;height:98px;overflow:hidden;background:linear-gradient(90deg,#f4f7fc 0%,#eaf1fa 55%,#f4f7fc 100%);border-bottom:1px solid var(--line)}
 .danmu-bar.off{display:none}
 .danmu-lane{position:absolute;left:0;right:0;height:30px}
+.danmu-lane.l1{top:8px}.danmu-lane.l2{top:38px}.danmu-lane.l3{top:68px}
 .danmu-item{position:absolute;left:100%;top:0;white-space:nowrap;display:inline-flex;align-items:center;gap:7px;
   background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 13px;font-size:12.8px;color:var(--ink);
   box-shadow:0 3px 10px rgba(30,40,60,.09);animation:dfly 18s linear forwards;cursor:pointer;transition:border-color .15s}
@@ -415,6 +519,28 @@ html[data-theme="dark"] .f-tip{color:#a89472}
 .danmu-fold-tip b{color:var(--brand2);font-weight:700}
 .danmu-fold-tip .fold-open{color:var(--brand2);text-decoration:underline;text-underline-offset:2px}
 .btn-fold{min-width:74px;justify-content:center}
+/* —— 弹幕位置：顶部（原位置）/ 页面底部 / 右下角悬浮 —— */
+.danmu-bar.pos-top{position:relative}
+.danmu-bar.pos-bottom{position:relative;border-bottom:none;border-top:1px solid var(--line);margin-top:16px}
+.danmu-bar.pos-float{position:fixed;right:16px;bottom:16px;z-index:70;width:326px;height:176px;
+  border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 30px rgba(30,40,60,.16)}
+.danmu-bar.pos-float .danmu-lane{left:12px;right:12px}
+.danmu-bar.pos-float .l1{top:42px}.danmu-bar.pos-float .l2{top:74px}.danmu-bar.pos-float .l3{top:106px}
+.danmu-bar.pos-float .danmu-item{animation-name:dflyw}
+@keyframes dflyw{from{transform:translateX(0)}to{transform:translateX(calc(-100% - 330px))}}
+.danmu-bar.pos-float .danmu-side{right:10px;top:9px;transform:none}
+.danmu-bar.pos-float .danmu-side .btn{padding:4px 9px;font-size:12px}
+.danmu-bar.pos-float .danmu-empty{left:14px;top:46px;transform:none;font-size:12px}
+.danmu-bar.pos-float .danmu-fold-tip{display:none}
+.danmu-title{display:none;position:absolute;left:14px;top:13px;align-items:center;gap:6px;
+  font-family:var(--sans);font-size:12.5px;font-weight:700;color:var(--ink2)}
+.danmu-title b{color:var(--brand2)}
+.danmu-bar.pos-float .danmu-title{display:flex}
+.danmu-bar.pos-float.folded{height:50px}
+.danmu-bar.pos-float.folded .danmu-lane,.danmu-bar.pos-float.folded .danmu-empty{display:none}
+.dmpos{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12.5px;color:var(--ink3);margin-top:2px}
+.dmpos .mini{font-family:var(--sans);font-size:11.5px;color:var(--brand);background:var(--card);border:1px solid var(--line);border-radius:7px;padding:3px 9px;cursor:pointer}
+.dmpos .mini.on{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:600}
 .wall-box{max-width:620px!important}
 .wall-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:10px}
 .wall-mode{font-size:12px;border-radius:999px;padding:3px 10px;background:var(--brand-soft);color:var(--ink2)}
@@ -443,7 +569,9 @@ html[data-theme="dark"] .dm-t-good{background:rgba(80,200,130,.16);color:#79d19b
 html[data-theme="dark"] .dm-t-idea{background:rgba(90,150,240,.16);color:#8fb6f2}
 html[data-theme="dark"] .dm-t-ask{background:rgba(230,170,70,.16);color:#e2b673}
 html[data-theme="dark"] .dm-t-bug{background:rgba(230,105,92,.16);color:#e89083}
-@media(max-width:560px){.danmu-bar{height:84px}.danmu-side{right:8px}.danmu-lane:nth-of-type(3){display:none}}
+@media(max-width:560px){.danmu-bar{height:84px}.danmu-side{right:8px}.danmu-lane:nth-of-type(3){display:none}
+  .danmu-bar.pos-float{left:10px;right:10px;width:auto;height:132px;bottom:10px}
+  .danmu-bar.pos-float .l1{top:38px}.danmu-bar.pos-float .l2{top:66px}.danmu-bar.pos-float .l3{top:94px}}
 
 /* ===== 我的笔记（富文本，仿飞书云文档） ===== */
 .notes-wrap{display:grid;grid-template-columns:250px 1fr;gap:16px;align-items:start}
@@ -619,6 +747,7 @@ html[data-theme="dark"] .ph-x:hover{background:#3d424c}
     <button data-tab="notes">📒 我的笔记</button>
     <button data-tab="setting">⚙️ 设置</button>
   </nav>
+  <button class="guide-btn" id="btnGuide" type="button" title="第一次来？看看这个网站怎么用">❓ 使用指引</button>
   <div class="searchwrap">
     <input type="text" id="globalSearch" placeholder="🔍 搜索我的笔记 / 文件夹…">
     <div id="searchResults" class="search-results hidden"></div>
@@ -626,9 +755,10 @@ html[data-theme="dark"] .ph-x:hover{background:#3d424c}
 </div></header>
 
 <div id="danmuBar" class="danmu-bar off">
-  <div class="danmu-lane" style="top:8px"></div>
-  <div class="danmu-lane" style="top:38px"></div>
-  <div class="danmu-lane" style="top:68px"></div>
+  <div class="danmu-title">💬 留言墙 · <b id="danmuTitleCount">0</b> 条</div>
+  <div class="danmu-lane l1"></div>
+  <div class="danmu-lane l2"></div>
+  <div class="danmu-lane l3"></div>
   <div class="danmu-empty" id="danmuEmpty">还没有人留言，来当第一个吧 💬</div>
   <div class="danmu-fold-tip" id="danmuFoldTip"><span>💬 弹幕已收起 · 共 <b id="danmuFoldCount">0</b> 条留言</span><span class="fold-open">点击展开</span></div>
   <div class="danmu-side">
@@ -655,12 +785,6 @@ html[data-theme="dark"] .ph-x:hover{background:#3d424c}
   </div>
   <div id="dailyJournalView">
   <div class="toolbar">
-    <div class="seg" id="dailyRegionSeg" title="可多选（各来源按期刊归属严格互斥、不重不漏）">
-      <button type="button" class="on" data-region="intl" title="国际经济学顶刊">🌐 国际经济学</button>
-      <button type="button" class="on" data-region="mgmt" title="管理学顶刊">📊 管理学</button>
-      <button type="button" class="on" data-region="cn" title="中国经济/管理研究（英文刊）">🇨🇳 中国研究</button>
-      <button type="button" class="on" data-region="wp" title="NBER 工作论文">📝 NBER</button>
-    </div>
     <select id="dailyDays">
       <option value="14">近 2 周</option>
       <option value="30" selected>近 1 个月</option>
@@ -676,9 +800,15 @@ html[data-theme="dark"] .ph-x:hover{background:#3d424c}
     <button class="btn" id="btnDigest" title="需要在设置中配置 AI 接口">✨ AI 生成今日导读</button>
     <button class="btn pri" id="btnRefresh">↻ 刷新</button>
   </div>
-  <div class="filter-row" id="dailyMethodRow">
-    <span class="flabel">研究方法</span>
-    <span class="fhint" id="methodHint">（可多选，点选生效 · 未选=全部）</span>
+  <div class="fpanel">
+    <div class="frow" id="dailySubRow">
+      <span class="fk">学科范围</span>
+      <div class="fv"><span class="fhint">（可多选 · 未选=全部学科）</span></div>
+    </div>
+    <div class="frow" id="dailyMethodRow">
+      <span class="fk">研究方法</span>
+      <div class="fv"><span class="fhint" id="methodHint">（可多选，点选生效 · 未选=全部）</span></div>
+    </div>
   </div>
 
   <div id="digestBox" class="card ai-panel hidden">
@@ -898,7 +1028,16 @@ html[data-theme="dark"] .ph-x:hover{background:#3d424c}
   <div class="set-grid sg1">
     <div class="card set-card">
       <h3>📚 追踪的期刊</h3>
-      <div class="jlist" id="journalChecks"></div>
+      <p style="font-size:12.5px;color:var(--ink3);margin:0 0 8px">按「学科大类 → 子学科」分组，共 <b id="jTotal">160</b> 本 / <b id="jSubTotal">27</b> 个子学科。点大类折叠、点子学科展开勾选。今日推荐的「学科范围」按学科归为两行：**经济学** = 国际经济学顶刊 + 工作论文 + 中国经济；**管理学** = 管理学期刊 + 中国管理（MOR）。</p>
+      <div class="jtools">
+        <input type="text" id="jSearch" placeholder="🔍 搜索期刊名 / 中文名 / 子学科…">
+        <button type="button" class="mini on" data-jf="all">全部</button>
+        <button type="button" class="mini" data-jf="sel">已选</button>
+        <button type="button" class="mini" data-jf="new">新刊</button>
+        <button type="button" class="mini" id="jExpandAll">全部展开</button>
+        <button type="button" class="mini" id="jCollapseAll">全部收起</button>
+      </div>
+      <div id="journalChecks"></div>
       <p class="hint" style="margin-top:10px">勾选后「今日推荐」将聚合这些期刊的最新论文。</p>
       <div style="margin-top:10px"><button class="btn" id="btnRestoreJournals">📥 恢复默认高质量期刊（含中英文顶刊）</button></div>
     </div>
@@ -1076,11 +1215,18 @@ create policy "own_notes" on econdaily_notes
   <div class="set-grid sg1">
     <div class="card set-card">
       <h3>💬 留言墙（免登录 · 弹幕滚动）</h3>
-      <p class="hint">访客<b>不用登录</b>就能在网页顶部留下评价，会以弹幕形式滚动播放，其他人可以「👍 点赞」、作者可以点「✅ 已解决」。当前状态：<b id="wallStatusTxt">检测中…</b></p>
+      <p class="hint">访客<b>不用登录</b>就能留下评价，会以弹幕形式滚动播放，其他人可以「👍 点赞」、作者可以点「✅ 已解决」。当前状态：<b id="wallStatusTxt">检测中…</b></p>
       <label style="display:flex;align-items:center;gap:8px;margin-top:12px;cursor:pointer;font-weight:600">
         <input type="checkbox" id="setShowDanmu" style="width:auto;margin:0">
-        <span>在页面顶部显示弹幕留言条</span>
+        <span>显示弹幕留言条</span>
       </label>
+      <div class="dmpos" style="margin-top:8px;margin-left:26px">
+        <span>弹幕位置：</span>
+        <button type="button" class="mini dmpos-btn" data-pos="float">右下角悬浮（推荐）</button>
+        <button type="button" class="mini dmpos-btn" data-pos="bottom">页面底部</button>
+        <button type="button" class="mini dmpos-btn" data-pos="top">页面顶部</button>
+        <span class="hint" style="margin-left:4px">切换后立即生效并记住</span>
+      </div>
       <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
         <button class="btn pri" id="btnOpenWall2">💬 打开留言墙</button>
         <button class="btn" id="btnCopyWallSql">📋 复制建表 SQL</button>
@@ -1154,93 +1300,170 @@ grant execute on function wall_resolve(bigint, boolean) to anon, authenticated;<
 <script>
 /* ================= 配置 ================= */
 const JOURNALS = [
- {key:"aer",   name:"American Economic Review", cn:"美国经济评论", issn:"0002-8282", region:"intl", def:true},
- {key:"aeri",  name:"AER: Insights",            cn:"AER 洞见",     issn:"2640-205X", region:"intl", def:false},
- {key:"qje",   name:"Quarterly Journal of Economics", cn:"经济学季刊(QJE)", issn:"0033-5533", region:"intl", def:true},
- {key:"jpe",   name:"Journal of Political Economy", cn:"政治经济学杂志", issn:"0022-3808", region:"intl", def:true},
- {key:"ecta",  name:"Econometrica",             cn:"计量经济学",   issn:"0012-9682", region:"intl", def:true},
- {key:"restud",name:"Review of Economic Studies", cn:"经济研究评论", issn:"0034-6527", region:"intl", def:true},
- {key:"aejapp",name:"AEJ: Applied Economics",   cn:"AEJ 应用经济", issn:"1945-7782", region:"intl", def:true},
- {key:"aejmac",name:"AEJ: Macroeconomics",      cn:"AEJ 宏观",     issn:"1945-7707", region:"intl", def:false},
- {key:"aejmic",name:"AEJ: Microeconomics",      cn:"AEJ 微观",     issn:"1945-7669", region:"intl", def:false},
- {key:"aejpol",name:"AEJ: Economic Policy",     cn:"AEJ 经济政策", issn:"1945-7731", region:"intl", def:true},
- {key:"jel",   name:"Journal of Economic Literature", cn:"经济文献杂志", issn:"0022-0515", region:"intl", def:false},
- {key:"jep",   name:"Journal of Economic Perspectives", cn:"经济展望杂志", issn:"0895-3309", region:"intl", def:false},
- {key:"jof",   name:"Journal of Finance",       cn:"金融学杂志",   issn:"0022-1082", region:"intl", def:false},
- {key:"jfe",   name:"Journal of Financial Economics", cn:"金融经济学杂志", issn:"0304-405X", region:"intl", def:false},
- {key:"jde",   name:"Journal of Development Economics", cn:"发展经济学杂志", issn:"0304-3878", region:"intl", def:false},
- {key:"jme",   name:"Journal of Monetary Economics", cn:"货币经济学杂志", issn:"0304-3932", region:"intl", def:true},
- {key:"jpub",  name:"Journal of Public Economics", cn:"公共经济学杂志", issn:"0047-2727", region:"intl", def:true},
- {key:"jlab",  name:"Journal of Labor Economics", cn:"劳动经济学杂志", issn:"0734-306X", region:"intl", def:true},
- {key:"jint",  name:"Journal of International Economics", cn:"国际经济学杂志", issn:"0022-1996", region:"intl", def:true},
- {key:"jeth",  name:"Journal of Economic Theory", cn:"经济理论杂志", issn:"0022-0531", region:"intl", def:true},
- {key:"rand",  name:"RAND Journal of Economics", cn:"RAND 经济学期刊", issn:"0741-6261", region:"intl", def:true},
- {key:"eer",   name:"European Economic Review", cn:"欧洲经济评论", issn:"0014-2921", region:"intl", def:false},
- {key:"ej",    name:"The Economic Journal", cn:"经济学期刊", issn:"0013-0133", region:"intl", def:false},
- {key:"jce2",  name:"Journal of Comparative Economics", cn:"比较经济学杂志", issn:"0147-5967", region:"intl", def:false},
- {key:"jhe",   name:"Journal of Health Economics", cn:"健康经济学杂志", issn:"0167-6296", region:"intl", def:false},
- {key:"jeem",  name:"Journal of Environmental Economics and Management", cn:"环境经济与管理杂志", issn:"0095-0696", region:"intl", def:false},
- {key:"geb",   name:"Games and Economic Behavior", cn:"博弈与经济行为", issn:"0899-8256", region:"intl", def:false},
- {key:"jebo",  name:"Journal of Economic Behavior & Organization", cn:"经济行为与组织杂志", issn:"0167-2681", region:"intl", def:false},
- {key:"joe",   name:"Journal of Econometrics", cn:"计量经济学期刊", issn:"0304-4076", region:"intl", def:false},
- {key:"jbes",  name:"Journal of Business & Economic Statistics", cn:"商业与经济统计期刊", issn:"0735-0015", region:"intl", def:false},
- {key:"jaecon",name:"Journal of Applied Econometrics", cn:"应用计量经济学期刊", issn:"0883-7252", region:"intl", def:false},
- {key:"qe",    name:"Quantitative Economics", cn:"数量经济学", issn:"1759-7323", region:"intl", def:false},
- {key:"restat",name:"Review of Economics and Statistics", cn:"经济学与统计学评论", issn:"0034-6535", region:"intl", def:false},
- {key:"jeea",  name:"Journal of the European Economic Association", cn:"欧洲经济学会期刊", issn:"1542-4766", region:"intl", def:false},
- {key:"ecopol",name:"Economic Policy", cn:"经济政策", issn:"0266-4658", region:"intl", def:false},
- {key:"ier",   name:"International Economic Review", cn:"国际经济评论", issn:"0020-6598", region:"intl", def:false},
- {key:"jeg",   name:"Journal of Economic Growth", cn:"经济增长期刊", issn:"1381-4338", region:"intl", def:false},
- {key:"rfs",   name:"Review of Financial Studies", cn:"金融研究评论", issn:"0893-9454", region:"intl", def:true},
- {key:"jfqa",  name:"Journal of Financial and Quantitative Analysis", cn:"金融与量化分析期刊", issn:"0022-1090", region:"intl", def:true},
- {key:"jcf",   name:"Journal of Corporate Finance", cn:"公司金融期刊", issn:"0929-1199", region:"intl", def:false},
- {key:"jbf",   name:"Journal of Banking & Finance", cn:"银行与金融期刊", issn:"0378-4266", region:"intl", def:false},
- {key:"mathfin",name:"Mathematical Finance", cn:"数理金融", issn:"0960-1627", region:"intl", def:false},
- {key:"cer",   name:"China Economic Review",    cn:"中国经济评论", issn:"1043-951X", region:"cn", def:true},
- {key:"cwe",   name:"China & World Economy",    cn:"中国与世界经济", issn:"1671-2234", region:"cn", def:true},
- {key:"jcebs", name:"J. of Chinese Economic & Business Studies", cn:"中国经济与商业研究", issn:"1476-5284", region:"cn", def:false},
- {key:"nber",  name:"NBER Working Papers",      cn:"NBER 工作论文", sourceId:"S2809516038", region:"wp", def:true},
- /* ===== 管理学顶刊（英文，已核实 OpenAlex 收录） ===== */
- {key:"ms",    name:"Management Science",        cn:"管理科学",     issn:"0025-1909", region:"mgmt", def:true},
- {key:"or",    name:"Operations Research",       cn:"运筹学",       issn:"0030-364X", region:"mgmt", def:true},
- {key:"msom",  name:"Mfg & Service Operations Management", cn:"制造与服务运作管理", issn:"1523-4614", region:"mgmt", def:false},
- {key:"amj",   name:"Academy of Management Journal", cn:"管理学会期刊", issn:"0001-4273", region:"mgmt", def:true},
- {key:"amr",   name:"Academy of Management Review",  cn:"管理学会评论", issn:"0363-7425", region:"mgmt", def:false},
- {key:"asq",   name:"Administrative Science Quarterly", cn:"管理科学季刊", issn:"0001-8392", region:"mgmt", def:true},
- {key:"orgsci",name:"Organization Science",      cn:"组织科学",     issn:"1047-7039", region:"mgmt", def:true},
- {key:"jom",   name:"Journal of Management",     cn:"管理学期刊",   issn:"0149-2063", region:"mgmt", def:false},
- {key:"jms",   name:"Journal of Management Studies", cn:"管理研究期刊", issn:"0022-2380", region:"mgmt", def:false},
- {key:"smj",   name:"Strategic Management Journal", cn:"战略管理期刊", issn:"0143-2095", region:"mgmt", def:true},
- {key:"jm",    name:"Journal of Marketing",      cn:"营销学期刊",   issn:"0022-2429", region:"mgmt", def:true},
- {key:"jmr",   name:"Journal of Marketing Research", cn:"营销研究期刊", issn:"0022-2437", region:"mgmt", def:true},
- {key:"mksci", name:"Marketing Science",         cn:"营销科学",     issn:"0732-2399", region:"mgmt", def:true},
- {key:"rof",   name:"Review of Finance",         cn:"金融评论",     issn:"1572-3097", region:"mgmt", def:false},
- {key:"jae",   name:"Journal of Accounting and Economics", cn:"会计与经济学刊", issn:"0165-4101", region:"mgmt", def:true},
- {key:"tar",   name:"The Accounting Review",     cn:"会计评论",     issn:"0001-4826", region:"mgmt", def:true},
- {key:"jar",   name:"Journal of Accounting Research", cn:"会计研究期刊", issn:"0021-8456", region:"mgmt", def:false},
- {key:"jibs",  name:"Journal of International Business Studies", cn:"国际商务研究期刊", issn:"0047-2506", region:"mgmt", def:true},
- {key:"misq",  name:"MIS Quarterly", cn:"管理信息系统季刊", issn:"0276-7783", region:"mgmt", def:true},
- {key:"isr",   name:"Information Systems Research", cn:"信息系统研究", issn:"1047-7047", region:"mgmt", def:true},
- {key:"jcr",   name:"Journal of Consumer Research", cn:"消费者研究期刊", issn:"0093-5301", region:"mgmt", def:true},
- {key:"jams",  name:"Journal of the Academy of Marketing Science", cn:"营销科学学会期刊", issn:"0092-0703", region:"mgmt", def:true},
- {key:"jr",    name:"Journal of Retailing", cn:"零售学期刊", issn:"0022-4359", region:"mgmt", def:false},
- {key:"jbv",   name:"Journal of Business Venturing", cn:"创业学期刊", issn:"0883-9026", region:"mgmt", def:false},
- {key:"etp",   name:"Entrepreneurship Theory and Practice", cn:"创业理论与实践", issn:"1042-2587", region:"mgmt", def:false},
- {key:"pp",    name:"Personnel Psychology", cn:"人事心理学", issn:"0031-5826", region:"mgmt", def:false},
- {key:"jap",   name:"Journal of Applied Psychology", cn:"应用心理学期刊", issn:"0021-9010", region:"mgmt", def:false},
- {key:"job",   name:"Journal of Organizational Behavior", cn:"组织行为期刊", issn:"0894-3796", region:"mgmt", def:false},
- {key:"jmis",  name:"Journal of Management Information Systems", cn:"管理信息系统期刊", issn:"0742-1222", region:"mgmt", def:false},
- {key:"pom",   name:"Production and Operations Management", cn:"生产与运作管理", issn:"1059-1478", region:"mgmt", def:true},
- {key:"jomops",name:"Journal of Operations Management", cn:"运作管理期刊", issn:"0272-6963", region:"mgmt", def:false},
- {key:"sej",   name:"Strategic Entrepreneurship Journal", cn:"战略创业期刊", issn:"1932-4391", region:"mgmt", def:false},
- {key:"gsj",   name:"Global Strategy Journal", cn:"全球战略期刊", issn:"2042-5791", region:"mgmt", def:false},
- {key:"lrp",   name:"Long Range Planning", cn:"长远规划", issn:"0024-6301", region:"mgmt", def:false},
- {key:"cmr",   name:"California Management Review", cn:"加州管理评论", issn:"0008-1256", region:"mgmt", def:false},
- {key:"amp",   name:"Academy of Management Perspectives", cn:"管理学会视野", issn:"1558-9080", region:"mgmt", def:false},
- {key:"obhdp", name:"Organizational Behavior and Human Decision Processes", cn:"组织行为与人类决策过程", issn:"0749-5978", region:"mgmt", def:true},
- {key:"rp",    name:"Research Policy", cn:"研究政策", issn:"0048-7333", region:"mgmt", def:false},
- {key:"tech",  name:"Technovation", cn:"技术创新", issn:"0166-4972", region:"mgmt", def:false},
- {key:"jpim",  name:"Journal of Product Innovation Management", cn:"产品创新管理期刊", issn:"0737-6782", region:"mgmt", def:false},
+ /* ===== 经济学（含金融学等子学科） ===== */
+ {key:"aer", name:"American Economic Review", cn:"美国经济评论", issn:"0002-8282", region:"intl", def:true, sub:"综合 Top"},
+ {key:"aeri", name:"AER: Insights", cn:"AER 洞见", issn:"2640-205X", region:"intl", def:false, sub:"综合 Top"},
+ {key:"qje", name:"Quarterly Journal of Economics", cn:"经济学季刊(QJE)", issn:"0033-5533", region:"intl", def:true, sub:"综合 Top"},
+ {key:"jpe", name:"Journal of Political Economy", cn:"政治经济学杂志", issn:"0022-3808", region:"intl", def:true, sub:"综合 Top"},
+ {key:"ecta", name:"Econometrica", cn:"计量经济学", issn:"0012-9682", region:"intl", def:true, sub:"综合 Top"},
+ {key:"restud", name:"Review of Economic Studies", cn:"经济研究评论", issn:"0034-6527", region:"intl", def:true, sub:"综合 Top"},
+ {key:"aejapp", name:"AEJ: Applied Economics", cn:"AEJ 应用经济", issn:"1945-7782", region:"intl", def:true, sub:"综合 Top"},
+ {key:"aejmac", name:"AEJ: Macroeconomics", cn:"AEJ 宏观", issn:"1945-7707", region:"intl", def:false, sub:"宏观与货币"},
+ {key:"aejmic", name:"AEJ: Microeconomics", cn:"AEJ 微观", issn:"1945-7669", region:"intl", def:false, sub:"微观理论与产业组织"},
+ {key:"aejpol", name:"AEJ: Economic Policy", cn:"AEJ 经济政策", issn:"1945-7731", region:"intl", def:true, sub:"综合 Top"},
+ {key:"jel", name:"Journal of Economic Literature", cn:"经济文献杂志", issn:"0022-0515", region:"intl", def:false, sub:"综合 Top"},
+ {key:"jep", name:"Journal of Economic Perspectives", cn:"经济展望杂志", issn:"0895-3309", region:"intl", def:false, sub:"综合 Top"},
+ {key:"jof", name:"Journal of Finance", cn:"金融学杂志", issn:"0022-1082", region:"intl", def:false, sub:"金融学"},
+ {key:"jfe", name:"Journal of Financial Economics", cn:"金融经济学杂志", issn:"0304-405X", region:"intl", def:false, sub:"金融学"},
+ {key:"jde", name:"Journal of Development Economics", cn:"发展经济学杂志", issn:"0304-3878", region:"intl", def:false, sub:"发展经济学"},
+ {key:"jme", name:"Journal of Monetary Economics", cn:"货币经济学杂志", issn:"0304-3932", region:"intl", def:true, sub:"宏观与货币"},
+ {key:"jpub", name:"Journal of Public Economics", cn:"公共经济学杂志", issn:"0047-2727", region:"intl", def:true, sub:"公共与政策"},
+ {key:"jlab", name:"Journal of Labor Economics", cn:"劳动经济学杂志", issn:"0734-306X", region:"intl", def:true, sub:"劳动与人口"},
+ {key:"jint", name:"Journal of International Economics", cn:"国际经济学杂志", issn:"0022-1996", region:"intl", def:true, sub:"国际金融与贸易"},
+ {key:"jeth", name:"Journal of Economic Theory", cn:"经济理论杂志", issn:"0022-0531", region:"intl", def:true, sub:"微观理论与产业组织"},
+ {key:"rand", name:"RAND Journal of Economics", cn:"RAND 经济学期刊", issn:"0741-6261", region:"intl", def:true, sub:"微观理论与产业组织"},
+ {key:"eer", name:"European Economic Review", cn:"欧洲经济评论", issn:"0014-2921", region:"intl", def:false, sub:"综合 Top"},
+ {key:"ej", name:"The Economic Journal", cn:"经济学期刊", issn:"0013-0133", region:"intl", def:false, sub:"综合 Top"},
+ {key:"jce2", name:"Journal of Comparative Economics", cn:"比较经济学杂志", issn:"0147-5967", region:"intl", def:false, sub:"发展经济学"},
+ {key:"jhe", name:"Journal of Health Economics", cn:"健康经济学杂志", issn:"0167-6296", region:"intl", def:false, sub:"卫生经济学"},
+ {key:"jeem", name:"Journal of Environmental Economics and Management", cn:"环境经济与管理杂志", issn:"0095-0696", region:"intl", def:false, sub:"环境与资源"},
+ {key:"geb", name:"Games and Economic Behavior", cn:"博弈与经济行为", issn:"0899-8256", region:"intl", def:false, sub:"行为与实验"},
+ {key:"jebo", name:"Journal of Economic Behavior & Organization", cn:"经济行为与组织杂志", issn:"0167-2681", region:"intl", def:false, sub:"行为与实验"},
+ {key:"joe", name:"Journal of Econometrics", cn:"计量经济学期刊", issn:"0304-4076", region:"intl", def:false, sub:"计量与统计"},
+ {key:"jbes", name:"Journal of Business & Economic Statistics", cn:"商业与经济统计期刊", issn:"0735-0015", region:"intl", def:false, sub:"计量与统计"},
+ {key:"jaecon", name:"Journal of Applied Econometrics", cn:"应用计量经济学期刊", issn:"0883-7252", region:"intl", def:false, sub:"计量与统计"},
+ {key:"qe", name:"Quantitative Economics", cn:"数量经济学", issn:"1759-7323", region:"intl", def:false, sub:"计量与统计"},
+ {key:"restat", name:"Review of Economics and Statistics", cn:"经济学与统计学评论", issn:"0034-6535", region:"intl", def:false, sub:"综合 Top"},
+ {key:"jeea", name:"Journal of the European Economic Association", cn:"欧洲经济学会期刊", issn:"1542-4766", region:"intl", def:false, sub:"综合 Top"},
+ {key:"ecopol", name:"Economic Policy", cn:"经济政策", issn:"0266-4658", region:"intl", def:false, sub:"综合 Top"},
+ {key:"ier", name:"International Economic Review", cn:"国际经济评论", issn:"0020-6598", region:"intl", def:false, sub:"综合 Top"},
+ {key:"jeg", name:"Journal of Economic Growth", cn:"经济增长期刊", issn:"1381-4338", region:"intl", def:false, sub:"宏观与货币"},
+ {key:"rfs", name:"Review of Financial Studies", cn:"金融研究评论", issn:"0893-9454", region:"intl", def:true, sub:"金融学"},
+ {key:"jfqa", name:"Journal of Financial and Quantitative Analysis", cn:"金融与量化分析期刊", issn:"0022-1090", region:"intl", def:true, sub:"金融学"},
+ {key:"jcf", name:"Journal of Corporate Finance", cn:"公司金融期刊", issn:"0929-1199", region:"intl", def:false, sub:"金融学"},
+ {key:"jbf", name:"Journal of Banking & Finance", cn:"银行与金融期刊", issn:"0378-4266", region:"intl", def:false, sub:"金融学"},
+ {key:"mathfin", name:"Mathematical Finance", cn:"数理金融", issn:"0960-1627", region:"intl", def:false, sub:"金融学"},
+ {key:"rof", name:"Review of Finance", cn:"金融评论", issn:"1572-3097", region:"intl", def:false, sub:"金融学"},
+ {key:"jue", name:"Journal of Urban Economics", cn:"城市经济学", issn:"0094-1190", region:"intl", def:false, sub:"区域与城市", isNew:1},
+ {key:"rsue", name:"Regional Science and Urban Economics", cn:"区域科学与城市经济", issn:"0166-0462", region:"intl", def:false, sub:"区域与城市", isNew:1},
+ {key:"ajae", name:"American Journal of Agricultural Economics", cn:"美国农业经济学", issn:"0002-9092", region:"intl", def:false, sub:"环境与资源", isNew:1},
+ {key:"jhr", name:"The Journal of Human Resources", cn:"人力资源期刊", issn:"0022-166X", region:"intl", def:false, sub:"劳动与人口", isNew:1},
+ {key:"jpop", name:"Journal of Population Economics", cn:"人口经济学", issn:"0933-1433", region:"intl", def:false, sub:"劳动与人口", isNew:1},
+ {key:"labeco", name:"Labour Economics", cn:"劳动经济学", issn:"0927-5371", region:"intl", def:false, sub:"劳动与人口", isNew:1},
+ {key:"edcc", name:"Economic Development and Cultural Change", cn:"经济发展与文化变迁", issn:"0013-0079", region:"intl", def:false, sub:"发展经济学", isNew:1},
+ {key:"wber", name:"The World Bank Economic Review", cn:"世行经济评论", issn:"0258-6770", region:"intl", def:false, sub:"发展经济学", isNew:1},
+ {key:"wd", name:"World Development", cn:"世界发展", issn:"0305-750X", region:"intl", def:false, sub:"发展经济学", isNew:1},
+ {key:"ajhe", name:"American Journal of Health Economics", cn:"美国卫生经济学", issn:"2332-3493", region:"intl", def:false, sub:"卫生经济学", isNew:1},
+ {key:"jedc", name:"Journal of Economic Dynamics and Control", cn:"经济动态与控制", issn:"0165-1889", region:"intl", def:false, sub:"宏观与货币", isNew:1},
+ {key:"red", name:"Review of Economic Dynamics", cn:"经济动态评论", issn:"1094-2025", region:"intl", def:false, sub:"宏观与货币", isNew:1},
+ {key:"jmcb", name:"Journal of Money, Credit and Banking", cn:"货币信贷与银行", issn:"0022-2879", region:"intl", def:false, sub:"宏观与货币", isNew:1},
+ {key:"jimf", name:"Journal of International Money and Finance", cn:"国际货币与金融", issn:"0261-5606", region:"intl", def:false, sub:"国际金融与贸易", isNew:1},
+ {key:"rie", name:"Review of International Economics", cn:"国际经济学评论", issn:"0965-7576", region:"intl", def:false, sub:"国际金融与贸易", isNew:1},
+ {key:"jindecon", name:"Journal of Industrial Economics", cn:"产业经济学期刊", issn:"0022-1821", region:"intl", def:false, sub:"微观理论与产业组织", isNew:1},
+ {key:"ijio", name:"International Journal of Industrial Organization", cn:"国际产业组织", issn:"0167-7187", region:"intl", def:false, sub:"微观理论与产业组织", isNew:1},
+ {key:"te", name:"Theoretical Economics", cn:"理论经济学", issn:"1933-6837", region:"intl", def:false, sub:"微观理论与产业组织", isNew:1},
+ {key:"jle", name:"The Journal of Law and Economics", cn:"法与经济学", issn:"0022-2186", region:"intl", def:false, sub:"微观理论与产业组织", isNew:1},
+ {key:"jleo", name:"The Journal of Law, Economics, and Organization", cn:"法经济与组织", issn:"8756-6222", region:"intl", def:false, sub:"微观理论与产业组织", isNew:1},
+ {key:"ectheo", name:"Econometric Theory", cn:"计量经济理论", issn:"0266-4666", region:"intl", def:false, sub:"计量与统计", isNew:1},
+ {key:"ectj", name:"Econometrics Journal", cn:"计量经济学期刊", issn:"1368-4221", region:"intl", def:false, sub:"计量与统计", isNew:1},
+ {key:"jfm", name:"Journal of Financial Markets", cn:"金融市场期刊", issn:"1386-4181", region:"intl", def:false, sub:"金融学", isNew:1},
+ {key:"jfi", name:"Journal of Financial Intermediation", cn:"金融中介期刊", issn:"1042-9573", region:"intl", def:false, sub:"金融学", isNew:1},
+ {key:"jri", name:"Journal of Risk & Insurance", cn:"风险与保险", issn:"0022-4367", region:"intl", def:false, sub:"金融学", isNew:1},
+ {key:"fm", name:"Financial Management", cn:"财务管理", issn:"0046-3892", region:"intl", def:false, sub:"金融学", isNew:1},
+ {key:"ntj", name:"National Tax Journal", cn:"国家税务期刊", issn:"0028-0283", region:"intl", def:false, sub:"公共与政策", isNew:1},
+ {key:"jpam", name:"Journal of Policy Analysis and Management", cn:"政策分析与管理", issn:"0276-8739", region:"intl", def:false, sub:"公共与政策", isNew:1},
+ {key:"pc", name:"Public Choice", cn:"公共选择", issn:"0048-5829", region:"intl", def:false, sub:"公共与政策", isNew:1},
+ {key:"edurev", name:"Economics of Education Review", cn:"教育经济学评论", issn:"0272-7757", region:"intl", def:false, sub:"公共与政策", isNew:1},
+ {key:"expe", name:"Experimental Economics", cn:"实验经济学", issn:"1386-4157", region:"intl", def:false, sub:"行为与实验", isNew:1},
+ {key:"jeppsych", name:"Journal of Economic Psychology", cn:"经济心理学", issn:"0167-4870", region:"intl", def:false, sub:"行为与实验", isNew:1},
+ {key:"jeh", name:"The Journal of Economic History", cn:"经济史期刊", issn:"0022-0507", region:"intl", def:false, sub:"经济史", isNew:1},
+ {key:"eeh", name:"Explorations in Economic History", cn:"经济史探索", issn:"0014-4983", region:"intl", def:false, sub:"经济史", isNew:1},
+ {key:"jaere", name:"Journal of the Association of Environmental and Resource Economists", cn:"环境资源经济学会刊", issn:"2333-5955", region:"intl", def:false, sub:"环境与资源", isNew:1},
+ {key:"ere", name:"Environmental and Resource Economics", cn:"环境与资源经济学", issn:"0924-6460", region:"intl", def:false, sub:"环境与资源", isNew:1},
+ {key:"dem", name:"Demography", cn:"人口学", issn:"0070-3370", region:"intl", def:false, sub:"劳动与人口", isNew:1},
+ {key:"ilrr", name:"Industrial and Labor Relations Review", cn:"劳资关系评论", issn:"0019-7939", region:"intl", def:false, sub:"劳动与人口", isNew:1},
+ /* ===== 管理学 ===== */
+ {key:"ms", name:"Management Science", cn:"管理科学", issn:"0025-1909", region:"mgmt", def:true, sub:"运营与供应链"},
+ {key:"or", name:"Operations Research", cn:"运筹学", issn:"0030-364X", region:"mgmt", def:true, sub:"运营与供应链"},
+ {key:"msom", name:"Mfg & Service Operations Management", cn:"制造与服务运作管理", issn:"1523-4614", region:"mgmt", def:false, sub:"运营与供应链"},
+ {key:"amj", name:"Academy of Management Journal", cn:"管理学会期刊", issn:"0001-4273", region:"mgmt", def:true, sub:"综合 Top"},
+ {key:"amr", name:"Academy of Management Review", cn:"管理学会评论", issn:"0363-7425", region:"mgmt", def:false, sub:"综合 Top"},
+ {key:"asq", name:"Administrative Science Quarterly", cn:"管理科学季刊", issn:"0001-8392", region:"mgmt", def:true, sub:"综合 Top"},
+ {key:"orgsci", name:"Organization Science", cn:"组织科学", issn:"1047-7039", region:"mgmt", def:true, sub:"综合 Top"},
+ {key:"jom", name:"Journal of Management", cn:"管理学期刊", issn:"0149-2063", region:"mgmt", def:false, sub:"综合 Top"},
+ {key:"jms", name:"Journal of Management Studies", cn:"管理研究期刊", issn:"0022-2380", region:"mgmt", def:false, sub:"综合 Top"},
+ {key:"smj", name:"Strategic Management Journal", cn:"战略管理期刊", issn:"0143-2095", region:"mgmt", def:true, sub:"战略管理"},
+ {key:"jm", name:"Journal of Marketing", cn:"营销学期刊", issn:"0022-2429", region:"mgmt", def:true, sub:"市场营销"},
+ {key:"jmr", name:"Journal of Marketing Research", cn:"营销研究期刊", issn:"0022-2437", region:"mgmt", def:true, sub:"市场营销"},
+ {key:"mksci", name:"Marketing Science", cn:"营销科学", issn:"0732-2399", region:"mgmt", def:true, sub:"市场营销"},
+ {key:"jae", name:"Journal of Accounting and Economics", cn:"会计与经济学刊", issn:"0165-4101", region:"mgmt", def:true, sub:"会计学"},
+ {key:"tar", name:"The Accounting Review", cn:"会计评论", issn:"0001-4826", region:"mgmt", def:true, sub:"会计学"},
+ {key:"jar", name:"Journal of Accounting Research", cn:"会计研究期刊", issn:"0021-8456", region:"mgmt", def:false, sub:"会计学"},
+ {key:"jibs", name:"Journal of International Business Studies", cn:"国际商务研究期刊", issn:"0047-2506", region:"mgmt", def:true, sub:"国际商务"},
+ {key:"misq", name:"MIS Quarterly", cn:"管理信息系统季刊", issn:"0276-7783", region:"mgmt", def:true, sub:"信息系统"},
+ {key:"isr", name:"Information Systems Research", cn:"信息系统研究", issn:"1047-7047", region:"mgmt", def:true, sub:"信息系统"},
+ {key:"jcr", name:"Journal of Consumer Research", cn:"消费者研究期刊", issn:"0093-5301", region:"mgmt", def:true, sub:"市场营销"},
+ {key:"jams", name:"Journal of the Academy of Marketing Science", cn:"营销科学学会期刊", issn:"0092-0703", region:"mgmt", def:true, sub:"市场营销"},
+ {key:"jr", name:"Journal of Retailing", cn:"零售学期刊", issn:"0022-4359", region:"mgmt", def:false, sub:"市场营销"},
+ {key:"jbv", name:"Journal of Business Venturing", cn:"创业学期刊", issn:"0883-9026", region:"mgmt", def:false, sub:"创业与创新"},
+ {key:"etp", name:"Entrepreneurship Theory and Practice", cn:"创业理论与实践", issn:"1042-2587", region:"mgmt", def:false, sub:"创业与创新"},
+ {key:"pp", name:"Personnel Psychology", cn:"人事心理学", issn:"0031-5826", region:"mgmt", def:false, sub:"组织行为与人力资源"},
+ {key:"jap", name:"Journal of Applied Psychology", cn:"应用心理学期刊", issn:"0021-9010", region:"mgmt", def:false, sub:"组织行为与人力资源"},
+ {key:"job", name:"Journal of Organizational Behavior", cn:"组织行为期刊", issn:"0894-3796", region:"mgmt", def:false, sub:"组织行为与人力资源"},
+ {key:"jmis", name:"Journal of Management Information Systems", cn:"管理信息系统期刊", issn:"0742-1222", region:"mgmt", def:false, sub:"信息系统"},
+ {key:"pom", name:"Production and Operations Management", cn:"生产与运作管理", issn:"1059-1478", region:"mgmt", def:true, sub:"运营与供应链"},
+ {key:"jomops", name:"Journal of Operations Management", cn:"运作管理期刊", issn:"0272-6963", region:"mgmt", def:false, sub:"运营与供应链"},
+ {key:"sej", name:"Strategic Entrepreneurship Journal", cn:"战略创业期刊", issn:"1932-4391", region:"mgmt", def:false, sub:"战略管理"},
+ {key:"gsj", name:"Global Strategy Journal", cn:"全球战略期刊", issn:"2042-5791", region:"mgmt", def:false, sub:"战略管理"},
+ {key:"lrp", name:"Long Range Planning", cn:"长远规划", issn:"0024-6301", region:"mgmt", def:false, sub:"综合 Top"},
+ {key:"cmr", name:"California Management Review", cn:"加州管理评论", issn:"0008-1256", region:"mgmt", def:false, sub:"综合 Top"},
+ {key:"amp", name:"Academy of Management Perspectives", cn:"管理学会视野", issn:"1558-9080", region:"mgmt", def:false, sub:"综合 Top"},
+ {key:"obhdp", name:"Organizational Behavior and Human Decision Processes", cn:"组织行为与人类决策过程", issn:"0749-5978", region:"mgmt", def:true, sub:"组织行为与人力资源"},
+ {key:"rp", name:"Research Policy", cn:"研究政策", issn:"0048-7333", region:"mgmt", def:false, sub:"创业与创新"},
+ {key:"tech", name:"Technovation", cn:"技术创新", issn:"0166-4972", region:"mgmt", def:false, sub:"创业与创新"},
+ {key:"jpim", name:"Journal of Product Innovation Management", cn:"产品创新管理期刊", issn:"0737-6782", region:"mgmt", def:false, sub:"创业与创新"},
+ {key:"aman", name:"Academy of Management Annals", cn:"管理学会年鉴", issn:"1941-6520", region:"mgmt", def:false, sub:"综合 Top", isNew:1},
+ {key:"amle", name:"Academy of Management Learning and Education", cn:"管理学会教育学刊", issn:"1537-260X", region:"mgmt", def:false, sub:"组织行为与人力资源", isNew:1},
+ {key:"lq", name:"The Leadership Quarterly", cn:"领导力季刊", issn:"1048-9843", region:"mgmt", def:false, sub:"组织行为与人力资源", isNew:1},
+ {key:"hrm", name:"Human Resource Management", cn:"人力资源管理", issn:"0090-4848", region:"mgmt", def:false, sub:"组织行为与人力资源", isNew:1},
+ {key:"ijhrm", name:"The International Journal of Human Resource Management", cn:"国际人力资源管理", issn:"0958-5192", region:"mgmt", def:false, sub:"组织行为与人力资源", isNew:1},
+ {key:"humrel", name:"Human Relations", cn:"人际关系", issn:"0018-7267", region:"mgmt", def:false, sub:"组织行为与人力资源", isNew:1},
+ {key:"ijrm", name:"International Journal of Research in Marketing", cn:"国际营销研究", issn:"0167-8116", region:"mgmt", def:false, sub:"市场营销", isNew:1},
+ {key:"jsr", name:"Journal of Service Research", cn:"服务研究期刊", issn:"1094-6705", region:"mgmt", def:false, sub:"市场营销", isNew:1},
+ {key:"ejor", name:"European Journal of Operational Research", cn:"欧洲运筹学", issn:"0377-2217", region:"mgmt", def:false, sub:"运营与供应链", isNew:1},
+ {key:"ds", name:"Decision Sciences", cn:"决策科学", issn:"0011-7315", region:"mgmt", def:false, sub:"运营与供应链", isNew:1},
+ {key:"jscm", name:"Journal of Supply Chain Management", cn:"供应链管理期刊", issn:"1523-2409", region:"mgmt", def:false, sub:"运营与供应链", isNew:1},
+ {key:"ijpe", name:"International Journal of Production Economics", cn:"国际生产经济学", issn:"0925-5273", region:"mgmt", def:false, sub:"运营与供应链", isNew:1},
+ {key:"jais", name:"Journal of the Association for Information Systems", cn:"信息系统学会刊", issn:"1536-9323", region:"mgmt", def:false, sub:"信息系统", isNew:1},
+ {key:"iandm", name:"Information & Management", cn:"信息与管理", issn:"0378-7206", region:"mgmt", def:false, sub:"信息系统", isNew:1},
+ {key:"ejis", name:"European Journal of Information Systems", cn:"欧洲信息系统", issn:"0960-085X", region:"mgmt", def:false, sub:"信息系统", isNew:1},
+ {key:"car", name:"Contemporary Accounting Research", cn:"当代会计研究", issn:"0823-9150", region:"mgmt", def:false, sub:"会计学", isNew:1},
+ {key:"rast", name:"Review of Accounting Studies", cn:"会计研究评论", issn:"1380-6653", region:"mgmt", def:false, sub:"会计学", isNew:1},
+ {key:"aos", name:"Accounting, Organizations and Society", cn:"会计组织与社会", issn:"0361-3682", region:"mgmt", def:false, sub:"会计学", isNew:1},
+ {key:"erd", name:"Entrepreneurship and Regional Development", cn:"创业与区域发展", issn:"0898-5626", region:"mgmt", def:false, sub:"创业与创新", isNew:1},
+ {key:"sbe", name:"Small Business Economics", cn:"小企业经济学", issn:"0921-898X", region:"mgmt", def:false, sub:"创业与创新", isNew:1},
+ {key:"rdm", name:"R&D Management", cn:"研发管理", issn:"0033-6807", region:"mgmt", def:false, sub:"创业与创新", isNew:1},
+ {key:"jtt", name:"The Journal of Technology Transfer", cn:"技术转移期刊", issn:"0892-9912", region:"mgmt", def:false, sub:"创业与创新", isNew:1},
+ {key:"jwb", name:"Journal of World Business", cn:"世界商务期刊", issn:"1090-9516", region:"mgmt", def:false, sub:"国际商务", isNew:1},
+ {key:"ibr", name:"International Business Review", cn:"国际商务评论", issn:"0969-5931", region:"mgmt", def:false, sub:"国际商务", isNew:1},
+ {key:"mir", name:"Management International Review", cn:"国际管理评论", issn:"0938-8249", region:"mgmt", def:false, sub:"国际商务", isNew:1},
+ {key:"jbe", name:"Journal of Business Ethics", cn:"商业伦理期刊", issn:"0167-4544", region:"mgmt", def:false, sub:"商业伦理与公共管理", isNew:1},
+ {key:"busoc", name:"Business & Society", cn:"商业与社会", issn:"0007-6503", region:"mgmt", def:false, sub:"商业伦理与公共管理", isNew:1},
+ {key:"par", name:"Public Administration Review", cn:"公共行政评论", issn:"0033-3352", region:"mgmt", def:false, sub:"商业伦理与公共管理", isNew:1},
+ {key:"jpart", name:"Journal of Public Administration Research and Theory", cn:"公共管理研究与理论", issn:"1053-1858", region:"mgmt", def:false, sub:"商业伦理与公共管理", isNew:1},
+ {key:"bjm", name:"British Journal of Management", cn:"英国管理期刊", issn:"1045-3172", region:"mgmt", def:false, sub:"综合 Top", isNew:1},
+ {key:"jbr", name:"Journal of Business Research", cn:"商业研究期刊", issn:"0148-2963", region:"mgmt", def:false, sub:"综合 Top", isNew:1},
+ /* ===== 中国经管研究 ===== */
+ {key:"cer", name:"China Economic Review", cn:"中国经济评论", issn:"1043-951X", region:"cn", def:true, sub:"中国经济"},
+ {key:"cwe", name:"China & World Economy", cn:"中国与世界经济", issn:"1671-2234", region:"cn", def:true, sub:"中国经济"},
+ {key:"jcebs", name:"J. of Chinese Economic & Business Studies", cn:"中国经济与商业研究", issn:"1476-5284", region:"cn", def:false, sub:"中国经济"},
+ {key:"jaecon2", name:"Journal of Asian Economics", cn:"亚洲经济学", issn:"1049-0078", region:"cn", def:false, sub:"中国经济", isNew:1},
+ {key:"cej", name:"China Economic Journal", cn:"中国经济学期刊", issn:"1753-8963", region:"cn", def:false, sub:"中国经济", isNew:1},
+ {key:"mor", name:"Management and Organization Review", cn:"管理与组织评论", issn:"1740-8776", region:"cn", def:false, sub:"中国管理", isNew:1},
+ /* ===== 工作论文 ===== */
+ {key:"nber", name:"NBER Working Papers", cn:"NBER 工作论文", sourceId:"S2809516038", region:"wp", def:true, sub:"工作论文"},
+ {key:"wbwp", name:"World Bank 政策研究工作论文", cn:"世行政策研究工作论文", sourceId:"S4210231086", region:"wp", def:false, sub:"工作论文", isNew:1},
+ {key:"imfwp", name:"IMF 工作论文", cn:"IMF 工作论文", sourceId:"S4210171147", region:"wp", def:false, sub:"工作论文", isNew:1},
 ];
 const CN_LINKS = [
  {name:"经济研究", sub:"中国社科院经济研究所", url:"http://www.erj.cn"},
@@ -1272,6 +1495,59 @@ const CN_LINKS = [
  {name:"经济管理", sub:"中国社科院工业经济研究所", url:"https://search.cnki.net/Search/Result?content=经济管理"},
 ];
 const REGION_CHIP = {intl:['intl','国际经济学顶刊'], cn:['cn','中国经济/管理研究'], wp:['wp','工作论文'], mgmt:['mgmt','管理学顶刊']};
+/* ===== 期刊两级分类：学科大类 → 子学科 ===== */
+const CATS = [{key:'intl',name:'经济学'},{key:'mgmt',name:'管理学'},{key:'cn',name:'中国经管研究'},{key:'wp',name:'工作论文'}];
+const SUB_ORDER = {
+  intl:['综合 Top','发展经济学','劳动与人口','公共与政策','宏观与货币','微观理论与产业组织','计量与统计','国际金融与贸易','金融学','环境与资源','卫生经济学','行为与实验','经济史','区域与城市'],
+  mgmt:['综合 Top','战略管理','组织行为与人力资源','市场营销','运营与供应链','信息系统','会计学','创业与创新','国际商务','商业伦理与公共管理'],
+  cn:['中国经济','中国管理'],
+  wp:['工作论文']
+};
+const JN_VER = 1;   // 新刊批次号：仅在用户主动确认后写入 settings.journals，绝不自动覆盖
+function catName(cat){ const c=CATS.find(x=>x.key===cat); return c? c.name : cat; }
+function subsOf(cat){
+  const ord=SUB_ORDER[cat]||[], has=new Set(JOURNALS.filter(j=>j.region===cat).map(j=>j.sub));
+  return ord.filter(s=>has.has(s)).concat([...has].filter(s=>!ord.includes(s)));
+}
+function newJournals(){ return JOURNALS.filter(j=>j.isNew); }
+/* 今日推荐的「学科范围」：把 4 个来源合并为 2 个学科。
+   经济学 = 国际经济学顶刊 + 工作论文 + 中国经济（5 本）；管理学 = 管理学期刊 + 中国管理（MOR）。
+   子学科用「来源|子学科」复合键唯一标识（"综合 Top"在经济/管理学下各有一个）。 */
+const DOMAINS = [{key:'econ',name:'经济学',cls:'c-intl'},{key:'mgmt',name:'管理学',cls:'c-mgmt'}];
+const DOMAIN_CATS = {econ:['intl','cn','wp'], mgmt:['mgmt','cn']};
+function domainOf(j){
+  if(j.region==='mgmt') return 'mgmt';
+  if(j.region==='cn') return (j.sub==='中国管理')? 'mgmt' : 'econ';
+  return 'econ';   // intl / wp
+}
+function subsOfDomain(dom){
+  const out=[], seen=new Set();
+  (DOMAIN_CATS[dom]||[]).forEach(r=>{
+    const ord=SUB_ORDER[r]||[], has=[...new Set(JOURNALS.filter(j=>j.region===r).map(j=>j.sub))];
+    ord.concat(has.filter(s=>!ord.includes(s))).forEach(s=>{
+      const k=r+'|'+s;
+      if(seen.has(k)) return;
+      if(!JOURNALS.some(j=>j.region===r && j.sub===s)) return;
+      if(domainOf({region:r,sub:s})!==dom) return;
+      seen.add(k);
+      out.push({region:r, sub:s, key:k, n:JOURNALS.filter(j=>j.region===r && j.sub===s).length});
+    });
+  });
+  return out;
+}
+function subLabel(k){ const p=String(k||'').split('|'); return p.slice(1).join('|') || k; }
+// 旧格式 {intl:['发展经济学']} → 新格式 ['intl|发展经济学']
+function normDailySubs(v){
+  if(Array.isArray(v)) return v.filter(k=>typeof k==='string' && k.indexOf('|')>0);
+  if(v && typeof v==='object'){
+    const out=[];
+    Object.keys(v).forEach(r=>{ (Array.isArray(v[r])? v[r]:[]).forEach(s=>{
+      if(JOURNALS.some(j=>j.region===r && j.sub===s)) out.push(r+'|'+s);
+    }); });
+    return out;
+  }
+  return [];
+}
 
 /* ================= 经典必读清单（经济学 / 管理学 两大类，下含子领域） ================= */
 const FIELDS = [
@@ -1611,6 +1887,7 @@ let followedAuthors = store.get('authors', []);
 let dailyWorks = [], dailyFiltered = [], dailyShown = 20, raWorks = [], raShown = 24, raFiltered = [], browsePage = 1, worksCache = {}, raCursor='*', raHasMore=false, citeBasket = store.get('citebasket',[]);
 let browseWorks = [];  // 期刊浏览已加载的论文缓存（供关键词在本地筛选，不重新请求接口）
 let dailyMethods = []; // 今日推荐：已选中的研究方法（多选，空数组=全部）
+let dailySubs = normDailySubs(settings.dailySubs);   // ['来源|子学科', …]，空数组=全部学科
 let folders = store.get('folders', []);   // [{id,name,color,papers:[lite],_open}]
 let notes = store.get('notes', {});       // {wid:{text,title,link,date}}
 let reviewWorks = [];
@@ -1652,13 +1929,13 @@ async function oaFetch(url){
   if(!r.ok) throw new Error('OpenAlex API 请求失败 ('+r.status+')');
   return r.json();
 }
-// region: 'all' | 单个字符串 | 字符串数组（多选）。各期刊只归属一个 region，故多选天然互斥、不重不漏。
+// 「学科范围」单选/多选子学科（复合键 region|sub），未选 = 全部学科。region 参数保留仅为兼容旧调用。
 function activeJournals(region){
-  const rs = Array.isArray(region) ? region : (region ? [region] : []);
+  const ss = Array.isArray(dailySubs)? dailySubs : [];
   return JOURNALS.filter(j=>{
     if(!settings.journals.includes(j.key)) return false;
-    if(!rs.length || rs.includes('all')) return true;
-    return rs.includes(j.region);
+    if(ss.length && !ss.includes(j.region+'|'+j.sub)) return false;
+    return true;
   });
 }
 async function fetchDaily(region, days){
@@ -1900,7 +2177,7 @@ function paperCard(w, opts={}){
   const src = w.primary_location?.source?.display_name || '未知来源';
   const j = journalOf(w);
   const region = j? j.region : null;
-  const chip = region? `<span class="chip ${REGION_CHIP[region][0]}">${REGION_CHIP[region][1]}</span>` : '';
+  const chip = region? `<span class="chip ${REGION_CHIP[region][0]}" title="${esc(catName(region))}">${esc(j&&j.sub? j.sub : REGION_CHIP[region][1])}</span>` : '';
   const oaChip = w.open_access?.is_oa? '<span class="chip oa">开放获取</span>':'';
   const inMyTop = j && settings.journals.includes(j.key);
   const topChip = inMyTop? '<span class="chip top">✓ 我的顶刊</span>' : '';
@@ -1954,41 +2231,72 @@ function paperCard(w, opts={}){
 }
 
 /* ================= 今日推荐：来源 / 方法 多选筛选 ================= */
-// 来源：每个期刊只归属一个 region（intl/mgmt/cn/wp），因此多选天然互斥、不重不漏
-function getDailyRegions(){
-  const box=document.getElementById('dailyRegionSeg'); if(!box) return ['all'];
-  const on=Array.prototype.slice.call(box.querySelectorAll('button.on')).map(b=>b.dataset.region).filter(Boolean);
-  return on.length? on : ['all'];   // 一个都没选 → 视为全部
-}
+// 来源多选已并入「学科范围」（经济学 / 管理学两行），此函数仅保留以兼容旧调用
+function getDailyRegions(){ return ['all']; }
 function updateMethodHint(){
   const h=document.getElementById('methodHint'); if(!h) return;
   h.textContent = dailyMethods.length? ('已选 '+dailyMethods.length+' 项（命中任一即可）') : '（可多选，点选生效 · 未选=全部）';
 }
+// 子学科：按学科大类分行展示，每类一个色块标签 + 该类 chips（各类内部取并集）
+function renderDailySubs(){
+  const row=document.getElementById('dailySubRow'); if(!row) return;
+  const box=row.querySelector('.fv'); if(!box) return;
+  const open = settings.subsOpen !== false;
+  const picked = dailySubs.length;
+  let h='<button type="button" class="fchip act" id="btnSubToggle">'+(open?'▴ 收起':'▾ 展开')+'</button>'+
+       '<button type="button" class="fchip act" id="btnSubClear"'+(picked?'':' style="display:none"')+'>清空</button>'+
+       '<span class="fhint">'+(picked? ('已选 '+picked+' 个子学科 · 跨学科可同时勾选') : '（可多选 · 未选=全部学科）')+'</span>';
+  if(!open){
+    // 收起态：一行摘要，已选的子学科按所属学科着色
+    const parts=DOMAINS.map(d=>{
+      const arr=dailySubs.filter(k=>subsOfDomain(d.key).some(x=>x.key===k));
+      if(!arr.length) return '';
+      return '<b class="'+d.cls+'">'+d.name+'</b>：'+arr.map(k=>esc(subLabel(k))).join('、');
+    }).filter(Boolean);
+    h+='<div class="fsubsum">'+(parts.length? parts.join(' ｜ ') : '未限定学科范围（取已勾选期刊的全部学科）')+'</div>';
+    box.innerHTML=h; return;
+  }
+  h+='<div class="fsubwrap">';
+  DOMAINS.forEach(d=>{
+    const subs=subsOfDomain(d.key); if(!subs.length) return;
+    const arr=subs.filter(x=>dailySubs.includes(x.key));
+    h+='<div class="fsubline '+d.cls+'"><span class="fcat '+d.cls+'">'+d.name+'</span><div class="fsubs">';
+    subs.forEach(x=>{
+      h+='<button type="button" class="fchip '+d.cls+(dailySubs.includes(x.key)?' on':'')+'" data-key="'+esc(x.key)+'" title="'+x.n+' 本">'+esc(x.sub)+'</button>';
+    });
+    h+='</div><span class="fn">'+(arr.length? ('已选 '+arr.length+' / '+subs.length) : ('全部 '+subs.length))+'</span></div>';
+  });
+  h+='</div>';
+  box.innerHTML=h;
+}
+function persistDailySubs(){ settings.dailySubs=dailySubs; store.set('settings',settings); }
 function initDailyFilters(){
-  // 来源多选（至少保留一项）
-  const rseg=document.getElementById('dailyRegionSeg');
-  if(rseg) rseg.addEventListener('click',e=>{
-    const b=e.target.closest? e.target.closest('button[data-region]') : null; if(!b) return;
-    const all=Array.prototype.slice.call(rseg.querySelectorAll('button[data-region]'));
-    const onCount=all.filter(x=>x.classList.contains('on')).length;
-    if(b.classList.contains('on')){
-      if(onCount<=1){ toast('至少保留一个来源'); return; }
-      b.classList.remove('on');
-    }else b.classList.add('on');
-    loadDaily();
+  // 学科范围：子学科多选 chips（经济学 / 管理学两行，跨行可同时勾选）
+  const srow=document.getElementById('dailySubRow');
+  if(srow) srow.addEventListener('click',e=>{
+    if(e.target.id==='btnSubToggle'){
+      settings.subsOpen = !(settings.subsOpen!==false); store.set('settings',settings);
+      renderDailySubs(); return;
+    }
+    if(e.target.id==='btnSubClear'){ dailySubs=[]; persistDailySubs(); renderDailySubs(); loadDaily(); return; }
+    const c=e.target.closest? e.target.closest('.fchip[data-key]') : null; if(!c) return;
+    const k=c.dataset.key, i=dailySubs.indexOf(k);
+    if(i>=0) dailySubs.splice(i,1); else dailySubs.push(k);
+    persistDailySubs(); renderDailySubs(); loadDaily();
   });
   // 方法多选 chips
   const row=document.getElementById('dailyMethodRow');
   if(row){
+    const mbox=row.querySelector('.fv')||row;
     const html=METHOD_OPTIONS.map(m=>{
       const wide=(m==='因果推断')?' title="宽口径：涉及因果识别、但未细分到具体方法的研究"':'';
       return '<button type="button" class="fchip" data-m="'+esc(m)+'"'+wide+'>'+esc(m)+'</button>';
     }).join('');
-    row.insertAdjacentHTML('beforeend', html+'<button type="button" class="fchip act" id="btnMethodClear">清空</button>');
-    row.addEventListener('click',e=>{
+    mbox.insertAdjacentHTML('beforeend', html+'<button type="button" class="fchip act" id="btnMethodClear">清空</button>');
+    mbox.addEventListener('click',e=>{
       if(e.target.id==='btnMethodClear'){
         dailyMethods=[];
-        Array.prototype.slice.call(row.querySelectorAll('.fchip')).forEach(c=>c.classList.remove('on'));
+        Array.prototype.slice.call(mbox.querySelectorAll('.fchip')).forEach(c=>c.classList.remove('on'));
         updateMethodHint(); renderDaily(); return;
       }
       const c=e.target.closest? e.target.closest('.fchip') : null; if(!c||!c.dataset.m) return;
@@ -2000,6 +2308,7 @@ function initDailyFilters(){
     });
   }
   updateMethodHint();
+  renderDailySubs();
 }
 async function loadDaily(){
   const list=$('#dailyList');
@@ -2459,6 +2768,135 @@ function exportNotesDoc(){
 }
 function applyMethodFilter(arr, sel){ if(!sel) return arr; return arr.filter(w=>methodTags(w).includes(sel)); }
 
+/* ================= 设置：期刊两级分类勾选（大类卡片 → 子学科块） ================= */
+let openJSubs = {};                 // 子学科展开状态：{'intl|综合 Top':true}
+let catOpen   = {};                 // 大类折叠状态：{'intl':true}
+let jFilter   = {kw:'', view:'all'};// 搜索关键词 / 视图：all|sel|new
+function jMatch(j){
+  const kw=(jFilter.kw||'').trim().toLowerCase(); if(!kw) return true;
+  return (j.name||'').toLowerCase().includes(kw) || (j.cn||'').toLowerCase().includes(kw) || (j.sub||'').toLowerCase().includes(kw);
+}
+function hlText(t){
+  const kw=(jFilter.kw||'').trim(); if(!kw) return esc(t);
+  const s=t||'', i=s.toLowerCase().indexOf(kw.toLowerCase());
+  if(i<0) return esc(s);
+  return esc(s.slice(0,i))+'<mark>'+esc(s.slice(i,i+kw.length))+'</mark>'+esc(s.slice(i+kw.length));
+}
+// 过滤只决定「子学科块是否显示」，块内始终渲染该子学科的全部期刊 —— 保证搜索/切视图不会丢失未显示期刊的勾选状态
+function visSubsOf(cat){
+  return subsOf(cat).map(s=>{
+    const list=JOURNALS.filter(j=>j.region===cat && j.sub===s);
+    let hit=list.filter(jMatch);
+    if(jFilter.view==='sel') hit=hit.filter(j=>settings.journals.includes(j.key));
+    if(jFilter.view==='new') hit=hit.filter(j=>j.isNew);
+    return {sub:s, list:list, hit:hit};
+  }).filter(o=>o.hit.length);
+}
+function renderJournalChecks(){
+  const box=document.getElementById('journalChecks'); if(!box) return false;
+  const pend=newJournals().filter(j=>!settings.journals.includes(j.key)).length;
+  const kw=(jFilter.kw||'').trim();
+  let h='';
+  if(pend && (settings._jnVer||0) < JN_VER){
+    h+='<div class="jbanner"><span>本次新增 <b>'+pend+'</b> 本已核验期刊（含 2 个工作论文源）。你现有的勾选不会被覆盖。</span>'+
+       '<button type="button" class="btn pri" onclick="addNewJournals(\'all\')">一键加入全部</button>'+
+       '<button type="button" class="btn" onclick="toast(\'展开子学科后，点组内「加入新刊」即可按组添加\')">按子学科加入</button>'+
+       '<button type="button" class="btn" onclick="dismissNewJournals()">暂不需要</button></div>';
+  }
+  let any=false;
+  CATS.forEach(c=>{
+    const groups=visSubsOf(c.key); if(!groups.length) return;
+    any=true;
+    const all=JOURNALS.filter(j=>j.region===c.key);
+    const selAll=all.filter(j=>settings.journals.includes(j.key)).length;
+    const cnt=groups.reduce((a,o)=>a+o.hit.length,0);
+    const closed=!!catOpen[c.key];
+    h+='<div class="jcatcard'+(closed?' closed':'')+'" data-cat="'+c.key+'">'+
+       '<div class="jcathead c-'+c.key+'" onclick="toggleJCat(\''+c.key+'\')">'+
+         '<span class="car">'+(closed?'▸':'▾')+'</span><span class="cn">'+c.name+'</span>'+
+         '<span class="cs">'+groups.length+' 个子学科 · '+cnt+' 本 · 已选 '+selAll+' / '+all.length+'</span>'+
+         '<span class="cops">'+
+           '<button type="button" class="mini" onclick="event.stopPropagation();catPick(\''+c.key+'\',1)">全选</button>'+
+           '<button type="button" class="mini" onclick="event.stopPropagation();catPick(\''+c.key+'\',0)">清空</button>'+
+           '<button type="button" class="mini" onclick="event.stopPropagation();addNewJournals(\''+c.key+'\')">加新刊</button>'+
+         '</span></div><div class="jcatbody">';
+    groups.forEach(o=>{
+      const list=o.list, s=o.sub;
+      const sel=list.filter(j=>settings.journals.includes(j.key)).length;
+      const nw=list.filter(j=>j.isNew && !settings.journals.includes(j.key)).length;
+      const k=c.key+'|'+s, open = kw? true : !!openJSubs[k];
+      const pct=list.length? Math.round(sel/list.length*100) : 0;
+      h+='<div class="jsub"><div class="jsubhead" data-k="'+esc(k)+'" onclick="toggleJSub(this)">'+
+           '<span class="jt">'+(open?'▾ ':'▸ ')+hlText(s)+'</span>'+
+           '<span class="jbar"><i style="width:'+pct+'%"></i></span>'+
+           '<span class="r">'+sel+' / '+list.length+' 本'+(nw? ' · 新 '+nw : '')+'</span></div>'+
+         '<div class="jgrp'+(open?'':' hidden')+'">';
+      h+=list.map(j=>{
+        const on=settings.journals.includes(j.key);
+        return '<label class="'+(on?'on':'')+'"><input type="checkbox" value="'+j.key+'"'+(on?' checked':'')+' onchange="onJCheck(this)">'+
+               '<span>'+hlText(j.name)+(j.isNew?'<span class="jnew">新</span>':'')+'</span><span class="jcn">'+esc(j.cn)+'</span></label>';
+      }).join('');
+      h+='<div class="jops"><button type="button" class="mini" onclick="subPick(\''+c.key+'\',\''+esc(s)+'\',1)">全选</button>'+
+         '<button type="button" class="mini" onclick="subPick(\''+c.key+'\',\''+esc(s)+'\',0)">清空</button>'+
+         (nw? '<button type="button" class="mini" onclick="addNewJournals(\''+c.key+'\',\''+esc(s)+'\')">加入新刊</button>' : '')+
+         '</div></div></div>';
+    });
+    h+='</div></div>';
+  });
+  if(!any) h+='<p class="hint" style="padding:8px 2px">没有匹配的期刊，换个关键词或切回「全部」。</p>';
+  box.innerHTML=h;
+  const t=document.getElementById('jTotal'), st=document.getElementById('jSubTotal');
+  if(t) t.textContent=JOURNALS.length;
+  if(st) st.textContent=CATS.reduce((a,c)=>a+subsOf(c.key).length,0);
+  return true;
+}
+function toggleJCat(cat){ catOpen[cat]=!catOpen[cat]; renderJournalChecks(); }
+function catPick(cat,on){
+  const card=document.querySelector? document.querySelector('#journalChecks .jcatcard[data-cat="'+cat+'"]') : null;
+  if(!card) return;
+  const ins=card.querySelectorAll? Array.prototype.slice.call(card.querySelectorAll('input[type=checkbox]')) : [];
+  ins.forEach(i=>{ i.checked=!!on; const p=i.closest? i.closest('label') : null; if(p) p.classList.toggle('on',!!on); });
+}
+function toggleJSub(head){
+  const k=head.dataset.k; if(!k) return;
+  const open=!openJSubs[k]; openJSubs[k]=open;
+  head.classList.toggle('open',open);
+  const jt=head.querySelector('.jt'); if(jt) jt.textContent=(open?'▾ ':'▸ ')+k.split('|').slice(1).join('|');
+  const grp=head.nextElementSibling; if(grp && grp.classList.contains('jgrp')) grp.classList.toggle('hidden',!open);
+}
+function onJCheck(el){ const p=el.closest('label'); if(p) p.classList.toggle('on', el.checked); }
+function jGrpOf(cat,sub){
+  const box=document.getElementById('journalChecks'); if(!box) return null;
+  const head=[...box.querySelectorAll('.jsubhead')].find(h=>h.dataset.k===cat+'|'+sub);
+  if(!head) return null;
+  const g=head.nextElementSibling; return (g&&g.classList.contains('jgrp'))? g : null;
+}
+function subPick(cat,sub,on){
+  const g=jGrpOf(cat,sub); if(!g) return;
+  g.querySelectorAll('input[type="checkbox"]').forEach(i=>{ i.checked=!!on; const p=i.closest('label'); if(p) p.classList.toggle('on',!!on); });
+}
+function syncJournalsFromDom(){
+  const box=document.getElementById('journalChecks'); if(!box) return false;
+  const arr=[...box.querySelectorAll('input[type="checkbox"]:checked')].map(i=>i.value);
+  if(!arr.length) return false;
+  settings.journals=arr; return true;
+}
+// scope='all' 加入全部新刊；scope=大类(可带 sub) 只加入该组新刊
+function addNewJournals(scope,sub){
+  const box=document.getElementById('journalChecks'); if(!box) return;
+  syncJournalsFromDom();
+  const keys=newJournals().filter(j=> scope==='all' || (j.region===scope && (!sub || j.sub===sub))).map(j=>j.key);
+  let n=0; keys.forEach(k=>{ if(!settings.journals.includes(k)){ settings.journals.push(k); n++; } });
+  if(scope==='all') settings._jnVer=JN_VER;
+  store.set('settings',settings);
+  renderJournalChecks(); loadDaily();
+  toast(n? ('已加入 '+n+' 本新刊 ✓') : '这批新刊已在你的期刊库中');
+}
+function dismissNewJournals(){
+  settings._jnVer=JN_VER; store.set('settings',settings); renderJournalChecks();
+  toast('已忽略，新刊保持未勾选');
+}
+
 /* ================= 设置 ================= */
 function initSettings(){
   $('#setBase').value=settings.base; $('#setKey').value=settings.key;
@@ -2472,9 +2910,29 @@ function initSettings(){
   $('#setGoalDay').value=settings.goalDay||'';
   if($('#setSbUrl')) $('#setSbUrl').value=settings.supabaseUrl||'';
   if($('#setSbKey')) $('#setSbKey').value=settings.supabaseKey||'';
-  $('#journalChecks').innerHTML=JOURNALS.map(j=>
-    `<label><input type="checkbox" value="${j.key}" ${settings.journals.includes(j.key)?'checked':''}> ${j.name}<span style="color:var(--ink3);font-size:11px">${j.cn}</span></label>`).join('');
+  renderJournalChecks();
+  initJTools();
   syncThemeSeg();
+}
+// 期刊区工具条：搜索 / 视图切换 / 展开收起
+function initJTools(){
+  const js=document.getElementById('jSearch');
+  if(js && !js._bound){ js._bound=true;
+    js.addEventListener('input',()=>{ jFilter.kw=js.value; renderJournalChecks(); });
+  }
+  const segs=document.querySelectorAll? Array.prototype.slice.call(document.querySelectorAll('.jtools .mini[data-jf]')) : [];
+  segs.forEach(b=>{ if(b._bound) return; b._bound=true;
+    b.addEventListener('click',()=>{
+      jFilter.view=b.dataset.jf;
+      segs.forEach(x=>x.classList.toggle('on', x===b));
+      renderJournalChecks();
+    });
+  });
+  const ea=document.getElementById('jExpandAll'), ca=document.getElementById('jCollapseAll');
+  if(ea && !ea._bound){ ea._bound=true; ea.addEventListener('click',()=>{
+    openJSubs={}; JOURNALS.forEach(j=>{ openJSubs[j.region+'|'+j.sub]=true; }); catOpen={}; renderJournalChecks();
+  }); }
+  if(ca && !ca._bound){ ca._bound=true; ca.addEventListener('click',()=>{ openJSubs={}; renderJournalChecks(); }); }
 }
 function applyTheme(){ document.documentElement.setAttribute('data-theme', (settings.theme==='dark')?'dark':'light'); }
 function syncThemeSeg(){ document.querySelectorAll('#themeSeg button').forEach(b=> b.classList.toggle('on', b.dataset.theme===(settings.theme||'light'))); }
@@ -2526,16 +2984,21 @@ function saveSettings(){
   settings.model=$('#setModel').value.trim(); settings.mail=$('#setMail').value.trim();
   settings.showIF = !!($('#setShowIF') && $('#setShowIF').checked);
   settings.showDanmu = !($('#setShowDanmu') && $('#setShowDanmu').checked === false);
-  settings.journals=[...document.querySelectorAll('#journalChecks input:checked')].map(i=>i.value);
-  if(!settings.journals.length){ toast('至少勾选一本期刊'); return; }
+  // 保险：保存前恢复全量渲染，避免搜索/过滤状态下漏掉未显示的期刊
+  if(jFilter.kw || jFilter.view!=='all'){
+    jFilter={kw:'',view:'all'};
+    const js=document.getElementById('jSearch'); if(js) js.value='';
+    document.querySelectorAll && document.querySelectorAll('.jtools .mini[data-jf]').forEach(b=>b.classList.toggle('on',b.dataset.jf==='all'));
+    renderJournalChecks();
+  }
+  if(!syncJournalsFromDom()){ toast('至少勾选一本期刊'); return; }
   store.set('settings',settings); toast('设置已保存 ✓'); loadDaily();
 }
 // 一键恢复默认高质量期刊（中英文顶刊全集），用于期刊被覆盖/丢失后的确定性恢复
 function restoreJournals(){
   settings.journals = JOURNALS.filter(j=>j.def).map(j=>j.key);
   settings._ver = SETTINGS_VER;
-  $('#journalChecks').innerHTML=JOURNALS.map(j=>
-    `<label><input type="checkbox" value="${j.key}" ${settings.journals.includes(j.key)?'checked':''}> ${j.name}<span style="color:var(--ink3);font-size:11px">${j.cn}</span></label>`).join('');
+  renderJournalChecks();
   store.set('settings',settings); loadDaily(); toast('已恢复默认高质量期刊（含中英文顶刊）✓');
 }
 async function testAi(){
@@ -3078,7 +3541,7 @@ document.addEventListener('click', e=>{ const t=e.target.closest('.term'); if(t)
 renderCiteBar();
 
 // 期刊浏览下拉
-$('#browseJournal').innerHTML=JOURNALS.map(j=>`<option value="${j.key}">${j.name}（${j.cn}）</option>`).join('');
+$('#browseJournal').innerHTML=CATS.map(c=>`<optgroup label="${c.name}">`+JOURNALS.filter(j=>j.region===c.key).map(j=>`<option value="${j.key}">${j.name}（${j.cn}）</option>`).join('')+`</optgroup>`).join('');
 const yNow=new Date().getFullYear();
 $('#browseYear').innerHTML='<option value="all">全部年份</option>'+Array.from({length:10},(_,i)=>`<option value="${yNow-i}" ${i===0?'selected':''}>${yNow-i}</option>`).join('');
 // 中文顶刊直达：知网/官网深链常失效或跳验证，统一跳转 Bing 搜索「刊名+最新目录」（稳定可达、国内可访问、不弹验证码）
@@ -3131,6 +3594,130 @@ function initAskModal(){
 }
 // DOM 未就绪时延迟到 DOMContentLoaded，避免脚本早于 #askModal 解析而绑定失败
 function bootAskModal(){ if(!initAskModal() && document.readyState==='loading') document.addEventListener('DOMContentLoaded',initAskModal); }
+
+/* ================= 使用指引（首次访问自动弹出一次，之后顶栏「❓ 使用指引」可重开） ================= */
+const GUIDE_META=[
+  {k:'start',t:'👋 这是什么'},
+  {k:'quick',t:'🚀 三步上手'},
+  {k:'tabs', t:'🧭 各个页签'},
+  {k:'write',t:'🔖 写论文怎么用'},
+  {k:'fun',  t:'🐱 小彩蛋'},
+  {k:'faq',  t:'❓ 常见问题'}
+];
+const GUIDE_HTML={
+start:`<div class="glead"><b>EconDaily 经管论文推送小助手</b> —— 给经管专业学生做的「顶刊论文日报 + 读书笔记」工具。它把 <b>${JOURNALS.length} 本经济学 / 管理学顶刊</b>的新论文汇总到一处，你可以按学科收窄、随手收藏记笔记，最后一键导出参考文献。</div>
+<h4>先知道这三点</h4>
+<ul class="glist">
+<li><b>不用注册、不用登录</b> —— 打开就能用。</li>
+<li><b>数据存在你自己的浏览器里</b> —— 收藏、笔记、阅读记录都存在本机；换浏览器或清缓存会没有，可以到「设置 → 💾 数据与同步」导出备份。</li>
+<li><b>论文数据来自 OpenAlex</b> —— 一个开放的学术数据库。这里只读取题录和摘要，全文仍需通过学校图书馆 / 数据库下载。</li>
+</ul>
+<h4>它不做什么</h4>
+<p>它不替你下载全文，也不替你读论文。它做的是<b>帮你更快找到值得读的那几篇</b>，并把你读过的东西整理下来。</p>
+<div class="gtips">建议先花两分钟看「🚀 三步上手」，其他章节用到时再回来翻 —— 顶栏的「❓ 使用指引」随时能打开它。</div>`,
+quick:`<h4>第一次用，按这三步走</h4>
+<div class="gsteps">
+<div class="gstep"><span class="n">1</span><div class="t"><b>选好要追踪的期刊</b>进「⚙️ 设置 → 📚 期刊与推荐」，按「学科大类 → 子学科」勾选。系统已默认选好一批顶刊，你可以增删；只想看发展经济学，就只勾那一组。</div></div>
+<div class="gstep"><span class="n">2</span><div class="t"><b>回「📅 今日推荐」看新论文</b>默认按时间倒序。用「学科范围」收窄到经济学 / 管理学下的具体子学科，用「研究方法」只看某类实证方法（DID、IV、RCT…），用「近 N 天」控制时间范围。</div></div>
+<div class="gstep"><span class="n">3</span><div class="t"><b>读到有用的就留下</b>每张卡片上有 ⭐ 收藏、📒 记笔记、🧺 加入引用篮、📎 看相似文献、🤖 AI 读后三点。论文多就点「加载更多」。</div></div>
+</div>
+<h4>然后可以</h4>
+<ul class="glist">
+<li>要交作业 / 写综述：把几篇勾进引用篮 → 自动生成<b>编号参考文献</b>（BibTeX / GB-T 7714）。</li>
+<li>术语看不懂：摘要里的专业词<b>直接点一下</b>就会弹出解释（概念词典）。</li>
+<li>想让 AI 帮你读：到「设置 → 🤖 AI 接口」填一个 DeepSeek（或兼容 OpenAI 的接口）Key，就能用「AI 读后三点」和综述助手。</li>
+</ul>
+<div class="gtips">卡片上的方法标签（DID / IV / RCT…）是自动识别的，点「研究方法」那一行即可按方法筛选。</div>`,
+tabs:`<h4>顶栏各页签是干什么的</h4>
+<table class="gtable">
+<tr><td class="k">📅 今日推荐</td><td>首页。按时间倒序列出你选定期刊的新论文，可按学科范围、研究方法、天数筛选。</td></tr>
+<tr><td class="k">📚 期刊浏览</td><td>锁定某一本期刊，往期文章一页页翻；支持刊内关键词搜索。</td></tr>
+<tr><td class="k">🔬 研究助手</td><td>按关键词跨库检索（支持中文文献通道），可按相关度 / 时间排序、按方法筛选。</td></tr>
+<tr><td class="k">📝 综述助手</td><td>给一个主题，帮你整理文献综述的框架与要点。</td></tr>
+<tr><td class="k">📜 经典必读</td><td>经济学 / 管理学两类经典文献清单，适合打基础。</td></tr>
+<tr><td class="k">🗄️ 数据库</td><td>常用数据库与实证方法资源入口（找数据、查手册）。</td></tr>
+<tr><td class="k">📁 文件夹</td><td>按课程或项目归类论文，如「发展经济学 seminar」「毕业论文」。</td></tr>
+<tr><td class="k">📊 阅读统计</td><td>你读了哪些、什么趋势，自动生成图表。</td></tr>
+<tr><td class="k">📒 我的笔记</td><td>富文本笔记，可导出 Markdown / Word / TXT。</td></tr>
+<tr><td class="k">⚙️ 设置</td><td>期刊订阅、AI 接口、外观主题、每日一签档案、数据备份与留言墙。</td></tr>
+</table>
+<div class="gtips">找新论文去「今日推荐」，找特定主题去「研究助手」，找经典去「经典必读」。</div>`,
+write:`<h4>写课程论文 / 毕业论文时，这些最省时间</h4>
+<table class="gtable">
+<tr><td class="k">🧺 引用篮</td><td>勾选多篇后底部出现引用篮 → 一键生成<b>自动编号的参考文献列表</b>，可导出 BibTeX 或 GB-T 7714（国内论文通用格式）。</td></tr>
+<tr><td class="k">📝 综述助手</td><td>给一个主题，输出综述框架与要点，适合开题阶段。</td></tr>
+<tr><td class="k">🏷 方法标签</td><td>自动识别每篇用的是 DID、IV、RCT、双重机器学习等，可直接按方法筛文献。</td></tr>
+<tr><td class="k">📎 相似文献</td><td>每篇下方「📎 相似」推荐相关论文，顺藤摸瓜比关键词搜索快。</td></tr>
+<tr><td class="k">🤖 AI 读后三点</td><td>一句话讲清核心结论、贡献、局限（需先填 AI Key）。</td></tr>
+<tr><td class="k">📖 概念词典</td><td>摘要与速读里的术语，点一下就有中文解释。</td></tr>
+<tr><td class="k">📁 文件夹</td><td>按课程 / 项目分门别类存论文，写不同章节时各取所需。</td></tr>
+<tr><td class="k">📒 我的笔记</td><td>每篇论文可单独记笔记，支持导出成 Markdown / Word 交给老师或放进自己的文档里。</td></tr>
+</table>
+<div class="gtips">典型流程：研究助手搜主题 → 勾进引用篮 → 综述助手搭框架 → 导出 GB-T 7714 参考文献列表。</div>`,
+fun:`<h4>几个顺手的小东西</h4>
+<ul class="glist">
+<li><b>🎴 每日一签</b> —— 左下角小猫上方的按钮，一天一支，同一天结果固定、跨天自动换；在设置里填生日后还会出星座 / 生肖 / 生命灵数，生日当天有专属特签。</li>
+<li><b>🐱 小猫陪读</b> —— 左下角，可以摸一摸，它会随你的阅读量成长。</li>
+<li><b>💬 留言墙</b> —— 默认右下角悬浮，免登录留言，别人可以点赞；嫌挡视线可在「设置 → 💬 留言墙」换成底部 / 顶部，或直接关掉。</li>
+<li><b>🌙 深色模式</b> —— 「设置 → 🎨 外观与目标」里切换，晚上看不刺眼。</li>
+</ul>
+<div class="gtips">这些都是可选的，不喜欢就在设置里关掉，不影响看论文。</div>`,
+faq:`<div class="gqa"><div class="q">论文是从哪来的？多久更新一次？</div><div>来自 OpenAlex 公开学术数据库。顶刊上新本身有节奏，某本刊一天没有新文章是正常的；页面每次打开都会重新拉取。</div></div>
+<div class="gqa"><div class="q">为什么我勾了某本刊却一直是空的？</div><div>两种可能：一是该刊近期确实没有上新；二是 OpenAlex 对这本刊的收录不完整。可以到「期刊浏览」单独打开这本刊确认。</div></div>
+<div class="gqa"><div class="q">我的收藏和笔记会丢吗？</div><div>存在浏览器 localStorage 里。换浏览器、用无痕模式、清缓存都会没有，也不会在不同网址之间互通（本地版 / 网页版各存一份）。要备份：设置 → 💾 数据与同步 → 导出 JSON。</div></div>
+<div class="gqa"><div class="q">手机上能用吗？</div><div>能，页面是自适应布局，窄屏会自动调整。手机上同样可以收藏、记笔记。</div></div>
+<div class="gqa"><div class="q">AI 功能要花钱吗？</div><div>需要你自己填一个 DeepSeek（或兼容 OpenAI 的接口）的 Key，按用量计费，通常几块钱能用很久。Key 只存在你自己的浏览器里，不会上传。</div></div>
+<div class="gqa"><div class="q">这样抓论文合规吗？</div><div>只读取公开的题录信息与摘要，不绕过付费墙、不提供全文下载。正式引用请以期刊原文为准。</div></div>
+<div class="gtips">还有问题？右下角「💬 留言墙」可以直接留言，作者能看到。</div>`
+};
+let guideSec='start';
+function renderGuide(){
+  const nav=$('#guideNav'), body=$('#guideBody'); if(!nav||!body) return false;
+  nav.innerHTML=GUIDE_META.map(m=>'<button type="button" class="gnav'+(m.k===guideSec?' on':'')+'" data-g="'+m.k+'">'+m.t+'</button>').join('');
+  body.innerHTML=GUIDE_META.map(m=>'<div class="gsec'+(m.k===guideSec?' on':'')+'" data-s="'+m.k+'">'+(GUIDE_HTML[m.k]||'')+'</div>').join('');
+  return true;
+}
+function setGuideSec(k){ if(!GUIDE_HTML[k]) return; guideSec=k; renderGuide(); const b=$('#guideBody'); if(b) b.scrollTop=0; }
+function openGuide(k,auto){
+  bindGuide();
+  const m=$('#guideModal'); if(!m) return false;
+  if(k && GUIDE_HTML[k]) guideSec=k;
+  if(!renderGuide()) return false;
+  const na=$('#guideNoAuto'); if(na) na.checked=(auto===true) || settings.guideSeen===true;
+  m.classList.remove('hidden');
+  const gb=$('#btnGuide'); if(gb) gb.classList.remove('pulse');
+  return true;
+}
+function closeGuide(){
+  const m=$('#guideModal'); if(m) m.classList.add('hidden');
+  const na=$('#guideNoAuto');
+  settings.guideSeen=!!(na && na.checked);
+  try{ store.set('settings',settings); }catch(_){}
+  const gb=$('#btnGuide'); if(gb) gb.classList.remove('pulse');
+}
+/* #guideModal 的 HTML 位于主脚本之后：必须可重绑 + 成功返回 true，并在 openGuide 里兜底再绑一次 */
+function bindGuide(){
+  const m=$('#guideModal'); if(!m) return false;
+  if(m._gBound) return true;
+  const nav=$('#guideNav'), cc=$('#guideClose'), st=$('#guideStart');
+  if(!nav||!cc||!st) return false;
+  nav.addEventListener('click',e=>{ const b=(e.target&&e.target.closest)? e.target.closest('.gnav') : null; if(b) setGuideSec(b.getAttribute('data-g')); });
+  cc.onclick=closeGuide;
+  st.onclick=closeGuide;
+  m.addEventListener('click',e=>{ if(e.target===m) closeGuide(); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape' && !m.classList.contains('hidden')) closeGuide(); });
+  m._gBound=true;
+  return true;
+}
+function bootGuide(){
+  const after=()=>{
+    const gb=$('#btnGuide');
+    if(gb && !gb._gb){ gb._gb=true; gb.addEventListener('click',()=>openGuide('start',false)); }
+    if(!settings.guideSeen){ if(gb) gb.classList.add('pulse'); setTimeout(()=>{ try{ openGuide('start',true); }catch(_){} },700); }
+  };
+  if(!bindGuide() && document.readyState==='loading') document.addEventListener('DOMContentLoaded',()=>{ bindGuide(); after(); });
+  else after();
+}
 
 /* ================= 学习伙伴小猫 ================= */
 const PET_GREET={
@@ -3327,6 +3914,32 @@ function wallApplyFold(){
   const b=$('#btnDanmuFold');
   if(b){ b.textContent=v?'⌃ 展开':'⌄ 收起'; b.title=v?'展开弹幕':'收起弹幕，只留入口'; b.setAttribute('aria-expanded',v?'false':'true'); }
   const n=$('#danmuFoldCount'); if(n) n.textContent=String(wallView().length);
+  const t=$('#danmuTitleCount'); if(t) t.textContent=String(wallView().length);
+}
+/* ---- 弹幕位置：top=页面顶部（原位置） / bottom=页脚上方 / float=右下角悬浮卡片 ---- */
+function wallSetPos(pos){
+  if(pos!=='top' && pos!=='bottom' && pos!=='float') pos='float';
+  settings.danmuPos=pos;
+  try{ store.set('settings',settings); }catch(_){}
+  const bar=$('#danmuBar'); if(!bar) return;
+  bar.classList.remove('pos-top','pos-bottom','pos-float');
+  bar.classList.add('pos-'+pos);
+  // 顶部 / 底部为文档流位置，需要真的挪 DOM；悬浮为 fixed，DOM 位置不影响视觉
+  if(pos==='top'){
+    const hd=document.querySelector('header');
+    if(hd && hd.parentNode && hd.nextSibling!==bar) hd.parentNode.insertBefore(bar, hd.nextSibling);
+  }else{
+    const ft=document.querySelector('footer');
+    if(ft && ft.parentNode && ft.previousSibling!==bar) ft.parentNode.insertBefore(bar, ft);
+    else if(bar.parentNode!==document.body) document.body.appendChild(bar);
+  }
+  wallSyncPosUI();
+  wallStopDanmu(); wallClearDanmu(); wallStartDanmu();
+}
+function wallSyncPosUI(){
+  const cur=settings.danmuPos||'float';
+  const btns=document.querySelectorAll? Array.prototype.slice.call(document.querySelectorAll('.dmpos-btn')) : [];
+  btns.forEach(b=>b.classList.toggle('on', b.getAttribute('data-pos')===cur));
 }
 function wallSetFold(v){
   settings.danmuFolded=!!v;
@@ -3409,11 +4022,16 @@ function wallBind(){
   const oo=$('#wallOnlyOpen'); if(oo && oo._wbound!==true){ oo._wbound=true; oo.addEventListener('change',()=>{ wallOnlyOpen=!!oo.checked; wallRender(); }); }
   const sd=$('#setShowDanmu'); if(sd && sd._wbound!==true){ sd._wbound=true; sd.addEventListener('change',()=>{
       settings.showDanmu=!!sd.checked; store.set('settings',settings); wallStartDanmu(); toast(sd.checked?'弹幕已开启':'弹幕已关闭'); }); }
+  const pb=document.querySelectorAll? Array.prototype.slice.call(document.querySelectorAll('.dmpos-btn')) : [];
+  pb.forEach(b=>{ if(b._wbound===true) return; b._wbound=true;
+    b.addEventListener('click',e=>{ e.preventDefault(); wallSetPos(b.getAttribute('data-pos'));
+      toast(b.getAttribute('data-pos')==='float'? '弹幕已移到右下角悬浮':(b.getAttribute('data-pos')==='bottom'? '弹幕已移到页面底部':'弹幕已回到页面顶部')); }); });
   return !!m;
 }
 function wallBoot(){
   if(!wallBind() && document.readyState==='loading') document.addEventListener('DOMContentLoaded',wallBind);
   const sd=$('#setShowDanmu'); if(sd) sd.checked=settings.showDanmu!==false;
+  wallSetPos(settings.danmuPos || 'float');   // 默认右下角悬浮，不再占用顶部版面
   wallLoad().then(()=>{ wallStartDanmu(); wallRender(); });
 }
 
@@ -4134,7 +4752,7 @@ $('#sbSignIn').onclick=sbSignIn;
 $('#sbSignUp').onclick=sbSignUp;
 $('#sbSignOut').onclick=sbSignOut;
 
-bootAskModal(); bootFortune(); wallBoot(); applyTheme(); initSettings(); updateFolderBadge(); loadDaily();
+bootAskModal(); bootFortune(); wallBoot(); applyTheme(); initSettings(); updateFolderBadge(); loadDaily(); bootGuide();
 </script>
 <div id="tab-notes" class="hidden">
   <div class="notes-wrap">
@@ -4202,6 +4820,24 @@ bootAskModal(); bootFortune(); wallBoot(); applyTheme(); initSettings(); updateF
       </div>
       <div class="notes-editor" id="noteEditor" contenteditable="true" data-ph="在这里自由书写，像飞书云文档一样～ 支持标题、字号、清单、模板，输入自动保存。"></div>
     </section>
+  </div>
+</div>
+
+<!-- 使用指引（首次访问自动弹出一次，之后点顶栏「❓ 使用指引」随时重开） -->
+<div class="modal hidden" id="guideModal">
+  <div class="box guide-box">
+    <div class="guide-head">
+      <h3>❓ 使用指引 · 两分钟上手</h3>
+      <button class="btn" id="guideClose" type="button">关闭</button>
+    </div>
+    <div class="guide-nav" id="guideNav"></div>
+    <div class="guide-body" id="guideBody"></div>
+    <div class="guide-foot">
+      <label><input type="checkbox" id="guideNoAuto"> 下次进入时不再自动弹出</label>
+      <span class="sp"></span>
+      <span style="font-family:var(--sans);font-size:12px;color:var(--ink3)">数据都存在你自己的浏览器里，不用登录</span>
+      <button class="btn pri" id="guideStart" type="button">开始使用 →</button>
+    </div>
   </div>
 </div>
 

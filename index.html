@@ -147,6 +147,23 @@ body.no-if .ifbadge{display:none}
 @media(max-width:860px){.set-grid{grid-template-columns:1fr}}
 .set-card{padding:20px}
 .set-card h3{font-size:15px;margin-bottom:14px}
+/* ===== 设置页签（浏览器页签风格） ===== */
+.set-tabs{display:flex;gap:5px;flex-wrap:wrap;border-bottom:1px solid var(--line);margin:0 0 18px;padding:0 2px}
+.set-tab{font-family:var(--sans);border:1px solid transparent;border-bottom:none;background:transparent;
+  border-radius:11px 11px 0 0;padding:9px 16px;font-size:13px;font-weight:600;color:var(--ink3);
+  cursor:pointer;position:relative;top:1px;line-height:1.4;transition:color .15s,background .15s;white-space:nowrap}
+.set-tab:hover{color:var(--ink);background:var(--brand-soft)}
+.set-tab.on{background:var(--card);border-color:var(--line);color:var(--brand2);font-weight:700;
+  box-shadow:0 -3px 10px rgba(40,35,25,.06)}
+.set-tab .tdot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#c0392b;margin-left:6px;vertical-align:middle}
+.sg1{grid-template-columns:1fr}
+.sg2{grid-template-columns:1fr 1fr}
+@media(max-width:860px){.sg1,.sg2{grid-template-columns:1fr}}
+.set-pane{display:none}
+.set-pane.on{display:block;animation:setFade .2s ease}
+@keyframes setFade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+html[data-theme="dark"] .set-tab.on{background:#20242c;box-shadow:0 -3px 10px rgba(0,0,0,.35)}
+html[data-theme="dark"] .set-tab:hover{background:#262a32}
 .set-card label{display:block;font-size:12.5px;font-weight:600;color:var(--ink2);margin:12px 0 5px}
 .set-card input,.set-card select{width:100%}
 .jlist{display:grid;grid-template-columns:1fr 1fr;gap:6px}
@@ -851,7 +868,17 @@ html[data-theme="dark"] .ph-x:hover{background:#3d424c}
 
 <!-- ============ 设置 ============ -->
 <div id="tab-setting" class="hidden">
-  <div class="set-grid">
+  <div class="set-tabs" id="setTabs">
+    <button class="set-tab on" type="button" data-st="jnl">📚 期刊与推荐</button>
+    <button class="set-tab" type="button" data-st="ai">🤖 AI 接口</button>
+    <button class="set-tab" type="button" data-st="look">🎨 外观与目标</button>
+    <button class="set-tab" type="button" data-st="me">🎴 我的档案</button>
+    <button class="set-tab" type="button" data-st="data">💾 数据与同步</button>
+    <button class="set-tab" type="button" data-st="wall">💬 留言墙</button>
+  </div>
+
+  <div class="set-pane" data-sp="me">
+  <div class="set-grid sg1">
     <div class="card set-card">
       <h3>🎂 我的小档案</h3>
       <label for="setBirth">出生日期（用于「🎴 今日一签」个性化签文）</label>
@@ -864,12 +891,22 @@ html[data-theme="dark"] .ph-x:hover{background:#3d424c}
       </div>
       <p class="hint" id="birthMsg" style="margin-top:8px"></p>
     </div>
+  </div>
+  </div>
+
+  <div class="set-pane on" data-sp="jnl">
+  <div class="set-grid sg1">
     <div class="card set-card">
       <h3>📚 追踪的期刊</h3>
       <div class="jlist" id="journalChecks"></div>
       <p class="hint" style="margin-top:10px">勾选后「今日推荐」将聚合这些期刊的最新论文。</p>
       <div style="margin-top:10px"><button class="btn" id="btnRestoreJournals">📥 恢复默认高质量期刊（含中英文顶刊）</button></div>
     </div>
+  </div>
+  </div>
+
+  <div class="set-pane" data-sp="ai">
+  <div class="set-grid sg1">
     <div class="card set-card">
       <h3>🤖 AI 接口（可选）</h3>
       <p class="hint">配置任意 OpenAI 兼容接口后，即可使用「AI 今日导读」「研究新思路」「文献综述更新」「单篇 AI 速读」。以下任一服务商均可，选好后填 Key 即用。</p>
@@ -952,6 +989,11 @@ html[data-theme="dark"] .ph-x:hover{background:#3d424c}
         </div>
       </details>
     </div>
+  </div>
+  </div>
+
+  <div class="set-pane" data-sp="look">
+  <div class="set-grid sg1">
     <div class="card set-card">
       <h3>🎨 外观与阅读目标</h3>
       <label>界面主题</label>
@@ -971,6 +1013,11 @@ html[data-theme="dark"] .ph-x:hover{background:#3d424c}
         <button class="btn pri" id="btnSaveLook">保存外观与目标</button>
       </div>
     </div>
+  </div>
+  </div>
+
+  <div class="set-pane" data-sp="data">
+  <div class="set-grid sg2">
     <div class="card set-card">
       <h3>🗄️ 数据备份与导出</h3>
       <p class="hint">数据仅保存在本浏览器 localStorage。换设备 / 清缓存前请导出备份，避免笔记、文件夹丢失。</p>
@@ -1022,6 +1069,11 @@ create policy "own_notes" on econdaily_notes
   with check (auth.uid() = user_id);</pre>
       </details>
     </div>
+  </div>
+  </div>
+
+  <div class="set-pane" data-sp="wall">
+  <div class="set-grid sg1">
     <div class="card set-card">
       <h3>💬 留言墙（免登录 · 弹幕滚动）</h3>
       <p class="hint">访客<b>不用登录</b>就能在网页顶部留下评价，会以弹幕形式滚动播放，其他人可以「👍 点赞」、作者可以点「✅ 已解决」。当前状态：<b id="wallStatusTxt">检测中…</b></p>
@@ -1067,6 +1119,7 @@ grant execute on function wall_like(bigint) to anon, authenticated;
 grant execute on function wall_resolve(bigint, boolean) to anon, authenticated;</pre>
       </details>
     </div>
+  </div>
   </div>
 </div>
 
@@ -2938,6 +2991,22 @@ $('#btnSaveSet').onclick=saveSettings;
 })();
 $('#btnRestoreJournals').onclick=restoreJournals;
 $('#btnTestAi').onclick=testAi;
+/* 设置页签：点开才看对应模块，记住上次停留的签 */
+(function initSetTabs(){
+  const tabs=$('#setTabs'); if(!tabs) return;
+  const panes=[].slice.call(document.querySelectorAll('.set-pane'));
+  function show(k){
+    tabs.querySelectorAll('.set-tab').forEach(b=> b.classList.toggle('on', b.getAttribute('data-st')===k));
+    panes.forEach(p=> p.classList.toggle('on', p.getAttribute('data-sp')===k));
+    try{ settings.setTab=k; store.set('settings',settings); }catch(_){}
+  }
+  tabs.addEventListener('click',e=>{
+    const b=(e.target&&e.target.closest)? e.target.closest('.set-tab') : null;
+    if(b) show(b.getAttribute('data-st'));
+  });
+  const want=(settings.setTab && panes.some(p=>p.getAttribute('data-sp')===settings.setTab))? settings.setTab : 'jnl';
+  show(want);
+})();
 // 外观与阅读目标
 document.querySelectorAll('#themeSeg button').forEach(b=> b.onclick=()=>{
   settings.theme=b.dataset.theme; applyTheme(); store.set('settings',settings); syncThemeSeg();

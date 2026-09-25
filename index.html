@@ -386,6 +386,28 @@ html[data-theme="dark"] .guide-btn{background:#262a32;color:var(--ink2)}
 .guide-btn.pulse{border-color:var(--brand);animation:gpulse 2.2s ease-in-out infinite}
 @keyframes gpulse{0%,100%{box-shadow:0 0 0 0 rgba(31,58,95,.38)}50%{box-shadow:0 0 0 7px rgba(31,58,95,0)}}
 @media(max-width:560px){.guide-head,.guide-nav,.guide-foot{padding-left:16px;padding-right:16px}.guide-body{padding:12px 16px 16px}.gtable td.k{width:96px}}
+/* ===== 可搜索下拉（期刊浏览） ===== */
+.combo{position:relative;min-width:290px;flex:0 1 320px}
+.combo-input{width:100%;padding:7px 28px 7px 11px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font-family:var(--sans);font-size:13px}
+.combo-input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(31,58,95,.1)}
+.combo::after{content:'▾';position:absolute;right:11px;top:50%;transform:translateY(-50%);color:var(--ink3);font-size:11px;pointer-events:none}
+.combo-list{position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:60;background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:0 14px 34px rgba(20,40,90,.2);max-height:330px;overflow:auto;padding:6px}
+.combo-list.hidden{display:none}
+.combo-group{position:sticky;top:-6px;background:var(--card);font-family:var(--sans);font-size:11.5px;color:var(--ink3);font-weight:700;padding:9px 8px 4px}
+.combo-item{display:flex;flex-direction:column;gap:1px;padding:7px 9px;border-radius:7px;cursor:pointer;font-family:var(--sans)}
+.combo-item:hover,.combo-item.hi{background:var(--brand-soft)}
+.combo-item.on{background:var(--brand)}
+.combo-item .n{font-size:13px;color:var(--ink);font-weight:600;line-height:1.35}
+.combo-item .m{font-size:11.5px;color:var(--ink3)}
+.combo-item.on .n{color:#fff}
+.combo-item.on .m{color:rgba(255,255,255,.82)}
+.combo-item mark{background:#ffe9a8;color:inherit;border-radius:2px;padding:0 1px}
+.combo-empty{padding:16px 10px;text-align:center;color:var(--ink3);font-size:12.5px;font-family:var(--sans)}
+html[data-theme="dark"] .combo-list{background:#1e2128;border-color:var(--line)}
+html[data-theme="dark"] .combo-group{background:#1e2128}
+html[data-theme="dark"] .combo-item:hover,html[data-theme="dark"] .combo-item.hi{background:#2a3346}
+html[data-theme="dark"] .combo-item mark{background:#5a4a1f;color:#ffe9a8}
+@media(max-width:560px){.combo{flex-basis:100%;min-width:0}}
 /* 自定义确认/输入弹窗（替代原生 confirm/prompt，兼容 iframe 沙箱环境） */
 .ask-box{max-width:420px!important}
 .ask-box h3{margin:0 0 8px;font-size:17px}
@@ -454,29 +476,91 @@ html[data-theme="dark"] .api-more>summary{background:#223049}
 @keyframes fpulse{0%,100%{box-shadow:var(--shadow)}50%{box-shadow:0 0 0 6px rgba(224,72,60,.14)}}
 html[data-theme="dark"] .fortune-btn{background:linear-gradient(135deg,#3a352b,#2e2a22);color:#e5c98d;border-color:#4e4535}
 html[data-theme="dark"] .fortune-btn.done{background:#2a2d34;color:#9aa3b2;border-color:#3a3f49}
-.fpaper{max-width:430px!important;position:relative;background:linear-gradient(170deg,#fffdf6 0%,#fdf3e0 100%);border:1px solid #e8d5ae;border-radius:18px;padding:0;overflow:hidden;box-shadow:0 24px 60px rgba(60,40,10,.3)}
-.fpaper::before{content:"";position:absolute;inset:8px;border:1px solid rgba(200,160,90,.32);border-radius:12px;pointer-events:none}
-.f-wrap{position:relative;padding:22px 20px 18px;text-align:center}
+.fpaper{max-width:456px!important;position:relative;background:linear-gradient(170deg,#fffdf7 0%,#fdf6e8 58%,#fbedd9 100%);border:1px solid #e3cd9e;border-radius:20px;padding:0;overflow:hidden;box-shadow:0 26px 66px rgba(60,40,10,.32)}
+.fpaper::before{content:"";position:absolute;inset:9px;border:1.5px solid rgba(196,152,80,.34);border-radius:13px;pointer-events:none}
+.fpaper::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(176,136,74,.04) 0 1px,transparent 1px 4px)}
+.f-wrap{position:relative;z-index:1;padding:0 20px 18px;text-align:center}
+.f-head{margin:0 -20px 0;padding:12px 14px 13px;background:linear-gradient(135deg,#bb332b,#8d1e17);color:#f8e8ca;text-align:center;font-size:12.5px;font-weight:800;letter-spacing:3px;box-shadow:0 3px 12px rgba(140,30,20,.28)}
+.f-head .sub{display:block;margin-top:4px;font-size:10.5px;letter-spacing:1.2px;font-weight:500;opacity:.8}
+.f-cnr{position:absolute;width:15px;height:15px;border:1.5px solid rgba(196,152,80,.55);pointer-events:none}
+.f-cnr.tl{left:17px;top:62px;border-right:0;border-bottom:0}
+.f-cnr.tr{right:17px;top:62px;border-left:0;border-bottom:0}
+.f-cnr.bl{left:17px;bottom:9px;border-right:0;border-top:0}
+.f-cnr.br{right:17px;bottom:9px;border-left:0;border-top:0}
 .f-date{font-size:11.5px;color:#9a7b4f;letter-spacing:1.5px}
-.f-level{display:inline-block;margin-top:12px;padding:5px 15px;border-radius:999px;color:#fff;font-size:12.5px;font-weight:800;letter-spacing:2px;box-shadow:0 3px 10px rgba(0,0,0,.14)}
-.f-name{margin-top:12px;font-size:27px;font-weight:800;color:#b02a1e;letter-spacing:4px;line-height:1.3}
-.f-poem{margin-top:9px;font-size:14.5px;line-height:2;color:#5c4526;letter-spacing:1px;font-family:"Kaiti SC","KaiTi","STKaiti","Songti SC","SimSun",serif}
-.f-sec{margin:14px 20px 0;background:rgba(255,255,255,.66);border:1px solid rgba(200,170,110,.35);border-radius:12px;padding:11px 13px;font-size:13px;line-height:1.85;color:#4b3b23;text-align:left}
+.f-level{display:inline-block;margin-top:16px;padding:6px 17px;border-radius:3px;color:#fff;font-size:12.5px;font-weight:800;letter-spacing:3px;box-shadow:0 3px 10px rgba(0,0,0,.16);border:1.5px solid rgba(255,255,255,.6);outline:1px solid rgba(120,60,30,.18);outline-offset:2px;transform:rotate(-1.5deg)}
+.f-name{display:flex;align-items:center;justify-content:center;gap:11px;margin-top:15px}
+.f-name::before,.f-name::after{content:"";flex:0 0 24px;height:1px;background:linear-gradient(90deg,transparent,rgba(184,140,72,.75))}
+.f-name::after{background:linear-gradient(90deg,rgba(184,140,72,.75),transparent)}
+.f-nm{font-size:29px;font-weight:800;letter-spacing:5px;line-height:1.35;background:linear-gradient(180deg,#c33a2c,#8d1e17);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 1px 0 rgba(255,255,255,.65))}
+.f-poem{position:relative;margin:13px 0 0;padding:13px 16px;border-left:2px solid rgba(196,152,80,.5);border-right:2px solid rgba(196,152,80,.5);border-radius:5px;background:rgba(255,255,255,.46);font-size:15px;line-height:2.05;color:#5c4526;letter-spacing:1.6px;font-family:"Kaiti SC","KaiTi","STKaiti","Songti SC","SimSun",serif}
+.f-seal{position:absolute;right:9px;bottom:7px;width:36px;height:36px;border:1.6px solid rgba(184,48,42,.6);border-radius:4px;color:rgba(184,48,42,.62);font-size:9.5px;font-weight:800;line-height:1.15;display:flex;align-items:center;justify-content:center;transform:rotate(-7deg);opacity:.72;font-family:var(--sans)}
+.f-sec{position:relative;margin:13px 0 0;padding:12px 13px 12px 38px;background:rgba(255,255,255,.7);border:1px solid rgba(200,170,110,.35);border-radius:12px;font-size:13px;line-height:1.85;color:#4b3b23;text-align:left}
+.f-sec::before{content:"签";position:absolute;left:11px;top:12px;width:19px;height:19px;border-radius:50%;background:linear-gradient(135deg,#bb332b,#8d1e17);color:#f8e8ca;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;line-height:1}
 .f-sec b{color:#8a5a1b}
-.f-yj{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 20px 0}
-.f-yj>div{border-radius:12px;padding:10px 12px;font-size:12.5px;line-height:1.7;text-align:left}
-.f-yi{background:rgba(45,125,70,.09);border:1px solid rgba(45,125,70,.26);color:#2c6141}
-.f-ji{background:rgba(176,42,30,.07);border:1px solid rgba(176,42,30,.22);color:#8c3226}
-.f-lucky{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin:13px 20px 0}
-.f-lucky span{background:rgba(255,255,255,.8);border:1px solid rgba(200,170,110,.4);border-radius:999px;padding:4px 11px;font-size:12px;color:#7a5a2a}
-.f-cat{margin:14px 20px 0;background:rgba(255,255,255,.6);border:1px dashed rgba(200,170,110,.55);border-radius:12px;padding:10px 13px;font-size:12.8px;line-height:1.75;color:#6b5433;text-align:left}
-.f-foot{margin:15px 20px 0;padding-top:13px;border-top:1px dashed rgba(200,170,110,.5);display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.f-yj{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:11px 0 0}
+.f-yj>div{position:relative;border-radius:12px;padding:9px 12px;font-size:12.5px;line-height:1.7;text-align:left}
+.f-yi{background:linear-gradient(180deg,rgba(45,125,70,.1),rgba(45,125,70,.04));border:1px solid rgba(45,125,70,.28);color:#2c6141}
+.f-ji{background:linear-gradient(180deg,rgba(176,42,30,.08),rgba(176,42,30,.035));border:1px solid rgba(176,42,30,.24);color:#8c3226}
+.yjtag{display:inline-block;margin-right:6px;padding:1px 7px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:1px}
+.yjtag.ok{background:rgba(45,125,70,.16);color:#2c6141}
+.yjtag.no{background:rgba(176,42,30,.14);color:#8c3226}
+.f-lucky{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:12px 0 0}
+.f-lucky span{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.86);border:1px solid rgba(200,170,110,.45);border-radius:999px;padding:5px 12px;font-size:12px;color:#7a5a2a;box-shadow:0 1px 3px rgba(120,90,40,.07)}
+.f-lucky span i{width:16px;height:16px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:9px;font-style:normal;background:rgba(198,150,70,.2)}
+.f-cat{margin:12px 0 0;background:rgba(255,255,255,.62);border:1px dashed rgba(200,170,110,.6);border-radius:12px;padding:10px 13px;font-size:12.8px;line-height:1.75;color:#6b5433;text-align:left}
+.f-foot{margin:14px 0 0;padding-top:13px;border-top:1px dashed rgba(200,170,110,.5);display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between}
 .f-streak{font-size:12px;color:#9a7b4f}
+.f-foot .btn.pri{background:linear-gradient(135deg,#bb332b,#8d1e17);border-color:#8d1e17;color:#fff}
+/* 签文出场：整体淡入 + 签名弹入 + 诗句上浮（fRender 每次重建 DOM，动画天然重放） */
+.f-wrap{animation:fin .46s cubic-bezier(.2,.9,.3,1) both}
+@keyframes fin{0%{opacity:0;transform:translateY(8px) scale(.985)}100%{opacity:1;transform:none}}
+.f-nm{animation:fpop .5s .1s cubic-bezier(.2,.9,.3,1.2) both}
+@keyframes fpop{0%{opacity:0;transform:scale(.9)}100%{opacity:1;transform:none}}
+.f-poem{animation:fup .5s .18s cubic-bezier(.2,.9,.3,1) both}
+@keyframes fup{0%{opacity:0;transform:translateY(6px)}100%{opacity:1;transform:none}}
 .f-shake{animation:fshake .5s ease-in-out infinite}
 @keyframes fshake{0%,100%{transform:rotate(-9deg)}50%{transform:rotate(9deg)}}
 .f-loading{padding:44px 20px;text-align:center;color:#8a5a1b}
 .f-loading .f-ico{display:inline-block;font-size:40px}
-.f-tip{margin:0 20px 6px;font-size:12px;color:#9a7b4f;line-height:1.7;text-align:left}
+/* ===== 摇签动画（抽签前的签筒） ===== */
+.f-shakebox{position:relative;display:flex;flex-direction:column;align-items:center;padding:70px 10px 20px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.f-sktube{position:relative;width:80px;height:116px;transform-origin:50% 96%;animation:ftube .44s ease-in-out infinite}
+.f-shakebox.drop .f-sktube{animation:none}
+@keyframes ftube{0%{transform:rotate(-11deg) translateY(0)}25%{transform:rotate(0deg) translateY(-4px)}50%{transform:rotate(11deg) translateY(0)}75%{transform:rotate(0deg) translateY(-4px)}100%{transform:rotate(-11deg) translateY(0)}}
+.sk-body{position:absolute;left:0;bottom:0;width:80px;height:100px;border-radius:9px 9px 15px 15px;background:linear-gradient(155deg,#b07a45,#8d5a30 46%,#6b4224);box-shadow:0 7px 16px rgba(90,50,20,.28),inset 0 0 0 1.5px rgba(255,255,255,.09)}
+.sk-body::before,.sk-body::after{content:"";position:absolute;left:0;right:0;height:3.5px;background:rgba(244,209,133,.5)}
+.sk-body::before{top:24px}
+.sk-body::after{top:58px}
+.sk-mouth{position:absolute;left:0;top:0;width:80px;height:17px;border-radius:50%;background:radial-gradient(ellipse at 50% 40%,#5d381d,#3d2413);box-shadow:inset 0 3px 7px rgba(0,0,0,.5)}
+.sk-sticks{position:absolute;left:0;bottom:0;width:80px;height:116px}
+.sk-stk{position:absolute;left:50%;bottom:92px;width:6px;height:62px;margin-left:-3px;border-radius:3px 3px 1px 1px;background:linear-gradient(180deg,#fdf2d8,#ddc59b);box-shadow:0 1px 3px rgba(80,45,15,.22);transform-origin:50% 100%;transform:rotate(var(--r,0deg));animation:skbob .44s ease-in-out infinite;animation-delay:var(--d,0s)}
+.sk-stk::before{content:"";position:absolute;left:0;top:0;width:6px;height:8px;border-radius:3px 3px 0 0;background:#c8402f}
+@keyframes skbob{0%,100%{transform:rotate(var(--r,0deg)) translateY(0)}50%{transform:rotate(var(--r,0deg)) translateY(-6px)}}
+.f-shakebox.drop .sk-stk{animation:none;opacity:.4;filter:saturate(.45)}
+.f-shakebox.drop .sk-stk.hit{opacity:1;filter:none;animation:skout .78s cubic-bezier(.22,.9,.3,1.15) forwards}
+@keyframes skout{0%{transform:rotate(var(--r,0deg)) translateY(0)}45%{transform:rotate(0deg) translateY(-19px)}100%{transform:rotate(0deg) translateY(-30px)}}
+.sk-glow{position:absolute;left:50%;top:12px;width:16px;height:16px;margin-left:-8px;border-radius:50%;background:radial-gradient(circle,#ffeaa9,rgba(255,214,120,0) 70%);opacity:0;pointer-events:none}
+.f-shakebox.drop .sk-glow{animation:skglow .82s ease-out forwards}
+@keyframes skglow{0%{opacity:0;transform:scale(.4)}32%{opacity:1;transform:scale(3.2)}100%{opacity:0;transform:scale(5)}}
+.sk-sparks{position:absolute;left:50%;top:8px;width:0;height:0;pointer-events:none}
+.sk-sparks i{position:absolute;width:7px;height:7px;margin:-3.5px;border-radius:50%;background:#f2c96b;opacity:0}
+.f-shakebox.drop .sk-sparks i{animation:skstar .82s ease-out forwards;animation-delay:var(--sd,0s)}
+@keyframes skstar{0%{opacity:0;transform:translate(0,0) scale(.4)}30%{opacity:1}100%{opacity:0;transform:translate(var(--x,0),var(--y,-30px)) scale(1)}}
+/* 系统开启「减弱动效」时的降级版：不做左右摇晃，改成签筒静置 + 签支淡入抽出 */
+.f-shakebox.still .f-sktube,.f-shakebox.still .sk-stk{animation:none}
+.f-shakebox.still.drop .sk-stk.hit{animation:skfade .68s ease-out forwards}
+@keyframes skfade{0%{opacity:0;transform:rotate(var(--r,0deg))}100%{opacity:1;transform:rotate(var(--r,0deg)) translateY(-24px)}}
+.f-shakebox.still.drop .sk-glow{animation:skshow .68s ease-out forwards}
+@keyframes skshow{0%{opacity:0}40%{opacity:.85}100%{opacity:0}}
+.f-shakebox.still.drop .sk-sparks i{animation:none;opacity:0}
+.sk-txt{margin-top:18px;font-size:13.5px;color:#8a5a1b;font-weight:600;letter-spacing:.5px}
+.sk-sub{margin-top:6px;font-size:11.5px;color:#a08a66}
+html[data-theme="dark"] .sk-body{background:linear-gradient(155deg,#8a5f38,#6d4526 46%,#51311b);box-shadow:0 7px 16px rgba(0,0,0,.4),inset 0 0 0 1.5px rgba(255,255,255,.06)}
+html[data-theme="dark"] .sk-txt{color:#dcbf88}
+html[data-theme="dark"] .sk-sub{color:#8f7d61}
+@media(prefers-reduced-motion:reduce){.f-sktube,.sk-stk{animation:none!important}}
+.f-tip{margin:0 0 6px;font-size:12px;color:#9a7b4f;line-height:1.7;text-align:left}
 html[data-theme="dark"] .fpaper{background:linear-gradient(170deg,#26282f,#1d1f25);border-color:#443c30}
 html[data-theme="dark"] .fpaper::before{border-color:rgba(190,155,95,.24)}
 html[data-theme="dark"] .f-date,html[data-theme="dark"] .f-streak{color:#a89472}
@@ -488,6 +572,19 @@ html[data-theme="dark"] .f-yi{background:rgba(78,180,110,.1);border-color:rgba(7
 html[data-theme="dark"] .f-ji{background:rgba(230,105,92,.09);border-color:rgba(230,105,92,.24);color:#e39a90}
 html[data-theme="dark"] .f-lucky span{background:rgba(255,255,255,.06);border-color:rgba(190,155,95,.3);color:#cbb389}
 html[data-theme="dark"] .f-cat{background:rgba(255,255,255,.04);border-color:rgba(190,155,95,.3);color:#bfb49f}
+html[data-theme="dark"] .fpaper{background:linear-gradient(170deg,#282932,#1d1f26);border-color:#463d31}
+html[data-theme="dark"] .f-head{background:linear-gradient(135deg,#8f2a22,#6d1712);color:#f0dcbb}
+html[data-theme="dark"] .f-nm{background:linear-gradient(180deg,#e8695c,#c0453a);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:none}
+html[data-theme="dark"] .f-poem{background:rgba(255,255,255,.04);border-color:rgba(190,155,95,.3);color:#d8cbb2}
+html[data-theme="dark"] .f-seal{border-color:rgba(230,105,92,.55);color:rgba(230,105,92,.6)}
+html[data-theme="dark"] .f-cnr{border-color:rgba(190,155,95,.4)}
+html[data-theme="dark"] .f-sec::before{background:linear-gradient(135deg,#8f2a22,#6d1712);color:#f0dcbb}
+html[data-theme="dark"] .f-yi{background:linear-gradient(180deg,rgba(78,180,110,.12),rgba(78,180,110,.05));border-color:rgba(78,180,110,.3);color:#8fd3a4}
+html[data-theme="dark"] .f-ji{background:linear-gradient(180deg,rgba(230,105,92,.1),rgba(230,105,92,.04));border-color:rgba(230,105,92,.3);color:#e39a90}
+html[data-theme="dark"] .yjtag.ok{background:rgba(78,180,110,.18);color:#8fd3a4}
+html[data-theme="dark"] .yjtag.no{background:rgba(230,105,92,.18);color:#e39a90}
+html[data-theme="dark"] .f-lucky span i{background:rgba(200,160,90,.16)}
+html[data-theme="dark"] .f-foot .btn.pri{background:linear-gradient(135deg,#8f2a22,#6d1712);border-color:#6d1712}
 html[data-theme="dark"] .f-tip{color:#a89472}
 @media(max-width:520px){.f-yj{grid-template-columns:1fr}.f-name{font-size:23px}}
 
@@ -840,7 +937,12 @@ html[data-theme="dark"] .ph-x:hover{background:#3d424c}
 <!-- ============ 期刊浏览 ============ -->
 <div id="tab-browse" class="hidden">
   <div class="toolbar">
-    <select id="browseJournal" style="min-width:280px"></select>
+    <div class="combo" id="browseCombo">
+      <input type="text" id="browseJournalInput" class="combo-input" autocomplete="off"
+             placeholder="🔎 输入刊名 / 中文名 / 子学科，如 development、金融、JDE">
+      <input type="hidden" id="browseJournal">
+      <div class="combo-list hidden" id="browseComboList"></div>
+    </div>
     <select id="browseSort">
       <option value="publication_date:desc">最新发表</option>
       <option value="cited_by_count:desc">被引最多</option>
@@ -2384,6 +2486,7 @@ async function loadBrowse(reset=true){
   const list=$('#browseList');
   if(reset){ browseWorks=[]; list.innerHTML='<div class="state"><div class="spinner"></div>加载中…</div>'; }
   const key=$('#browseJournal').value, j=JOURNALS.find(x=>x.key===key);
+  if(!j){ if(list) list.innerHTML='<div class="state">请先在上方选择一本期刊（可直接输入刊名搜索）</div>'; return; }
   const sort=$('#browseSort').value, year=$('#browseYear').value;
   let filter = j.issn? `primary_location.source.issn:${j.issn}` : `primary_location.source.id:${j.sourceId}`;
   if(year!=='all') filter+=`,publication_year:${year}`;
@@ -3540,8 +3643,82 @@ document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{ i
 document.addEventListener('click', e=>{ const t=e.target.closest('.term'); if(t){ e.stopPropagation(); showTerm(t.dataset.term, t); } else { const p=$('#termPop'); if(p) p.style.display='none'; const cm=document.getElementById('citeMenuWrap'); if(cm) cm.classList.remove('open'); } });
 renderCiteBar();
 
-// 期刊浏览下拉
-$('#browseJournal').innerHTML=CATS.map(c=>`<optgroup label="${c.name}">`+JOURNALS.filter(j=>j.region===c.key).map(j=>`<option value="${j.key}">${j.name}（${j.cn}）</option>`).join('')+`</optgroup>`).join('');
+/* ===== 期刊浏览：可输入搜索的期刊下拉（原生 select 只能滚，160 本根本找不到） ===== */
+function hlKw(t,kw){
+  const k=(kw||'').trim(), s=t||'';
+  if(!k) return esc(s);
+  const i=s.toLowerCase().indexOf(k.toLowerCase());
+  if(i<0) return esc(s);
+  return esc(s.slice(0,i))+'<mark>'+esc(s.slice(i,i+k.length))+'</mark>'+esc(s.slice(i+k.length));
+}
+let comboIdx=-1;
+function comboOpen(){ const l=$('#browseComboList'); if(l) l.classList.remove('hidden'); }
+function comboClose(){ const l=$('#browseComboList'); if(l) l.classList.add('hidden'); comboIdx=-1; }
+function comboRender(kw){
+  const box=$('#browseComboList'), hid=$('#browseJournal'); if(!box) return false;
+  const k=(kw||'').trim().toLowerCase();
+  const hits=JOURNALS.filter(j=>!k || (j.name+' '+(j.cn||'')+' '+(j.sub||'')+' '+catName(j.region)+' '+j.key).toLowerCase().indexOf(k)>=0);
+  comboIdx=-1;
+  if(!hits.length){ box.innerHTML='<div class="combo-empty">没找到匹配的期刊 —— 可以试试刊名、中文名或子学科（如 development、金融、计量）</div>'; return true; }
+  let h='', last=null;
+  hits.forEach(j=>{
+    const c=catName(j.region);
+    if(c!==last){ last=c; h+='<div class="combo-group">'+esc(c)+' · '+hits.filter(x=>catName(x.region)===c).length+' 本</div>'; }
+    const on=(hid&&hid.value)===j.key;
+    h+='<div class="combo-item'+(on?' on':'')+'" data-key="'+esc(j.key)+'">'+
+       '<span class="n">'+hlKw(j.name,k)+'</span>'+
+       '<span class="m">'+hlKw(j.cn||'',k)+(j.sub? ' · '+esc(j.sub) : '')+'</span></div>';
+  });
+  box.innerHTML=h;
+  return true;
+}
+function comboSelect(key){
+  const j=JOURNALS.find(x=>x.key===key); if(!j) return false;
+  const hid=$('#browseJournal'), inp=$('#browseJournalInput');
+  if(hid) hid.value=key;
+  if(inp) inp.value=j.name+(j.cn? '（'+j.cn+'）':'');
+  comboClose();
+  try{ loadBrowse(true); }catch(_){}
+  return true;
+}
+/* #browseCombo 位于主脚本之前，可直接绑定；仍然做成幂等，重复调用无副作用 */
+function initBrowseCombo(){
+  const inp=$('#browseJournalInput'), box=$('#browseComboList'), hid=$('#browseJournal'), wrap=$('#browseCombo');
+  if(!inp||!box||!hid||!wrap) return false;
+  if(inp._cb) return true;
+  const j0=JOURNALS[0];
+  if(!hid.value && j0){ hid.value=j0.key; inp.value=j0.name+(j0.cn? '（'+j0.cn+'）':''); }
+  comboRender('');
+  inp.addEventListener('focus',()=>{ comboRender(inp.value); comboOpen(); });
+  inp.addEventListener('input',()=>{ comboRender(inp.value); comboOpen(); });
+  inp.addEventListener('keydown',e=>{
+    const items=Array.prototype.slice.call(box.querySelectorAll('.combo-item'));
+    if(e.key==='ArrowDown'||e.key==='ArrowUp'){
+      e.preventDefault(); comboOpen();
+      if(!items.length) return;
+      comboIdx += (e.key==='ArrowDown'? 1 : -1);
+      if(comboIdx<0) comboIdx=items.length-1;
+      if(comboIdx>=items.length) comboIdx=0;
+      items.forEach((it,i)=>it.classList.toggle('hi', i===comboIdx));
+      if(items[comboIdx] && items[comboIdx].scrollIntoView) items[comboIdx].scrollIntoView({block:'nearest'});
+    }else if(e.key==='Enter'){
+      e.preventDefault();
+      const it=items[comboIdx>=0? comboIdx : 0];
+      if(it) comboSelect(it.getAttribute('data-key'));
+    }else if(e.key==='Escape'){ comboClose(); }
+  });
+  box.addEventListener('click',e=>{
+    const it=(e.target&&e.target.closest)? e.target.closest('.combo-item') : null;
+    if(it) comboSelect(it.getAttribute('data-key'));
+  });
+  document.addEventListener('click',e=>{
+    if(e.target && wrap.contains && !wrap.contains(e.target)) comboClose();
+  });
+  inp._cb=true;
+  return true;
+}
+// 期刊浏览下拉：可输入搜索（原生 select 只能滚动选，160 本时很难找）
+initBrowseCombo();
 const yNow=new Date().getFullYear();
 $('#browseYear').innerHTML='<option value="all">全部年份</option>'+Array.from({length:10},(_,i)=>`<option value="${yNow-i}" ${i===0?'selected':''}>${yNow-i}</option>`).join('');
 // 中文顶刊直达：知网/官网深链常失效或跳验证，统一跳转 Bing 搜索「刊名+最新目录」（稳定可达、国内可访问、不弹验证码）
@@ -4184,7 +4361,47 @@ function fToday(){
 function fReadsToday(){
   try{ const t=fTodayStr(); return (reads||[]).filter(r=>r&&r.date&&String(r.date).slice(0,10)===t).length; }catch(_){ return 0; }
 }
-function closeFortune(){ const m=$('#fortuneModal'); if(m) m.classList.add('hidden'); }
+/* ===== 摇签动画：签筒左右摇 → 一支签跳出 → 显示签文 ===== */
+let fSkTimer=null, fSkFn=null;
+function fSkClear(){ if(fSkTimer){ clearTimeout(fSkTimer); fSkTimer=null; } fSkFn=null; }
+function fSkReduce(){ try{ return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); }catch(_){ return false; } }
+function fSkHtml(){
+  const R=[-16,-11,-6,0,6,11,16], D=[-.06,-.13,-.02,-.19,-.09,-.03,-.15];
+  let st='';
+  for(let i=0;i<R.length;i++) st+='<i class="sk-stk'+(i===3?' hit':'')+'" style="--r:'+R[i]+'deg;--d:'+D[i]+'s"></i>';
+  let sp='';
+  [[-36,-28,0],[-19,-43,.08],[19,-41,.15],[36,-26,.22]].forEach(function(s){
+    sp+='<i style="--x:'+s[0]+'px;--y:'+s[1]+'px;--sd:'+s[2]+'s"></i>';
+  });
+  return '<div class="f-shakebox" id="skBox" onclick="fSkipShake()" title="点一下可以直接看签文">'
+    +'<div class="f-sktube"><div class="sk-body"></div><div class="sk-mouth"></div><div class="sk-sticks">'+st+'</div></div>'
+    +'<div class="sk-glow"></div><div class="sk-sparks">'+sp+'</div>'
+    +'<div class="sk-txt" id="skTxt">猫猫正在为你摇签…</div>'
+    +'<div class="sk-sub">（点一下可以跳过）</div>'
+    +'</div>';
+}
+// 摇一段再出签；r.fresh（今天第一次抽）摇久一点，回看已抽过的签摇短一点
+// 注意：系统开了「减弱动效」时**不能整个跳过**（那样用户什么都看不到），改成静置降级版
+function fStartShake(r){
+  const b=$('#fBody');
+  if(!b){ fRender(r); return; }
+  fSkClear();
+  const still = fSkReduce();
+  const shakeMs = r.fresh?1500:800, dropMs = r.fresh?800:650;
+  b.innerHTML=fSkHtml();
+  if(still){ const bx=b.querySelector('.f-shakebox'); if(bx) bx.classList.add('still'); }
+  fSkFn=function(){ fRender(r); };
+  fSkTimer=setTimeout(function(){
+    const box=b.querySelector('.f-shakebox'); if(box) box.classList.add('drop');
+    const t=b.querySelector('#skTxt'); if(t) t.textContent='签出来了…';
+    fSkTimer=setTimeout(function(){ fSkFn=null; fRender(r); }, dropMs);
+  }, shakeMs);
+}
+function fSkipShake(){
+  if(!fSkFn) return;
+  const fn=fSkFn; fSkClear(); fn();
+}
+function closeFortune(){ fSkClear(); const m=$('#fortuneModal'); if(m) m.classList.add('hidden'); }
 function openFortune(){
   const m=$('#fortuneModal');
   bindFortuneBtns();
@@ -4193,8 +4410,7 @@ function openFortune(){
   if(!getBirth()){ fRenderSetup(); m.classList.remove('hidden'); return; }
   const r=fToday();
   m.classList.remove('hidden');
-  $('#fBody').innerHTML='<div class="f-loading"><div class="f-ico f-shake">🎴</div><div style="margin-top:14px;font-size:13px">猫猫正在为你摇签…</div></div>';
-  setTimeout(()=>{ fRender(r); }, r.fresh?900:240);
+  fStartShake(r);
   updateFortuneBtn();
 }
 function fRenderSetup(){
@@ -4212,7 +4428,7 @@ function fRenderSetup(){
     +'</div>';
   const i=$('#fBirthInput'); if(i){ const v=getBirth(); if(v) i.value=v; }
   const sv=$('#fBirthSave'); if(sv) sv.onclick=fSaveInline;
-  const sk=$('#fSkipBirth'); if(sk) sk.onclick=()=>{ setBirth(''); const r=fToday(); fRender(r); updateFortuneBtn(); };
+  const sk=$('#fSkipBirth'); if(sk) sk.onclick=()=>{ setBirth(''); const r=fToday(); fStartShake(r); updateFortuneBtn(); };
   const cc=$('#fClose'); if(cc) cc.onclick=closeFortune;
 }
 function fSaveInline(){
@@ -4223,7 +4439,7 @@ function fSaveInline(){
   setBirth(v);
   try{ const st=fState(); st.date=''; store.set(F_KEY,st); }catch(_){}
   if($('#setBirth')) $('#setBirth').value=v;
-  const r=fToday(); fRender(r); updateFortuneBtn();
+  const r=fToday(); fStartShake(r); updateFortuneBtn();
   toast('生日已保存在本机 ✓');
 }
 function fRender(r){
@@ -4234,16 +4450,17 @@ function fRender(r){
   if(p.zodiac) head.push(p.zodiac+'座');
   if(p.animal) head.push('属'+p.animal);
   const rt=fReadsToday();
-  const lucky='<div class="f-lucky"><span>🔢 幸运数字 '+rec.lucky.num+'</span><span>🎨 幸运色 '+rec.lucky.color+'</span><span>🕐 '+rec.lucky.time+'</span></div>';
+  const lucky='<div class="f-lucky"><span><i>数</i>幸运数字 '+rec.lucky.num+'</span><span><i>色</i>'+esc(rec.lucky.color)+'</span><span><i>时</i>'+esc(rec.lucky.time)+'</span></div>';
   const note=rec.special?('<p class="f-tip" style="margin-top:12px">'+esc(rec.special)+'</p>'):'';
   b.innerHTML='<div class="f-wrap">'
-    +'<div class="f-date">'+esc(head.join(' · '))+'</div>'
+    +'<div class="f-cnr tl"></div><div class="f-cnr tr"></div><div class="f-cnr bl"></div><div class="f-cnr br"></div>'
+    +'<div class="f-head">每 日 一 签<span class="sub">'+esc(head.join(' · '))+'</span></div>'
     +'<div class="f-level" style="background:'+rec.levelColor+'">'+rec.levelIco+' '+esc(rec.levelName)+'</div>'
-    +'<div class="f-name">'+esc(it.n)+'</div>'
-    +'<div class="f-poem">'+it.p+'</div>'
-    +'<div class="f-sec"><b>📜 解签</b><br>'+esc(it.m)+'</div>'
+    +'<div class="f-name"><span class="f-nm">'+esc(it.n)+'</span></div>'
+    +'<div class="f-poem">'+it.p+'<div class="f-seal">每日<br>一签</div></div>'
+    +'<div class="f-sec"><b>解签</b><br>'+esc(it.m)+'</div>'
     +note
-    +'<div class="f-yj"><div class="f-yi"><b>✅ 宜</b><br>'+esc(it.y)+'</div><div class="f-ji"><b>⛔ 忌</b><br>'+esc(it.j)+'</div></div>'
+    +'<div class="f-yj"><div class="f-yi"><span class="yjtag ok">宜</span>'+esc(it.y)+'</div><div class="f-ji"><span class="yjtag no">忌</span>'+esc(it.j)+'</div></div>'
     +lucky
     +'<div class="f-cat">🐱 '+esc(rec.cat)+'</div>'
     +'<div class="f-foot"><span class="f-streak">🔥 连抽 '+((st.streak)||1)+' 天 · 累计 '+((st.total)||1)+' 签'+(rt>0?(' · 今日已读 '+rt+' 篇'):'')+'</span>'

@@ -30,7 +30,18 @@ button{font-family:var(--sans);cursor:pointer}
 
 /* ===== 顶栏 ===== */
 header{position:sticky;top:0;z-index:50;background:rgba(255,254,251,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.hd{max-width:1180px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.hd{max-width:1180px;margin:0 auto;padding:12px 20px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:10px 14px}
+.hd .logo{grid-area:1/1/2/2;min-width:0}
+.hd .searchwrap{grid-area:1/2/2/3;flex-basis:auto;margin-top:0;min-width:0}
+.hd .guide-btn{grid-area:1/3/2/4;justify-self:end}
+.hd nav{grid-area:2/1/3/4;margin-left:0}
+@media(max-width:880px){
+  .hd{grid-template-columns:1fr auto}
+  .hd .logo{grid-area:1/1/2/2}
+  .hd .guide-btn{grid-area:1/2/2/3}
+  .hd nav{grid-area:2/1/3/3}
+  .hd .searchwrap{grid-area:3/1/4/3}
+}
 .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px}
 .logo-txt{display:flex;flex-direction:column;gap:1px;line-height:1.25}
 .logo-line{display:flex;align-items:baseline;gap:2px}
@@ -43,6 +54,8 @@ header{position:sticky;top:0;z-index:50;background:rgba(255,254,251,.92);backdro
 .fchip:hover{border-color:var(--brand2);color:var(--brand)}
 .fchip.on{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:600}
 .fchip.act{background:var(--brand-soft);border-color:var(--brand);color:var(--brand);font-weight:600}
+.fchip i{font-style:normal;font-size:10.5px;opacity:.55;margin-left:4px;font-weight:400}
+.fchip.on i{opacity:.85}
 html[data-theme="dark"] .fchip{background:#262a32}
 .logo .mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#1f3a5f,#34598c);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px}
 .logo small{font-weight:400;color:var(--ink3);font-size:12px;margin-left:2px}
@@ -195,6 +208,52 @@ html[data-theme="dark"] .set-tab:hover{background:#262a32}
 .fsubline .fn{margin-left:auto;font-size:11px;color:var(--ink3);white-space:nowrap;padding-top:3px}
 .fsubsum{width:100%;font-size:11.5px;color:var(--ink3);line-height:1.7}
 .fsubsum b{color:var(--cc)}
+/* ---- 今日推荐：学科范围（左） / 研究方法（右）并排两列 ---- */
+.fpanel.two{display:grid;grid-template-columns:1.15fr 1fr;align-items:stretch}
+.fpanel.two .frow{border-bottom:none;min-width:0;align-items:stretch}
+.fpanel.two .frow+.frow{border-left:1px solid var(--line)}
+.fpanel.two .frow .fk{flex:0 0 56px}
+.fpanel.two .fchip{font-size:11.5px;padding:3px 8px}
+.fpanel.two .fsubline{gap:7px;padding:6px 8px}
+.fpanel.two .fsubline .fsubs{gap:4px}
+.fpanel.two .frow .fv{align-content:flex-start}
+/* 右列：研究方法按三组竖排，底部「已选 N 项 + 清空」贴底 */
+.fv.mcol{flex-direction:column;align-items:stretch;flex-wrap:nowrap;gap:6px;justify-content:space-between}
+.fv.mcol .msub{display:flex;gap:8px;align-items:flex-start;padding:6px 9px;border-radius:9px;background:var(--brand-soft)}
+.fv.mcol .mk{flex:0 0 auto;font-family:var(--sans);font-size:11.5px;font-weight:700;color:var(--ink2);background:var(--card);border:1px solid var(--line);border-radius:6px;padding:3px 8px;margin-top:2px}
+.fv.mcol .mchips{flex:1;min-width:0;display:flex;flex-wrap:wrap;gap:5px}
+.fv.mcol .mhead{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.fv.mcol .mhead .fhint{flex:1;min-width:0}
+.fv.mcol.closed{justify-content:flex-start}
+.fv.mcol .fsubsum{width:100%}
+html[data-theme="dark"] .fv.mcol .msub{background:#20242b}
+@media(max-width:900px){
+  .fpanel.two{display:block}
+  .fpanel.two .frow+.frow{border-left:none;border-top:1px solid var(--line)}
+}
+/* ---- 今日推荐：统一控制条（视图 / 时间范围 / 关键词 同一行） ---- */
+.dbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:12px 0 12px;padding:9px 11px;background:var(--card);border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow)}
+.dbar .seg{margin-bottom:0;flex:0 0 auto}
+.dbar .dbsep{flex:0 0 auto;width:1px;height:22px;background:var(--line)}
+.dbar .dbgrp{display:flex;align-items:center;gap:7px;min-width:0}
+.dbar .dbk{flex:0 0 auto;font-family:var(--sans);font-size:11.5px;font-weight:700;color:var(--ink3);letter-spacing:.3px}
+.dbar select{padding:7px 10px;font-size:13px;border-radius:9px}
+.dbar .dbkw{flex:1 1 260px;min-width:190px}
+.dbar .dbin{position:relative;flex:1;min-width:0;display:flex;align-items:center}
+.dbar .dbin input{width:100%;padding-left:31px;padding-right:28px}
+.dbar .dbin .dbico{position:absolute;left:10px;font-size:12.5px;color:var(--ink3);pointer-events:none;line-height:1}
+.dbar .dbin .dbx{position:absolute;right:5px;border:none;background:transparent;color:var(--ink3);font-size:12px;padding:4px 6px;border-radius:6px;line-height:1}
+.dbar .dbin .dbx:hover{background:#ece8de;color:var(--ink)}
+.dbar .dbbtns{margin-left:auto;flex:0 0 auto;gap:8px}
+.dbar .btn{padding:7px 13px;font-size:13px;white-space:nowrap}
+@media(max-width:780px){
+  .dbar{gap:8px}
+  .dbar .dbsep{display:none}
+  .dbar .seg{flex:1 1 100%;justify-content:center}
+  .dbar .dbkw{flex:1 1 100%}
+  .dbar .dbbtns{margin-left:0;flex:1 1 100%;justify-content:flex-end}
+}
+html[data-theme="dark"] .dbar .dbin .dbx:hover{background:#2b303a}
 /* ---- 设置页：期刊分类卡片化 ---- */
 .jtools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px;padding:9px 11px;background:var(--brand-soft);border-radius:10px}
 .jtools input[type=text]{flex:1;min-width:160px;padding:6px 10px;border:1px solid var(--line);border-radius:8px;font-size:12.5px;background:var(--card);color:var(--ink);font-family:var(--sans)}
@@ -876,35 +935,49 @@ html[data-theme="dark"] .ph-x:hover{background:#3d424c}
     <div class="num"><b id="heroNum">–</b><span>篇近期新论文</span></div>
   </div>
 
-  <div class="seg" id="dailySeg">
-    <button class="on" data-view="journal" onclick="switchDailyView('journal')">📅 期刊精选</button>
-    <button data-view="author" onclick="switchDailyView('author')">👤 作者追踪</button>
+  <!-- 统一控制条：视图切换 · 时间范围 · 关键词 同一行（两个视图共用） -->
+  <div class="dbar" id="dailyBar">
+    <div class="seg" id="dailySeg">
+      <button class="on" data-view="journal" onclick="switchDailyView('journal')">📅 期刊精选</button>
+      <button data-view="author" onclick="switchDailyView('author')">👤 作者追踪</button>
+    </div>
+    <span class="dbsep"></span>
+    <div class="dbgrp">
+      <span class="dbk">时间范围</span>
+      <select id="dailyDays" title="只看该时间范围内发表的论文">
+        <option value="14">近 2 周</option>
+        <option value="30" selected>近 1 个月</option>
+        <option value="90">近 3 个月</option>
+        <option value="180">近半年</option>
+        <option value="365">近 1 年</option>
+        <option value="730">近 2 年</option>
+        <option value="1095">近 3 年</option>
+        <option value="0">全部</option>
+      </select>
+    </div>
+    <span class="dbsep"></span>
+    <div class="dbgrp dbkw">
+      <span class="dbk">关键词</span>
+      <span class="dbin">
+        <span class="dbico">🔍</span>
+        <input type="text" id="dailyKw" placeholder="在结果中筛选标题 / 摘要…" autocomplete="off">
+        <button type="button" class="dbx hidden" id="dailyKwClear" title="清空关键词">✕</button>
+      </span>
+    </div>
+    <div class="dbgrp dbbtns">
+      <button class="btn" id="btnDigest" title="需要在设置中配置 AI 接口">✨ AI 今日导读</button>
+      <button class="btn pri" id="btnRefresh">↻ 刷新</button>
+    </div>
   </div>
   <div id="dailyJournalView">
-  <div class="toolbar">
-    <select id="dailyDays">
-      <option value="14">近 2 周</option>
-      <option value="30" selected>近 1 个月</option>
-      <option value="90">近 3 个月</option>
-      <option value="180">近半年</option>
-      <option value="365">近 1 年</option>
-      <option value="730">近 2 年</option>
-      <option value="1095">近 3 年</option>
-      <option value="0">全部</option>
-    </select>
-    <input type="text" id="dailyKw" placeholder="🔍 在结果中筛选关键词…" style="width:220px">
-    <div class="sp"></div>
-    <button class="btn" id="btnDigest" title="需要在设置中配置 AI 接口">✨ AI 生成今日导读</button>
-    <button class="btn pri" id="btnRefresh">↻ 刷新</button>
-  </div>
-  <div class="fpanel">
+  <div class="fpanel two" id="dailyFilterPanel">
     <div class="frow" id="dailySubRow">
       <span class="fk">学科范围</span>
       <div class="fv"><span class="fhint">（可多选 · 未选=全部学科）</span></div>
     </div>
     <div class="frow" id="dailyMethodRow">
       <span class="fk">研究方法</span>
-      <div class="fv"><span class="fhint" id="methodHint">（可多选，点选生效 · 未选=全部）</span></div>
+      <div class="fv mcol" id="dailyMethodFv"></div>
     </div>
   </div>
 
@@ -1022,12 +1095,17 @@ html[data-theme="dark"] .ph-x:hover{background:#3d424c}
 
 <!-- ============ 经典必读 ============ -->
 <div id="tab-classic" class="hidden">
-  <div class="sect" style="margin-top:0">📜 经典必读清单 <small>按子领域精选奠基性 + 前沿论文，附一句话导读，解决「不知道读什么」</small></div>
+  <div class="sect" style="margin-top:0">📜 经典必读清单 <small>按「学科 → 子学科」精选奠基性 + 前沿论文，附一句话导读（分类与「今日推荐」一致）</small></div>
   <div class="langtabs" id="classicLangTabs">
     <button class="on" data-lang="en" onclick="selectClassicLang('en')">🇬🇧 英文必读</button>
     <button data-lang="zh" onclick="selectClassicLang('zh')">🇨🇳 中文必读</button>
   </div>
-  <div class="fieldtabs" id="fieldTabs"></div>
+  <div class="fpanel" id="classicSubPanel">
+    <div class="frow">
+      <span class="fk">学科范围</span>
+      <div class="fv" id="fieldTabs"></div>
+    </div>
+  </div>
   <div id="classicList"></div>
 </div>
 
@@ -1654,30 +1732,30 @@ function normDailySubs(v){
 /* ================= 经典必读清单（经济学 / 管理学 两大类，下含子领域） ================= */
 const FIELDS = [
   // —— 经济学 ——
-  {key:'micro', cat:'经济学', name:'微观经济学'},
-  {key:'macro', cat:'经济学', name:'宏观经济学'},
-  {key:'metrics', cat:'经济学', name:'计量经济学'},
-  {key:'dev', cat:'经济学', name:'发展经济学'},
-  {key:'labor', cat:'经济学', name:'劳动经济学'},
-  {key:'trade', cat:'经济学', name:'国际贸易'},
-  {key:'io', cat:'经济学', name:'产业组织'},
-  {key:'pub', cat:'经济学', name:'公共经济学'},
-  {key:'behavior', cat:'经济学', name:'行为经济学'},
-  {key:'fin', cat:'经济学', name:'资产定价 / 金融学'},
-  {key:'corpfin', cat:'经济学', name:'公司金融 / 金融学'},
-  {key:'monetary', cat:'经济学', name:'货币经济学'},
-  {key:'game', cat:'经济学', name:'博弈论'},
-  {key:'urban', cat:'经济学', name:'城市与区域经济学'},
-  {key:'env', cat:'经济学', name:'环境经济学'},
-  {key:'health', cat:'经济学', name:'卫生经济学'},
-  {key:'exp', cat:'经济学', name:'实验经济学'},
+  {key:'micro', cat:'经济学', dom:'econ', sub:'微观理论与产业组织', name:'微观经济学'},
+  {key:'macro', cat:'经济学', dom:'econ', sub:'宏观与货币', name:'宏观经济学'},
+  {key:'metrics', cat:'经济学', dom:'econ', sub:'计量与统计', name:'计量经济学'},
+  {key:'dev', cat:'经济学', dom:'econ', sub:'发展经济学', name:'发展经济学'},
+  {key:'labor', cat:'经济学', dom:'econ', sub:'劳动与人口', name:'劳动经济学'},
+  {key:'trade', cat:'经济学', dom:'econ', sub:'国际金融与贸易', name:'国际贸易'},
+  {key:'io', cat:'经济学', dom:'econ', sub:'微观理论与产业组织', name:'产业组织'},
+  {key:'pub', cat:'经济学', dom:'econ', sub:'公共与政策', name:'公共经济学'},
+  {key:'behavior', cat:'经济学', dom:'econ', sub:'行为与实验', name:'行为经济学'},
+  {key:'fin', cat:'经济学', dom:'econ', sub:'金融学', name:'资产定价 / 金融学'},
+  {key:'corpfin', cat:'经济学', dom:'econ', sub:'金融学', name:'公司金融 / 金融学'},
+  {key:'monetary', cat:'经济学', dom:'econ', sub:'宏观与货币', name:'货币经济学'},
+  {key:'game', cat:'经济学', dom:'econ', sub:'微观理论与产业组织', name:'博弈论'},
+  {key:'urban', cat:'经济学', dom:'econ', sub:'区域与城市', name:'城市与区域经济学'},
+  {key:'env', cat:'经济学', dom:'econ', sub:'环境与资源', name:'环境经济学'},
+  {key:'health', cat:'经济学', dom:'econ', sub:'卫生经济学', name:'卫生经济学'},
+  {key:'exp', cat:'经济学', dom:'econ', sub:'行为与实验', name:'实验经济学'},
   // —— 管理学 ——
-  {key:'orgbeh', cat:'管理学', name:'组织行为 / HR'},
-  {key:'marketing', cat:'管理学', name:'营销'},
-  {key:'acct', cat:'管理学', name:'会计学'},
-  {key:'strategy', cat:'管理学', name:'战略管理'},
-  {key:'inno', cat:'管理学', name:'创新与创业'},
-  {key:'ops', cat:'管理学', name:'运营管理'},
+  {key:'orgbeh', cat:'管理学', dom:'mgmt', sub:'组织行为与人力资源', name:'组织行为 / HR'},
+  {key:'marketing', cat:'管理学', dom:'mgmt', sub:'市场营销', name:'营销'},
+  {key:'acct', cat:'管理学', dom:'mgmt', sub:'会计学', name:'会计学'},
+  {key:'strategy', cat:'管理学', dom:'mgmt', sub:'战略管理', name:'战略管理'},
+  {key:'inno', cat:'管理学', dom:'mgmt', sub:'创业与创新', name:'创新与创业'},
+  {key:'ops', cat:'管理学', dom:'mgmt', sub:'运营与供应链', name:'运营管理'},
 ];
 // q = 用于 OpenAlex 精确检索的标题关键词；title/author/year 为兜底展示；intro 为人工导读
 const CLASSIC = [
@@ -2248,6 +2326,12 @@ const TERM_ALIAS = {
  '分位数回归':'分位数回归','quantile regression':'分位数回归'
 };
 const METHOD_OPTIONS=['因果推断','双重差分(DID)','工具变量(IV)','断点回归(RDD)','随机实验','合成控制','面板数据','事件研究','文本分析','机器学习','计量经济学','结构模型','贝叶斯','元分析','匹配','问卷/调查','网络分析'];
+// 今日推荐右列：研究方法按三组竖排（与左列学科范围高度匹配，避免大片留白）
+const METHOD_GROUPS=[
+  {g:'因果识别', items:['因果推断','双重差分(DID)','工具变量(IV)','断点回归(RDD)','合成控制','匹配','事件研究']},
+  {g:'实验与数据', items:['随机实验','问卷/调查','面板数据','元分析']},
+  {g:'模型与算法', items:['计量经济学','结构模型','贝叶斯','机器学习','文本分析','网络分析']}
+];
 const _termKeys=Object.keys(TERM_ALIAS).sort((a,b)=>b.length-a.length);
 const _termRe=new RegExp('('+_termKeys.map(k=>/^[A-Za-z0-9 ./-]+$/.test(k)?'\\b'+k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b':k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')','gi');
 function glossaryWrap(raw){ if(!raw) return ''; const parts=raw.split(_termRe); let html=''; for(const p of parts){ if(p==='')continue; const can=TERM_ALIAS[p.toLowerCase()]||TERM_ALIAS[p]||(GLOSSARY[p]?p:null); if(can&&GLOSSARY[can]) html+='<span class="term" data-term="'+esc(can)+'">'+esc(p)+'</span>'; else html+=esc(p); } return html; }
@@ -2386,31 +2470,53 @@ function initDailyFilters(){
     if(i>=0) dailySubs.splice(i,1); else dailySubs.push(k);
     persistDailySubs(); renderDailySubs(); loadDaily();
   });
-  // 方法多选 chips
+  // 方法多选 chips（可展开 / 收起，状态存 settings.methodsOpen）
   const row=document.getElementById('dailyMethodRow');
   if(row){
     const mbox=row.querySelector('.fv')||row;
-    const html=METHOD_OPTIONS.map(m=>{
-      const wide=(m==='因果推断')?' title="宽口径：涉及因果识别、但未细分到具体方法的研究"':'';
-      return '<button type="button" class="fchip" data-m="'+esc(m)+'"'+wide+'>'+esc(m)+'</button>';
-    }).join('');
-    mbox.insertAdjacentHTML('beforeend', html+'<button type="button" class="fchip act" id="btnMethodClear">清空</button>');
     mbox.addEventListener('click',e=>{
+      if(e.target.id==='btnMethodToggle'){
+        settings.methodsOpen = !(settings.methodsOpen!==false); store.set('settings',settings);
+        renderDailyMethods(); return;
+      }
       if(e.target.id==='btnMethodClear'){
-        dailyMethods=[];
-        Array.prototype.slice.call(mbox.querySelectorAll('.fchip')).forEach(c=>c.classList.remove('on'));
-        updateMethodHint(); renderDaily(); return;
+        dailyMethods=[]; renderDailyMethods(); renderDaily(); return;
       }
       const c=e.target.closest? e.target.closest('.fchip') : null; if(!c||!c.dataset.m) return;
       const m=c.dataset.m, i=dailyMethods.indexOf(m);
       if(i>=0){ dailyMethods.splice(i,1); c.classList.remove('on'); }
       else { dailyMethods.push(m); c.classList.add('on'); }
-      updateMethodHint();
+      updateMethodHint();   // 展开态下只改提示文字，避免每次点选都重绘整列
       renderDaily();
     });
   }
   updateMethodHint();
   renderDailySubs();
+  renderDailyMethods();
+}
+// 研究方法列：与「学科范围」一致的展开 / 收起；收起态只留一行摘要
+function renderDailyMethods(){
+  const box=document.getElementById('dailyMethodFv'); if(!box) return;
+  const open = settings.methodsOpen !== false;
+  const picked = dailyMethods.length;
+  const chip=m=>{
+    const wide=(m==='因果推断')?' title="宽口径：涉及因果识别、但未细分到具体方法的研究"':'';
+    return '<button type="button" class="fchip'+(dailyMethods.includes(m)?' on':'')+'" data-m="'+esc(m)+'"'+wide+'>'+esc(m)+'</button>';
+  };
+  let h='<div class="mhead">'+
+      '<button type="button" class="fchip act" id="btnMethodToggle">'+(open?'▴ 收起':'▾ 展开')+'</button>'+
+      '<button type="button" class="fchip act" id="btnMethodClear"'+(picked?'':' style="display:none"')+'>清空</button>'+
+      '<span class="fhint" id="methodHint">'+(picked? ('已选 '+picked+' 项（命中任一即可）') : '（可多选，点选生效 · 未选=全部）')+'</span>'+
+    '</div>';
+  if(!open){
+    h+='<div class="fsubsum">'+(picked? ('已选方法：'+dailyMethods.map(m=>esc(m)).join('、')) : '未限定研究方法（取全部方法的论文）')+'</div>';
+  }else{
+    h+=METHOD_GROUPS.map(gr=>
+      '<div class="msub"><span class="mk">'+esc(gr.g)+'</span><div class="mchips">'+gr.items.map(chip).join('')+'</div></div>'
+    ).join('');
+  }
+  box.innerHTML=h;
+  box.classList.toggle('closed', !open);
 }
 async function loadDaily(){
   const list=$('#dailyList');
@@ -2426,6 +2532,10 @@ async function loadDaily(){
   }catch(e){
     list.innerHTML=`<div class="state">⚠️ 加载失败：${esc(e.message)}<br><span class="hint">请检查网络连接后点击「刷新」重试</span></div>`;
   }
+}
+function syncDailyKwClear(){
+  const k=$('#dailyKw'), c=$('#dailyKwClear');
+  if(k&&c) c.classList.toggle('hidden', !k.value);
 }
 function renderDaily(){
   const kw=$('#dailyKw').value.trim().toLowerCase();
@@ -3226,10 +3336,18 @@ function switchDBView(v){
 }
 
 /* ================= 作者 / 团队追踪 ================= */
+let dailyView='journal';           // 当前视图：journal=期刊精选 / author=作者追踪
+let authorWorks=[];                // 已聚合的关注学者论文（供时间范围 / 关键词本地筛选复用）
+let authorFallback=false;          // 是否有学者走了「全文检索近似聚合」的兜底通道
 function switchDailyView(v){
+  dailyView=v;
   document.querySelectorAll('#dailySeg button').forEach(b=>b.classList.toggle('on', b.dataset.view===v));
   $('#dailyJournalView').classList.toggle('hidden', v!=='journal');
   $('#dailyAuthorView').classList.toggle('hidden', v!=='author');
+  // 期刊专属控件：学科范围 / 研究方法面板与 AI 导读只在期刊精选下出现
+  const fp=$('#dailyFilterPanel'); if(fp) fp.classList.toggle('hidden', v!=='journal');
+  const dg=$('#btnDigest'); if(dg) dg.classList.toggle('hidden', v!=='journal');
+  const kw=$('#dailyKw'); if(kw) kw.placeholder = v==='author' ? '在关注学者的论文中筛选标题 / 摘要…' : '在结果中筛选标题 / 摘要…';
   if(v==='author'){ renderAuthorChips(); loadAuthorFeed(); }
 }
 function renderAuthorChips(){
@@ -3340,54 +3458,95 @@ async function fetchAuthorWorks(a, cap=200){
   return {works: works.slice(0,cap), usedFallback};
 }
 async function loadAuthorFeed(){
-  const feed=$('#authorFeed');
-  if(!followedAuthors.length){ feed.innerHTML='<div class="state">关注学者后，这里会自动聚合 TA 们的最新论文。</div>'; return; }
+  const feed=$('#authorFeed'); if(!feed) return;
+  authorWorks=[]; authorFallback=false;
+  if(!followedAuthors.length){ renderAuthorFeed(); return; }
   feed.innerHTML='<div class="state"><div class="spinner"></div>正在聚合关注学者的全部论文（合并重名/碎片记录）…</div>';
   try{
     const parts = await Promise.all(followedAuthors.map(a=>fetchAuthorWorks(a,200).catch(()=>({works:[],usedFallback:false}))));
     let works=parts.flatMap(p=>p.works);
-    const anyFallback=parts.some(p=>p.usedFallback);
+    authorFallback=parts.some(p=>p.usedFallback);
     const seen=new Set(); works=works.filter(w=>{ if(!w.title||seen.has(w.id))return false; seen.add(w.id); return true; });
     works.sort((a,b)=>(b.publication_date||'').localeCompare(a.publication_date||''));
-    const head = anyFallback
-      ? '<div class="hint" style="margin-bottom:10px;padding:8px 10px;border:1px solid var(--line);border-radius:9px;background:var(--accent-soft)">ℹ️ 部分学者在 OpenAlex 中缺少独立作者档案，已用「全文检索 + 署名匹配」近似聚合；中文专著 / 期刊覆盖可能不全，正式引用请以知网等核对。</div>'
-      : '';
-    feed.innerHTML = works.length? head+works.map(w=>paperCard(w)).join('')
-      : '<div class="state">这些学者近期在 OpenAlex 暂无论文记录（可能为纯中文发表、未被 OpenAlex 收录）。</div>';
+    authorWorks=works;
+    renderAuthorFeed();
   }catch(e){ feed.innerHTML=`<div class="state">⚠️ ${esc(e.message)}</div>`; }
+}
+// 本地渲染：与控制条上的「时间范围 / 关键词」联动，不重新请求接口
+function renderAuthorFeed(){
+  const feed=$('#authorFeed'); if(!feed) return;
+  if(!followedAuthors.length){ feed.innerHTML='<div class="state">关注学者后，这里会自动聚合 TA 们的最新论文。</div>'; return; }
+  const days=+((($('#dailyDays')&&$('#dailyDays').value)||0));
+  const kw=((($('#dailyKw')&&$('#dailyKw').value)||'').trim().toLowerCase());
+  let works=authorWorks;
+  if(days>0){
+    const cut=new Date(Date.now()-days*86400000).toISOString().slice(0,10);
+    works=works.filter(w=>(w.publication_date||'')>=cut);
+  }
+  if(kw) works=works.filter(w=>((w.title||'')+' '+invAbs(w.abstract_inverted_index)).toLowerCase().includes(kw));
+  const head = authorFallback
+    ? '<div class="hint" style="margin-bottom:10px;padding:8px 10px;border:1px solid var(--line);border-radius:9px;background:var(--accent-soft)">ℹ️ 部分学者在 OpenAlex 中缺少独立作者档案，已用「全文检索 + 署名匹配」近似聚合；中文专著 / 期刊覆盖可能不全，正式引用请以知网等核对。</div>'
+    : '';
+  const tip = (days>0&&!works.length) ? '' : `<div class="hint" style="margin:0 0 10px 2px">共 <b>${works.length}</b> 篇${days>0?'（已按所选时间范围筛选）':''}${kw?' · 已按关键词筛选':''}</div>`;
+  feed.innerHTML = works.length? head+tip+works.map(w=>paperCard(w)).join('')
+    : head+'<div class="state">当前时间范围 / 关键词下没有匹配的论文，试试放宽到「近 1 年」或清空关键词</div>';
 }
 
 /* ================= 经典必读清单 ================= */
-const CLASSIC_VER = 6; // 经典必读缓存版本：改动必读清单/领域时 +1，强制旧缓存失效，避免脏数据（微宏观串味）。v5 起按语言(中/英)分别缓存
-let classicField = FIELDS[0].key;
+const CLASSIC_VER = 7; // 经典必读缓存版本：改动必读清单/分类维度时 +1，强制旧缓存失效。v5 起按语言(中/英)分别缓存；v7 起改为按「子学科」缓存（与今日推荐同一套分类），旧的按领域缓存自动失效
+let classicSub = '';   // 当前选中的子学科（与「今日推荐 → 学科范围」同一套名称）
 let classicLang = 'en';
 const CLASSIC_PAGE = 6;
 let classicItems = [], classicShown = CLASSIC_PAGE;
-function renderFieldTabs(){
-  const cats=[...new Set(FIELDS.map(f=>f.cat))];
-  const fieldsForLang=FIELDS.filter(f=>CLASSIC.some(c=>(c.lang||'en')===classicLang && c.field===f.key));
-  $('#fieldTabs').innerHTML = cats.map(cat=>{
-    const fields=fieldsForLang.filter(f=>f.cat===cat);
-    if(!fields.length) return '';
-    const btns=fields.map(f=>`<button class="${f.key===classicField?'on':''}" onclick="selectField('${f.key}')">${f.name}</button>`).join('');
-    return `<div class="catgroup"><div class="cathead">${esc(cat)}</div><div class="fieldrow">${btns}</div></div>`;
-  }).join('');
+// 该学科下有内容的子学科；顺序对齐今日推荐（经济学照 SUB_ORDER.intl，管理学照 SUB_ORDER.mgmt）
+function classicSubsOf(dom){
+  const ref = (dom==='econ'? (SUB_ORDER.intl||[]) : (SUB_ORDER.mgmt||[]));
+  const have = [...new Set(FIELDS.filter(f=>f.dom===dom).map(f=>f.sub))].filter(Boolean);
+  const ordered = ref.filter(s=>have.includes(s));
+  have.forEach(s=>{ if(!ordered.includes(s)) ordered.push(s); });
+  return ordered;
 }
+// 该子学科在当前语言下的条目数
+function classicCountOf(sub, lang){
+  return CLASSIC.filter(c=>(c.lang||'en')===lang && (FIELDS.find(f=>f.key===c.field)||{}).sub===sub).length;
+}
+// 该子学科涵盖的领域 key（按 FIELDS 顺序，保证同组内排序稳定）
+function classicFieldsOf(sub){ return FIELDS.filter(f=>f.sub===sub).map(f=>f.key); }
+function renderFieldTabs(){
+  const box=$('#fieldTabs'); if(!box) return;
+  let h='';
+  DOMAINS.forEach(d=>{
+    const subs=classicSubsOf(d.key).filter(s=>classicCountOf(s,classicLang)>0);
+    if(!subs.length) return;
+    h+='<div class="fsubline '+d.cls+'"><span class="fcat '+d.cls+'">'+d.name+'</span><div class="fsubs">';
+    subs.forEach(s=>{
+      h+='<button type="button" class="fchip '+d.cls+(s===classicSub?' on':'')+'" data-sub="'+esc(s)+'">'+esc(s)+'<i>'+classicCountOf(s,classicLang)+'</i></button>';
+    });
+    h+='</div></div>';
+  });
+  box.innerHTML=h;
+  if(box._cb!==true){ box._cb=true; box.addEventListener('click',e=>{
+    const b=e.target.closest? e.target.closest('.fchip[data-sub]') : null; if(!b) return;
+    selectClassicSub(b.dataset.sub);
+  }); }
+}
+function selectClassicSub(s){ if(s===classicSub) return; classicSub=s; renderFieldTabs(); renderClassic(); }
 function selectClassicLang(l){
   classicLang=l;
-  const first=FIELDS.find(f=>CLASSIC.some(c=>(c.lang||'en')===l && c.field===f.key));
-  classicField=first?first.key:FIELDS[0].key;
   document.querySelectorAll('#classicLangTabs button').forEach(b=>b.classList.toggle('on', b.dataset.lang===l));
+  const subs=DOMAINS.reduce((a,d)=>a.concat(classicSubsOf(d.key)),[]).filter(s=>classicCountOf(s,l)>0);
+  if(subs.indexOf(classicSub)<0) classicSub=subs[0]||'';
   renderFieldTabs(); renderClassic();
 }
-function selectField(k){ classicField=k; renderFieldTabs(); renderClassic(); }
 async function renderClassic(){
   const list=$('#classicList');
-  const cacheKey='classic_'+CLASSIC_VER+'_'+classicLang+'_'+classicField;
+  if(!classicSub){ list.innerHTML='<div class="hint" style="text-align:center;padding:20px">该语言下暂无可显示的分类</div>'; return; }
+  const cacheKey='classic_'+CLASSIC_VER+'_'+classicLang+'_'+classicSub;
   const cache = store.get(cacheKey, null);
   if(cache){ classicItems=cache; classicShown=CLASSIC_PAGE; renderClassicChunk(); return; }
   list.innerHTML='<div class="state"><div class="spinner"></div>正在从 OpenAlex 拉取真实论文信息…</div>';
-  const items = CLASSIC.filter(c=>(c.lang||'en')===classicLang && c.field===classicField);
+  const keys=classicFieldsOf(classicSub);
+  const items = keys.reduce((a,k)=>a.concat(CLASSIC.filter(c=>(c.lang||'en')===classicLang && c.field===k)), []);
   try{
     const resolved = await Promise.all(items.map(async c=>{
       try{
@@ -3421,13 +3580,16 @@ function loadMoreClassic(){
 }
 function classicCard(c){
   const link = c.link || ('https://www.bing.com/search?q='+encodeURIComponent(c.title));
-  const fname = (FIELDS.find(f=>f.key===c.field)||{}).name||'';
+  const f = FIELDS.find(f=>f.key===c.field)||{};
+  const fname = f.sub || f.name || '';
+  // 子学科下还有更细的领域（如「金融学」含资产定价 / 公司金融）时，补一枚更淡的标签
+  const subTag = (f.name && f.name!==f.sub) ? ' <span class="ctag" style="opacity:.62">'+esc(f.name)+'</span>' : '';
   const langTag = c.lang==='zh' ? '<span class="ctag" style="color:#b45309;background:#fef3c7">🇨🇳 中文</span>' : '';
   const meta = (c.author?esc(c.author):'') + (c.year?(' · '+c.year):'') + (c.oa?' · 开放获取':'');
   return `<div class="card classic">
     <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
       ${langTag}
-      <span class="ctag">${fname}</span>
+      <span class="ctag">${esc(fname)}</span>${subTag}
       <b style="font-size:15px;line-height:1.4">${esc(c.title)}</b>
     </div>
     <div class="cmeta">${meta}</div>
@@ -3523,9 +3685,9 @@ document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
   ['daily','browse','assist','review','classic','db','folders','stats','notes','setting'].forEach(t=>{ const el=$('#tab-'+t); if(el) el.classList.toggle('hidden',t!==b.dataset.tab); });
   if(b.dataset.tab==='db') switchDBView('db');
   if(b.dataset.tab==='classic'){
-    if(!CLASSIC.some(c=>(c.lang||'en')===classicLang && c.field===classicField)){
-      const f=FIELDS.find(f=>CLASSIC.some(c=>(c.lang||'en')===classicLang && c.field===f.key));
-      classicField=f?f.key:FIELDS[0].key;
+    if(!classicSub || classicCountOf(classicSub, classicLang)===0){
+      const subs=DOMAINS.reduce((a,d)=>a.concat(classicSubsOf(d.key)),[]).filter(s=>classicCountOf(s,classicLang)>0);
+      classicSub=subs[0]||'';
     }
     renderFieldTabs(); renderClassic();
   }
@@ -3534,9 +3696,10 @@ document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
   if(b.dataset.tab==='notes') initNotes();
   if(b.dataset.tab==='review'){ const t=$('#reviewTopic'); if(t) t.focus(); }
 });
-$('#btnRefresh').onclick=loadDaily;
-$('#dailyDays').onchange=loadDaily;
-$('#dailyKw').oninput=()=>renderDaily();
+$('#btnRefresh').onclick=()=>{ if(dailyView==='author') loadAuthorFeed(); else loadDaily(); };
+$('#dailyDays').onchange=()=>{ if(dailyView==='author') renderAuthorFeed(); else loadDaily(); };
+$('#dailyKw').oninput=()=>{ syncDailyKwClear(); if(dailyView==='author') renderAuthorFeed(); else renderDaily(); };
+$('#dailyKwClear').onclick=()=>{ const k=$('#dailyKw'); k.value=''; syncDailyKwClear(); if(dailyView==='author') renderAuthorFeed(); else renderDaily(); k.focus(); };
 initDailyFilters();
 $('#btnDailyMore').onclick=loadMoreDaily;
 $('#btnDigest').onclick=aiDigest;

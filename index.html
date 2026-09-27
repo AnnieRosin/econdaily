@@ -431,6 +431,10 @@ footer{text-align:center;color:var(--ink3);font-size:12px;padding:26px 0 34px;li
 .glist{margin:0 0 10px;padding-left:18px}
 .glist li{margin-bottom:5px}
 .gtips{margin-top:14px;background:var(--green-soft);border-radius:8px;padding:11px 13px;color:var(--green);font-size:12.5px}
+.gnote{margin:12px 0;background:#fdf6e7;border-left:3px solid #d99a2b;border-radius:8px;padding:12px 14px;color:var(--ink);font-size:13px;line-height:1.78}
+.gnote b{color:#8a5a10}
+html[data-theme="dark"] .gnote{background:#332a14}
+html[data-theme="dark"] .gnote b{color:#f0c274}
 .guide-foot{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 22px;border-top:1px solid var(--line)}
 .guide-foot .sp{flex:1}
 .guide-foot label{display:flex;align-items:center;gap:6px;font-family:var(--sans);font-size:12.5px;color:var(--ink2);cursor:pointer;font-weight:400;margin:0}
@@ -3984,8 +3988,15 @@ start:`<div class="glead"><b>EconDaily 经管论文推送小助手</b> —— �
 <li><b>数据存在你自己的浏览器里</b> —— 收藏、笔记、阅读记录都存在本机；换浏览器或清缓存会没有，可以到「设置 → 💾 数据与同步」导出备份。</li>
 <li><b>论文数据来自 OpenAlex</b> —— 一个开放的学术数据库。这里只读取题录和摘要，全文仍需通过学校图书馆 / 数据库下载。</li>
 </ul>
+<h4>先说清楚：它主要用来追「英文」论文</h4>
+<div class="gnote"><b>论文数据来自 OpenAlex</b>（一个开放的全球学术数据库）。它对英文期刊 —— 尤其是各学科顶刊 —— 收录得非常完整，但<b>中文期刊的覆盖相当有限</b>：不少刊查不到、新文更新滞后、作者与机构信息缺失。所以用它来追踪中文论文，效果并不好。</div>
+<p>做这个工具的初衷其实很朴素：把散落在各处的<b>英文高质量论文</b>汇到一个页面上。你<b>不用翻墙、也不用苦找那些随时失效的镜像站</b>，打开就能看到自己关心的那批顶刊今天上了什么、用了什么方法，读完顺手丢进引用篮。</p>
+<ul class="glist">
+<li><b>追英文顶刊</b> —— 这是它的主场：「今日推荐」「期刊浏览」「按研究方法筛选」都是围绕英文期刊设计的。</li>
+<li><b>查中文文献</b> —— 请直接用知网 / 万方 / 维普或学校图书馆入口。「🔬 研究助手」里也留了一个中文通道，但同样受数据源收录限制，只能当补充。</li>
+</ul>
 <h4>它不做什么</h4>
-<p>它不替你下载全文，也不替你读论文。它做的是<b>帮你更快找到值得读的那几篇</b>，并把你读过的东西整理下来。</p>
+<p>它不替你下载全文，也不替你读论文，更不打算替代知网这类中文数据库。它做的是<b>帮你更快找到值得读的那几篇</b>，并把你读过的东西整理下来。</p>
 <div class="gtips">建议先花两分钟看「🚀 三步上手」，其他章节用到时再回来翻 —— 顶栏的「❓ 使用指引」随时能打开它。</div>`,
 quick:`<h4>第一次用，按这三步走</h4>
 <div class="gsteps">
@@ -4004,7 +4015,7 @@ tabs:`<h4>顶栏各页签是干什么的</h4>
 <table class="gtable">
 <tr><td class="k">📅 今日推荐</td><td>首页。按时间倒序列出你选定期刊的新论文，可按学科范围、研究方法、天数筛选。</td></tr>
 <tr><td class="k">📚 期刊浏览</td><td>锁定某一本期刊，往期文章一页页翻；支持刊内关键词搜索。</td></tr>
-<tr><td class="k">🔬 研究助手</td><td>按关键词跨库检索（支持中文文献通道），可按相关度 / 时间排序、按方法筛选。</td></tr>
+<tr><td class="k">🔬 研究助手</td><td>按关键词跨库检索，可按相关度 / 时间排序、按方法筛选。另有中文文献通道，但受数据源限制、中文刊覆盖不全，只能当补充。</td></tr>
 <tr><td class="k">📝 综述助手</td><td>给一个主题，帮你整理文献综述的框架与要点。</td></tr>
 <tr><td class="k">📜 经典必读</td><td>经济学 / 管理学两类经典文献清单，适合打基础。</td></tr>
 <tr><td class="k">🗄️ 数据库</td><td>常用数据库与实证方法资源入口（找数据、查手册）。</td></tr>
@@ -4035,6 +4046,8 @@ fun:`<h4>几个顺手的小东西</h4>
 </ul>
 <div class="gtips">这些都是可选的，不喜欢就在设置里关掉，不影响看论文。</div>`,
 faq:`<div class="gqa"><div class="q">论文是从哪来的？多久更新一次？</div><div>来自 OpenAlex 公开学术数据库。顶刊上新本身有节奏，某本刊一天没有新文章是正常的；页面每次打开都会重新拉取。</div></div>
+<div class="gqa"><div class="q">为什么搜不到我想看的中文论文？</div><div>OpenAlex 以英文文献为主，中文期刊收录不全（缺刊、更新慢、机构信息缺失都很常见）。本站的定位是「英文顶刊追踪」，中文文献请走知网 / 万方 / 维普或学校图书馆。</div></div>
+<div class="gqa"><div class="q">看英文论文一定要翻墙吗？</div><div>不用。这里只读取 OpenAlex 的公开题录与摘要，服务器可直接访问，不需要代理，也不用去找不稳定的镜像站。但要下载全文，仍需通过学校图书馆 / 数据库（这一步按学校提供的入口走）。</div></div>
 <div class="gqa"><div class="q">为什么我勾了某本刊却一直是空的？</div><div>两种可能：一是该刊近期确实没有上新；二是 OpenAlex 对这本刊的收录不完整。可以到「期刊浏览」单独打开这本刊确认。</div></div>
 <div class="gqa"><div class="q">我的收藏和笔记会丢吗？</div><div>存在浏览器 localStorage 里。换浏览器、用无痕模式、清缓存都会没有，也不会在不同网址之间互通（本地版 / 网页版各存一份）。要备份：设置 → 💾 数据与同步 → 导出 JSON。</div></div>
 <div class="gqa"><div class="q">手机上能用吗？</div><div>能，页面是自适应布局，窄屏会自动调整。手机上同样可以收藏、记笔记。</div></div>

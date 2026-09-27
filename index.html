@@ -1101,7 +1101,7 @@ html[data-theme="dark"] .ph-x:hover{background:#3d424c}
   </div>
   <div id="dbView">
     <div class="sect" style="margin-top:0">🗄️ 经管常用数据库 <small>点击卡片跳转官网（新标签页打开）</small></div>
-    <div class="dbnote">说明：以下为经济学与管理学研究常用的数据平台与文献检索入口，均为官方站点。部分商业库（如 Wind、CSMAR、WRDS、Orbis）需机构订阅账号，校内/机构网络下访问更佳。本页仅提供跳转链接。其中「📕 小红书 · 学习社区」为经验分享类社区，非学术数据库，仅供找学习笔记与经验帖参考。</div>
+    <div class="dbnote">说明：以下为经济学与管理学研究常用的数据平台与文献检索入口，以<b>官方站点</b>为主。标「机构订阅」的商业库（Wind、CSMAR、WRDS、Bloomberg 等）需学校账号，在校内网络下访问更佳；其余多为免费开放。最后两组是附带站点：「📺 在线学习平台 · 公开课」提供课程视频与教材（非学术数据平台），「📦 开放数据仓储 · 复现素材」用来找论文的复现数据与代码。本页只做跳转，不代为下载。</div>
     <div id="dbGrid"></div>
   </div>
   <div id="methodView" class="hidden">
@@ -3297,24 +3297,59 @@ const DBS = [
   {cat:'综合/宏观', name:'Eurostat', url:'https://ec.europa.eu/eurostat', desc:'欧盟官方统计：成员国宏观经济、人口、就业与贸易数据'},
   {cat:'综合/宏观', name:'BIS 国际清算银行', url:'https://www.bis.org/statistics', desc:'全球银行业、外汇与场外衍生品市场权威统计'},
   {cat:'综合/宏观', name:'中国经济社会大数据平台', url:'https://data.cnki.net', desc:'CNKI 经管类宏观/区域/行业时序数据（机构订阅）'},
+  {cat:'综合/宏观', name:'WID 世界不平等数据库', url:'https://wid.world', desc:'Piketty 团队维护：全球收入与财富分布的权威长序列数据'},
+  {cat:'综合/宏观', name:'UNCTADstat 贸发会议', url:'https://unctadstat.unctad.org', desc:'联合国贸发会议：FDI、商品贸易、海运与发展指标官方统计'},
+  {cat:'综合/宏观', name:'WTO Stats', url:'https://stats.wto.org', desc:'世界贸易组织官方统计门户：关税、进出口额与服务业数据'},
+  {cat:'综合/宏观', name:'ILOSTAT 国际劳工组织', url:'https://ilostat.ilo.org', desc:'全球就业、失业、工时、工资的可比官方统计'},
+  {cat:'综合/宏观', name:'ECB Data Portal', url:'https://data.ecb.europa.eu', desc:'欧洲央行官方数据门户：欧元区利率、货币金融与宏观指标'},
+  {cat:'综合/宏观', name:'WGI 全球治理指标', url:'https://www.worldbank.org/en/publication/worldwide-governance-indicators', desc:'世界银行：法治、政府效能、腐败控制等跨国制度质量指标'},
   {cat:'金融/市场', name:'Bloomberg 彭博终端', url:'https://www.bloomberg.com/professional', desc:'全球金融数据终端：实时行情、新闻与宏观（机构订阅）'},
   {cat:'金融/市场', name:'Refinitiv Eikon', url:'https://www.refinitiv.com', desc:'路孚特金融数据终端，行情、财报与研报（机构订阅）'},
   {cat:'金融/市场', name:'iFinD 同花顺', url:'https://www.51ifind.com', desc:'中国金融数据终端：行情、财报与研报（机构订阅）'},
   {cat:'金融/市场', name:'FactSet', url:'https://www.factset.com', desc:'全球公司与市场数据终端，估值与基本面分析（机构订阅）'},
+  {cat:'金融/市场', name:'SEC EDGAR', url:'https://www.sec.gov/edgar', desc:'美国证监会披露系统：上市公司年报/财报原文全文检索（免费）'},
+  {cat:'金融/市场', name:'巨潮资讯网', url:'http://www.cninfo.com.cn', desc:'中国证监会指定信息披露平台：A 股公告、财报、年报（免费）'},
+  {cat:'金融/市场', name:'上海证券交易所', url:'http://www.sse.com.cn', desc:'沪市行情、挂牌公司资料、统计月报与信息披露'},
+  {cat:'金融/市场', name:'深圳证券交易所', url:'http://www.szse.cn', desc:'深市行情、上市公司公告与监管信息公开'},
+  {cat:'金融/市场', name:'中国货币网', url:'https://www.chinamoney.com.cn', desc:'全国银行间同业中心：利率、汇率、债券回购等银行间市场数据'},
+  {cat:'金融/市场', name:'中债信息网', url:'https://www.chinabond.com.cn', desc:'中央结算公司：国债、信用债收益率曲线与托管数据'},
   {cat:'微观调查', name:'CLHLS 中国老年健康', url:'https://centerforhealthyaging.pku.edu.cn', desc:'北大：中国老年健康影响因素跟踪调查（高龄老人为主）'},
   {cat:'微观调查', name:'RUMiC 城乡流动调查', url:'https://www.iza.org', desc:'中国城乡劳动力流动调查，收入与就业微观数据'},
   {cat:'微观调查', name:'ESS 欧洲社会调查', url:'https://ess.eu', desc:'欧洲社会、政治态度与价值观跨国追踪调查'},
+  {cat:'微观调查', name:'CEPS 中国教育追踪调查', url:'http://ceps.ruc.edu.cn', desc:'人大 NSRC：初中阶段学生、家庭与学校多期追踪调查'},
+  {cat:'微观调查', name:'人大 NSRC 数据平台', url:'http://nsrc.ruc.edu.cn', desc:'中国人民大学中国调查与数据中心：CGSS/CEPS 等数据的官方申请入口'},
+  {cat:'微观调查', name:'HRS 美国健康与退休调查', url:'https://hrs.isr.umich.edu', desc:'密歇根大学：中老年健康、退休与财富的权威追踪调查'},
+  {cat:'微观调查', name:'PSID 收入动态面板', url:'https://psidonline.isr.umich.edu', desc:'美国历史最长的家庭收入与就业追踪调查（面板数据经典）'},
+  {cat:'微观调查', name:'WVS 世界价值观调查', url:'https://www.worldvaluessurvey.org', desc:'跨国价值观与文化态度调查，常用于制度与文化类研究'},
   {cat:'学术检索', name:'CNKI 中国知网', url:'https://www.cnki.net', desc:'中文学术文献最全检索库：期刊/博硕/会议/年鉴'},
   {cat:'学术检索', name:'Web of Science', url:'https://www.webofscience.com', desc:'SCI/SSCI 引文索引与期刊分区权威检索（机构订阅）'},
   {cat:'学术检索', name:'Scopus', url:'https://www.scopus.com', desc:'Elsevier 摘要引文数据库，覆盖广、指标全（机构订阅）'},
   {cat:'学术检索', name:'SSRN', url:'https://www.ssrn.com', desc:'社会科学工作论文预印本平台，经管前沿最快'},
   {cat:'学术检索', name:'Google Scholar', url:'https://scholar.google.com', desc:'免费学术搜索与引用追踪，配合提醒订阅很实用'},
+  {cat:'学术检索', name:'OpenAlex', url:'https://openalex.org', desc:'开放学术图谱：题录、作者、机构与引用网络（本站论文数据源）'},
+  {cat:'学术检索', name:'Semantic Scholar', url:'https://www.semanticscholar.org', desc:'AI 学术搜索：摘要自动生成、引文脉络与相似文献推荐'},
+  {cat:'学术检索', name:'arXiv · 经济与金融', url:'https://arxiv.org/list/q-fin/recent', desc:'经济、金融与计量方向预印本（含 econ.GN / q-fin），前沿最快'},
+  {cat:'学术检索', name:'国家哲学社会科学文献中心', url:'https://www.ncpssd.cn', desc:'中国社科院：社科类中文文献免费检索与下载（权威公益平台）'},
+  {cat:'学术检索', name:'万方数据', url:'https://www.wanfangdata.com.cn', desc:'中文期刊、学位论文、专利与科技成果检索（部分免费）'},
+  {cat:'学术检索', name:'维普资讯', url:'https://www.cqvip.com', desc:'中文期刊服务平台，中文文献检索三大库之一'},
   {cat:'行业/贸易', name:'中国工业企业数据库', url:'https://data.stats.gov.cn', desc:'规模以上工业企业年度微观数据（经国家统计局/机构申请）'},
   {cat:'行业/贸易', name:'中国海关贸易数据库', url:'https://www.customs.gov.cn', desc:'进出口企业—产品—国别层面的海关报关明细数据'},
   {cat:'行业/贸易', name:'WITS 贸易指标', url:'https://wits.worldbank.org', desc:'世界银行关税与贸易流量查询（含 HS/SITC 分类）'},
-  {cat:'📕 小红书 · 学习社区', name:'小红书官网', url:'https://www.xiaohongshu.com', desc:'学习与分享社区：搜「经济学」「计量经济学」「读文献」有大量经验帖与笔记'},
-  {cat:'📕 小红书 · 学习社区', name:'小红书创作者中心', url:'https://creator.xiaohongshu.com', desc:'创作者后台与运营中心，做学术/知识分享账号可用'},
-  {cat:'📕 小红书 · 学习社区', name:'小红书网页版探索', url:'https://www.xiaohongshu.com/explore', desc:'网页端浏览探索页，按兴趣找经管学习博主'},
+  {cat:'行业/贸易', name:'ITC Trade Map', url:'https://www.trademap.org', desc:'国际贸易中心：分产品分国别的双边贸易与市场准入查询'},
+  {cat:'行业/贸易', name:'国家知识产权局', url:'https://www.cnipa.gov.cn', desc:'专利、商标与集成电路布图（官方），创新与技术追赶研究常用'},
+  {cat:'📦 开放数据仓储 · 复现素材', name:'ICPSR', url:'https://www.icpsr.umich.edu', desc:'全球最大的社会科学数据档案库，经管领域调查与实验数据（含受限数据申请）'},
+  {cat:'📦 开放数据仓储 · 复现素材', name:'UK Data Service', url:'https://ukdataservice.ac.uk', desc:'英国官方社科数据服务：大型调查、企业与行政数据'},
+  {cat:'📦 开放数据仓储 · 复现素材', name:'Zenodo', url:'https://zenodo.org', desc:'欧洲 CERN 通用科研数据仓储，含大量论文数据与代码'},
+  {cat:'📦 开放数据仓储 · 复现素材', name:'Mendeley Data', url:'https://data.mendeley.com', desc:'开放数据集平台，可按主题检索他人上传的研究数据'},
+  {cat:'📺 在线学习平台 · 公开课', name:'哔哩哔哩 B 站', url:'https://www.bilibili.com', desc:'搜「计量经济学」「Stata」「面板数据」有大量免费中文视频教程与名校课程'},
+  {cat:'📺 在线学习平台 · 公开课', name:'网易公开课', url:'https://open.163.com', desc:'国内外名校公开课搬运（含经济学原理、金融、统计学），免费免登录'},
+  {cat:'📺 在线学习平台 · 公开课', name:'中国大学 MOOC', url:'https://www.icourse163.org', desc:'国内高校慕课：计量经济学、公司金融等有完整课程与作业'},
+  {cat:'📺 在线学习平台 · 公开课', name:'学堂在线', url:'https://www.xuetangx.com', desc:'清华大学发起的中文慕课平台，经管类课程资源丰富'},
+  {cat:'📺 在线学习平台 · 公开课', name:'国家高等教育智慧教育平台', url:'https://higher.smartedu.cn', desc:'教育部官方高教课程平台，名校名师课程免费学'},
+  {cat:'📺 在线学习平台 · 公开课', name:'Coursera', url:'https://www.coursera.org', desc:'全球名校课程：计量、公司金融、数据科学（部分课程可免费旁听）'},
+  {cat:'📺 在线学习平台 · 公开课', name:'edX', url:'https://www.edx.org', desc:'MIT、哈佛等校发起的在线课程平台，含 MicroMasters 项目'},
+  {cat:'📺 在线学习平台 · 公开课', name:'可汗学院（中文）', url:'https://zh.khanacademy.org', desc:'免费中文基础课：金融、宏观/微观经济与必备数学'},
+  {cat:'📺 在线学习平台 · 公开课', name:'小红书', url:'https://www.xiaohongshu.com', desc:'搜「经济学」「计量」「读文献」找经验帖与学习笔记，属经验分享社区'},
 ];
 // 实证分析方法 · 优质资源（教程 / 视频 / 社区 / 可复现数据）
 const METHODS = [
@@ -3335,7 +3370,8 @@ const METHODS = [
   {cat:'顶刊复现 · 开放数据', type:'社区', name:'Replication Wiki', url:'https://replication.uni-koeln.de', desc:'经济学顶刊论文的复现状态与数据/代码索引'},
   // 中文社区
   {cat:'中文社区', type:'社区', name:'经管之家', url:'https://bbs.pinggu.org', desc:'国内最大的经管学术论坛，硕博经验、数据求助、方法讨论'},
-  {cat:'中文社区', type:'教程', name:'连玉君 Stata 专栏', url:'https://www.lianxh.cn', desc:'连玉君等关于面板数据、内生性与 Stata 实战的系列文章'},
+  {cat:'中文社区', type:'社区', name:'科学网博客', url:'https://blog.sciencenet.cn', desc:'实名科研社区，经管学者常发方法讨论、读书笔记与科研心得'},
+  {cat:'中文社区', type:'视频', name:'B 站 · 计量与 Stata', url:'https://www.bilibili.com', desc:'搜「计量经济学」「面板数据」「Stata 实证」有大量免费中文视频教程'},
 ];
 function renderDB(){
   const cats=[...new Set(DBS.map(d=>d.cat))];

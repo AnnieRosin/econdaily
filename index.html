@@ -168,6 +168,12 @@ body.no-if .ifbadge{display:none}
 .set-tab.on{background:var(--card);border-color:var(--line);color:var(--brand2);font-weight:700;
   box-shadow:0 -3px 10px rgba(40,35,25,.06)}
 .set-tab .tdot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#c0392b;margin-left:6px;vertical-align:middle}
+.set-tab .tnum{display:inline-block;margin-left:6px;font-size:11px;font-weight:600;color:var(--ink3);
+  background:var(--brand-soft);border-radius:9px;padding:1px 6px;line-height:1.5;vertical-align:1px}
+/* 数据库 / 实证方法：分类页签 */
+.dbtabs{margin:12px 0 16px}
+.dbcatnote{padding:10px 14px;background:var(--brand-soft);border:1px solid var(--line);border-radius:10px;
+  color:var(--ink2);font-size:12.5px;line-height:1.65;margin-bottom:16px}
 .sg1{grid-template-columns:1fr}
 .sg2{grid-template-columns:1fr 1fr}
 @media(max-width:860px){.sg1,.sg2{grid-template-columns:1fr}}
@@ -288,7 +294,9 @@ html[data-theme="dark"] .jsubhead{background:#23262c}
 html[data-theme="dark"] .jcathead{background:#20242b}
 html[data-theme="dark"] #journalChecks mark{background:#5a4a1e;color:#ffe6a3}
 .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);background:#1a2233;color:#fff;padding:10px 20px;border-radius:10px;font-size:13px;z-index:99;opacity:0;transition:.3s;pointer-events:none}
-.toast.show{opacity:1}
+.toast.show{opacity:1;pointer-events:auto;display:flex;align-items:center;gap:10px}
+.toast-act{border:none;background:rgba(255,255,255,.16);color:#fff;font-size:12.5px;padding:4px 11px;border-radius:7px;cursor:pointer;font-family:inherit}
+.toast-act:hover{background:rgba(255,255,255,.3)}
 footer{text-align:center;color:var(--ink3);font-size:12px;padding:26px 0 34px;line-height:1.8}
 /* ===== 分段控制 ===== */
 .seg{display:inline-flex;gap:4px;background:#ece8de;border-radius:11px;padding:4px;margin-bottom:16px}
@@ -748,12 +756,17 @@ html[data-theme="dark"] .dm-t-bug{background:rgba(230,105,92,.16);color:#e89083}
   .danmu-bar.pos-float .l1{top:38px}.danmu-bar.pos-float .l2{top:66px}.danmu-bar.pos-float .l3{top:94px}}
 
 /* ===== 我的笔记（富文本，仿飞书云文档） ===== */
-.notes-wrap{display:grid;grid-template-columns:250px 1fr;gap:16px;align-items:start}
-.notes-side{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;position:sticky;top:14px;max-height:calc(100vh - 120px);overflow:auto}
-.notes-side h3{font-size:14px;margin:2px 4px 10px;color:var(--ink2)}
-.notes-side-btns{display:flex;gap:8px;margin-bottom:10px}
+.notes-wrap{display:grid;grid-template-columns:264px 1fr;gap:16px;align-items:start}
+.notes-side{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 8px 12px 12px;position:sticky;top:14px;max-height:calc(100vh - 120px);display:flex;flex-direction:column;overflow:hidden}
+.notes-side h3{font-size:14px;margin:2px 4px 10px;color:var(--ink2);flex:none}
+.notes-side-btns{display:flex;gap:8px;margin-bottom:10px;flex:none}
 .notes-side-btns .btn{flex:1;font-size:13px;padding:7px 8px}
-.note-folders{display:flex;flex-direction:column;gap:2px;margin-bottom:10px}
+.note-search{position:relative;flex:none;margin-bottom:10px}
+.note-search input{width:100%;font-size:13px;padding:7px 26px 7px 10px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink)}
+.note-search input:focus{outline:none;border-color:var(--brand)}
+.note-search .nsc{position:absolute;right:5px;top:50%;transform:translateY(-50%);border:none;background:none;color:var(--ink3);cursor:pointer;font-size:11px;padding:3px 5px;border-radius:6px}
+.note-search .nsc:hover{background:var(--brand-soft);color:var(--ink)}
+.note-folders{display:flex;flex-direction:column;gap:2px;margin-bottom:6px;flex:none;max-height:170px;overflow:auto;padding-right:2px}
 .nf-item{display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--ink2)}
 .nf-item:hover{background:var(--brand-soft)}
 .nf-item.on{background:var(--brand-soft);color:var(--ink);font-weight:600}
@@ -765,17 +778,31 @@ html[data-theme="dark"] .dm-t-bug{background:rgba(230,105,92,.16);color:#e89083}
 .nf-item.drag-over .nf-del{color:#fff;opacity:.8}
 .note-item[draggable="true"]{cursor:grab}
 .note-item.dragging{opacity:.4;border-style:dashed}
-.note-item .ndel{cursor:pointer}
-.note-drag-tip{font-size:11.5px;color:var(--ink3);padding:4px 6px 8px;line-height:1.5}
+.note-drag-tip{font-size:11px;color:var(--ink3);padding:2px 6px 6px;line-height:1.5;flex:none}
 .notes-folder-sel{font-size:13px;border:1px solid var(--line);background:#fff;color:var(--ink2);border-radius:8px;padding:5px 8px;cursor:pointer}
-.notes-list{display:flex;flex-direction:column;gap:6px}
-.note-item{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:9px;cursor:pointer;border:1px solid transparent;background:transparent}
+.notes-list-head{display:flex;align-items:center;gap:6px;flex:none;font-size:11.5px;color:var(--ink3);padding:6px;border-top:1px solid var(--line);margin-top:2px}
+.notes-list-head b{color:var(--ink2);font-weight:600;font-size:12px}
+.notes-list-head .zc{margin-left:auto;font-variant-numeric:tabular-nums}
+.notes-list{display:flex;flex-direction:column;gap:3px;flex:1 1 auto;min-height:110px;overflow:auto;padding-right:2px}
+.note-item{position:relative;padding:7px 10px;border-radius:9px;cursor:pointer;border:1px solid transparent;background:transparent}
 .note-item:hover{background:var(--brand-soft)}
 .note-item.on{background:var(--brand-soft);border-color:var(--brand)}
-.note-item .nt{font-size:13px;color:var(--ink);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.note-item .nd{font-size:11px;color:var(--ink3);margin-left:auto;white-space:nowrap}
-.note-item .ndel{color:var(--ink3);border:none;background:none;cursor:pointer;font-size:13px;padding:0 3px}
-.note-item .ndel:hover{color:var(--red)}
+.note-item .nm{display:flex;align-items:center;gap:6px}
+.note-item .nt{font-size:13px;color:var(--ink);line-height:1.35;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.note-item .npin{font-size:10.5px;line-height:1;flex:none;filter:grayscale(1);opacity:.45}
+.note-item.pinned .npin{filter:none;opacity:1}
+.note-item .nd{font-size:11px;color:var(--ink3);white-space:nowrap;flex:none}
+.note-item .nsub{font-size:11.5px;color:var(--ink3);line-height:1.4;margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.note-item mark,.nsub mark{background:#ffe9a8;color:inherit;border-radius:3px;padding:0 1px}
+.ni-acts{position:absolute;right:5px;top:5px;display:none;gap:1px;align-items:center;padding:1px 2px;border-radius:7px}
+.note-item:hover .ni-acts,.note-item.on .ni-acts{display:flex}
+.ni-acts button{border:none;background:none;cursor:pointer;color:var(--ink3);font-size:12px;padding:1px 3px;border-radius:5px}
+.ni-acts button:hover{background:rgba(0,0,0,.07);color:var(--ink)}
+.ni-acts .ndel:hover{color:var(--red)}
+.notes-foot{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:7px 14px;border-top:1px solid var(--line);font-size:11.5px;color:var(--ink3);background:var(--brand-soft);flex:none}
+.notes-foot .sv{display:flex;align-items:center;gap:5px;margin-left:auto}
+.notes-foot .sv .dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
+.notes-foot .sv.dirty .dot{background:var(--accent)}
 .notes-main{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;min-height:calc(100vh - 120px)}
 .notes-top{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line)}
 .notes-title{font-size:16px;font-weight:700;color:var(--ink);border:none;background:transparent;flex:1;min-width:0}
@@ -818,7 +845,20 @@ html[data-theme="dark"] .dm-t-bug{background:rgba(230,105,92,.16);color:#e89083}
   #notePrintArea code{background:#eee;padding:1px 5px;border-radius:4px;font-size:12px}
   @page{margin:16mm}
 }
-.notes-empty{padding:60px 20px;text-align:center;color:var(--ink3)}
+.notes-empty{padding:64px 24px;text-align:center;color:var(--ink3);margin:auto}
+.notes-empty .ne-ic{font-size:42px;line-height:1}
+.notes-empty h4{font-size:16px;color:var(--ink2);margin:12px 0 6px}
+.notes-empty p{margin:0;font-size:13px}
+.ntpl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px;max-width:600px;margin:22px auto 0;text-align:left}
+.ntpl-grid button{font-size:12.5px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink2);cursor:pointer;transition:.15s}
+.ntpl-grid button:hover{border-color:var(--brand);color:var(--ink);transform:translateY(-1px);box-shadow:var(--shadow)}
+.ntpl-grid button span{display:block;font-size:11px;color:var(--ink3);margin-top:3px}
+@media(max-width:900px){
+  .notes-wrap{grid-template-columns:1fr}
+  .notes-side{position:static;max-height:none;order:2}
+  .notes-side{max-height:420px}
+  .notes-main{min-height:0}
+}
 .goalwrap{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:14px;background:var(--brand-soft)}
 .goalbar{height:12px;border-radius:7px;background:var(--line);overflow:hidden;margin:8px 0 6px}
 .goalbar>i{display:block;height:100%;background:linear-gradient(90deg,var(--brand),var(--accent));border-radius:7px;transition:width .4s ease}
@@ -1100,13 +1140,17 @@ html[data-theme="dark"] .ph-x:hover{background:#3d424c}
     <button data-view="method" onclick="switchDBView('method')">🎓 实证方法 · 优质资源</button>
   </div>
   <div id="dbView">
-    <div class="sect" style="margin-top:0">🗄️ 经管常用数据库 <small>点击卡片跳转官网（新标签页打开）</small></div>
-    <div class="dbnote">说明：以下为经济学与管理学研究常用的数据平台与文献检索入口，以<b>官方站点</b>为主。标「机构订阅」的商业库（Wind、CSMAR、WRDS、Bloomberg 等）需学校账号，在校内网络下访问更佳；其余多为免费开放。最后两组是附带站点：「📺 在线学习平台 · 公开课」提供课程视频与教材（非学术数据平台），「📦 开放数据仓储 · 复现素材」用来找论文的复现数据与代码。本页只做跳转，不代为下载。</div>
+    <div class="sect" style="margin-top:0">🗄️ 经管常用数据库 <small>点击卡片跳转官网（新标签页打开）· 按分类分页签浏览</small></div>
+    <div class="dbnote" id="dbNoteAll">说明：以下为经济学与管理学研究常用的数据平台与文献检索入口，以<b>官方站点</b>为主。标「机构订阅」的商业库（Wind、CSMAR、WRDS、Bloomberg 等）需学校账号，在校内网络下访问更佳；其余多为免费开放。最后两组是附带站点：「📦 开放数据仓储 · 复现素材」用来找论文的复现数据与代码，「📺 在线学习平台 · 公开课」提供课程视频与教材（非学术数据平台）。本页只做跳转，不代为下载。</div>
+    <div class="dbcatnote hidden" id="dbNoteCat"></div>
+    <div class="set-tabs dbtabs" id="dbTabs"></div>
     <div id="dbGrid"></div>
   </div>
   <div id="methodView" class="hidden">
     <div class="sect" style="margin-top:0">🎓 实证分析方法 · 高质量帖子与教学视频 <small>精选因果推断、软件工具、顶刊复现与中文社区</small></div>
-    <div class="dbnote">说明：这里汇总经管实证研究者常用的「方法学习资源」——含系统教程、公开课/视频、可复现数据与中文社区。链接均为公开站点，点击在新标签页打开。</div>
+    <div class="dbnote" id="mNoteAll">说明：这里汇总经管实证研究者常用的「方法学习资源」——含系统教程、公开课/视频、可复现数据与中文社区。链接均为公开站点，点击在新标签页打开。</div>
+    <div class="dbcatnote hidden" id="mNoteCat"></div>
+    <div class="set-tabs dbtabs" id="mTabs"></div>
     <div id="methodGrid"></div>
   </div>
 </div>
@@ -1283,6 +1327,9 @@ html[data-theme="dark"] .ph-x:hover{background:#3d424c}
       <input type="text" id="setModel" placeholder="deepseek-chat">
       <label>联系邮箱（选填，OpenAlex 礼貌池，可提升 API 速度）</label>
       <input type="text" id="setMail" placeholder="you@example.com">
+      <label>OpenAlex API Key（选填，免费；搜索被限流时用它恢复检索）</label>
+      <input type="password" id="setOaKey" placeholder="在 openalex.org 注册后获取，留空则为匿名访问">
+      <p class="hint" style="margin-top:4px">OpenAlex 偶尔会因负载过高<b>暂停匿名搜索</b>，此时「研究助手 / 全局搜索」会报「OpenAlex API 请求失败 (503)」。填一个免费 Key 就不受影响：访问 openalex.org 注册账号 → 在个人中心复制 API Key 粘贴到这里 → 点「保存设置」。邮箱与 Key 都只存在本机浏览器。</p>
       <label style="display:flex;align-items:center;gap:8px;margin-top:16px;cursor:pointer;font-weight:600">
         <input type="checkbox" id="setShowIF" style="width:auto;margin:0">
         <span>论文卡片显示影响因子（IF）</span>
@@ -2109,7 +2156,19 @@ let notes = store.get('notes', {});       // {wid:{text,title,link,date}}
 let reviewWorks = [];
 const DAILY_PAGE = 20, DAILY_MAX = 1000;
 
-function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+function hideToast(){ const t=$('#toast'); if(t){ t.classList.remove('show'); if(t._timer){ clearTimeout(t._timer); t._timer=null; } } }
+function toast(msg, act){
+  const t=$('#toast'); if(!t) return;
+  t.textContent=msg;
+  if(act){
+    const b=document.createElement('button'); b.type='button'; b.className='toast-act'; b.textContent=act.label;
+    b.onclick=(e)=>{ e.stopPropagation(); hideToast(); try{ act.fn(); }catch(err){ console.error(err); } };
+    t.appendChild(b);
+  }
+  t.classList.add('show');
+  if(t._timer) clearTimeout(t._timer);
+  t._timer=setTimeout(hideToast, act?5200:2200);
+}
 function openLink(url){
   if(!url) return toast('该论文暂无原文链接');
   const w=window.open(url,'_blank','noopener');
@@ -2139,11 +2198,36 @@ const SELECT = 'id,title,publication_date,primary_location,authorships,abstract_
 const SELECT_RA = SELECT + ',relevance_score';
 const RA_CAP = 200, RA_PAGE = 24;
 function chunkArr(a, n){ const r=[]; for(let i=0;i<a.length;i+=n) r.push(a.slice(i,i+n)); return r; }
-async function oaFetch(url){
-  const u = url + (url.includes('?')?'&':'?') + (settings.mail?('mailto='+encodeURIComponent(settings.mail)):'');
-  const r = await fetch(u);
-  if(!r.ok) throw new Error('OpenAlex API 请求失败 ('+r.status+')');
-  return r.json();
+/* 把 OpenAlex 的状态码 + 返回的 message 翻译成人话（503 多为对方搜索集群过载，不是本站问题） */
+function oaErrMsg(status, detail){
+  const d=(detail||'').toLowerCase();
+  if(status===503 && (d.indexOf('search')>=0 || d.indexOf('anonymous')>=0 || d.indexOf('heavy load')>=0))
+    return 'OpenAlex 的「文献搜索服务」暂时不可用（503）：对方搜索集群负载过高，暂停了匿名搜索 —— 这是数据源侧的临时限流，不是本站故障。\n· 稍等几分钟再点「重试」通常即可恢复；\n· 想立刻恢复：到「设置 → AI 接口」填写一个免费的 OpenAlex API Key；\n· 「今日推荐 / 期刊浏览 / 经典必读」不依赖搜索，现在仍可正常使用。';
+  if(status===429) return 'OpenAlex 提示请求过于频繁（429），请等几十秒后重试。可在「设置 → AI 接口」填写邮箱进入礼貌池，或填 OpenAlex API Key 提升配额。';
+  if(status===401) return 'OpenAlex 访问凭据无效（401）：'+(detail||'')+' → 请检查「设置 → AI 接口」里填写的 OpenAlex API Key 是否正确。';
+  if(status===403) return 'OpenAlex 拒绝了这次请求（403）：'+(detail||'可能缺少或无效的访问凭据')+'。可填写邮箱或 OpenAlex API Key 后重试。';
+  return 'OpenAlex API 请求失败 ('+status+')'+(detail?('：'+detail):'')+' —— 多为对方服务临时波动，稍后重试即可。';
+}
+async function oaFetch(url, opt){
+  const tries = Math.max(0, (opt && opt.retry!=null) ? opt.retry : 1); // 默认对 429/5xx 自动重试 1 次
+  let last=null;
+  for(let i=0;i<=tries;i++){
+    const sep = url.includes('?')?'&':'?';
+    const ps=[];
+    if(settings.oaKey) ps.push('api_key='+encodeURIComponent(settings.oaKey));
+    if(settings.mail) ps.push('mailto='+encodeURIComponent(settings.mail));
+    const r = await fetch(url+sep+ps.join('&'));
+    if(r.ok) return r.json();
+    let detail='';
+    try{ const t=await r.text(); const j=JSON.parse(t); detail=j.message||j.error||String(t).slice(0,120); }catch(_){}
+    last=new Error(oaErrMsg(r.status, detail));
+    if(r.status===429 || r.status>=500){
+      if(i<tries) await new Promise(res=>setTimeout(res, 1500*(i+1)));
+      continue;
+    }
+    break;
+  }
+  throw last;
 }
 // 「学科范围」单选/多选子学科（复合键 region|sub），未选 = 全部学科。region 参数保留仅为兼容旧调用。
 function activeJournals(region){
@@ -2642,7 +2726,7 @@ async function loadBrowse(reset=true){
     browseWorks = reset? rs : browseWorks.concat(rs);
     renderBrowse();
     $('#btnMore').classList.toggle('hidden', (d.results||[]).length<25);
-  }catch(e){ list.innerHTML=`<div class="state">⚠️ ${esc(e.message)}</div>`; }
+  }catch(e){ list.innerHTML=`<div class="state" style="white-space:pre-line;text-align:left;line-height:1.7">⚠️ ${esc(e.message)}</div>`; }
 }
 
 /* ================= 研究助手 ================= */
@@ -2726,7 +2810,15 @@ async function raSearch(reset=true){
     $('#raCount').textContent=`${sort==='date'?'按更新时间':'按相关度排序（相关性为主·高被引为辅）'} · 共 ${raFiltered.length} 篇（精选顶刊·含中英文）${raFiltered.length>RA_PAGE?'（可加载更多）':''}`;
     renderRaChunk(true);
     if(raFiltered.length){ $('#btnRaIdea').disabled=$('#btnRaReview').disabled=false; }
-  }catch(e){ list.innerHTML=`<div class="state">⚠️ ${esc(e.message)}</div>`; }
+  }catch(e){
+    list.innerHTML=`<div class="state" style="white-space:pre-line;text-align:left;line-height:1.7">⚠️ ${esc(e.message)}
+      <div style="margin-top:12px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+        <button class="btn pri" id="btnRaRetry">↻ 重试</button>
+        <button class="btn" id="btnRaGoSet">⚙️ 去设置填 API Key</button>
+      </div></div>`;
+    const rb=$('#btnRaRetry'); if(rb) rb.onclick=()=>raSearch(true);
+    const gb=$('#btnRaGoSet'); if(gb) gb.onclick=()=>{ const b=document.querySelector('nav button[data-tab="setting"]'); if(b) b.click(); };
+  }
 }
 function renderRaChunk(reset){
   const list=$('#raList');
@@ -2936,9 +3028,16 @@ function renderFolders(){ const el=document.getElementById('folderList'); if(!el
 function updateFolderBadge(){ const n=folders.reduce((s,f)=>s+f.papers.length,0); const b=document.getElementById('folderCount'); if(b){ b.textContent=n; b.classList.toggle('hidden',!n); } }
 
 // ---- 全局搜索（笔记 / 文件夹）----
-function doSearch(){ const q=document.getElementById('globalSearch').value.trim().toLowerCase(); const box=document.getElementById('searchResults'); if(!q){ box.classList.add('hidden'); return; } const groups=[]; const nm=Object.entries(notes).filter(([k,v])=>((v.text||'')+' '+(v.title||'')).toLowerCase().includes(q)); if(nm.length) groups.push(['📝 笔记', nm.map(([k,v])=>({t:'note',v}))]); const fom=folders.filter(f=>f.name.toLowerCase().includes(q)); if(fom.length) groups.push(['📁 文件夹', fom.map(f=>({t:'folder',f}))]); if(!groups.length){ box.innerHTML='<div class="sr-empty">没有匹配的笔记 / 文件夹</div>'; box.classList.remove('hidden'); return; } let html=''; for(const [g,items] of groups){ html+='<div class="sr-group">'+g+'</div>'; for(const it of items){ if(it.t==='note'){ const v=it.v; html+='<a class="sr-item" href="'+(v.link?esc(v.link):'javascript:void(0)')+'" target="_blank" rel="noopener" onclick="closeSearch()"><span class="srt">'+esc(v.title||'(无标题)')+'</span><span class="srm">📝 笔记：'+esc((v.text||'').slice(0,40))+'</span></a>'; } else { const f=it.f; html+='<a class="sr-item" href="javascript:void(0)" onclick="gotoFolder(\''+f.id+'\')"><span class="srt">📁 '+esc(f.name)+'</span><span class="srm">'+f.papers.length+' 篇论文</span></a>'; } } } box.innerHTML=html; box.classList.remove('hidden'); }
+function doSearch(){ const q=document.getElementById('globalSearch').value.trim().toLowerCase(); const box=document.getElementById('searchResults'); if(!q){ box.classList.add('hidden'); return; } const groups=[]; const nm=Object.entries(notes).filter(([k,v])=>((v.text||'')+' '+(v.title||'')).toLowerCase().includes(q)); if(nm.length) groups.push(['📝 笔记', nm.map(([k,v])=>({t:'note',v}))]); const mm=myNotes.filter(n=>((n.title||'')+' '+noteFlatText(n.html)).toLowerCase().includes(q)); if(mm.length) groups.push(['📒 我的笔记（全文）', mm.map(n=>({t:'mn',n}))]); const fom=folders.filter(f=>f.name.toLowerCase().includes(q)); if(fom.length) groups.push(['📁 文件夹', fom.map(f=>({t:'folder',f}))]); if(!groups.length){ box.innerHTML='<div class="sr-empty">没有匹配的笔记 / 文件夹</div>'; box.classList.remove('hidden'); return; } let html=''; for(const [g,items] of groups){ html+='<div class="sr-group">'+g+'</div>'; for(const it of items){ if(it.t==='note'){ const v=it.v; html+='<a class="sr-item" href="'+(v.link?esc(v.link):'javascript:void(0)')+'" target="_blank" rel="noopener" onclick="closeSearch()"><span class="srt">'+esc(v.title||'(无标题)')+'</span><span class="srm">📝 笔记：'+esc((v.text||'').slice(0,40))+'</span></a>'; } else if(it.t==='mn'){ const n=it.n; html+='<a class="sr-item" href="javascript:void(0)" onclick="openSearchNote(\'' +n.id+ '\')"><span class="srt">📒 '+esc(dispTitle(n))+'</span><span class="srm">'+esc(noteFlatText(n.html).slice(0,40))+'</span></a>'; } else { const f=it.f; html+='<a class="sr-item" href="javascript:void(0)" onclick="gotoFolder(\''+f.id+'\')"><span class="srt">📁 '+esc(f.name)+'</span><span class="srm">'+f.papers.length+' 篇论文</span></a>'; } } } box.innerHTML=html; box.classList.remove('hidden'); }
 function closeSearch(){ const b=document.getElementById('searchResults'); if(b) b.classList.add('hidden'); }
 function gotoFolder(fid){ const nb=document.querySelector('nav button[data-tab="folders"]'); if(nb) nb.click(); const f=folders.find(x=>x.id===fid); if(f){ f._open=true; renderFolders(); } closeSearch(); }
+/* 全局搜索命中富文本笔记 → 跳到「我的笔记」并打开它 */
+function openSearchNote(id){
+  const g=document.getElementById('globalSearch'); if(g) g.value='';
+  closeSearch();
+  const nb=document.querySelector('nav button[data-tab="notes"]'); if(nb) nb.click();
+  setTimeout(()=>{ if(noteById(id)) openNote(id); }, 80);
+}
 
 // ---- 文献综述助手 ----
 function reviewSearch(){ const q=document.getElementById('reviewTopic').value.trim(); if(!q) return toast('请输入综述主题'); const list=document.getElementById('reviewList'); list.innerHTML='<div class="state"><div class="spinner"></div>正在检索相关文献…</div>'; reviewWorks=[]; const sort=document.getElementById('reviewRange')?document.getElementById('reviewRange').value:'relevance_score:desc'; const url=OA+'/works?search='+encodeURIComponent(q)+'&per-page=30&sort='+encodeURIComponent(sort)+'&select='+SELECT; oaFetch(url).then(r=>{ reviewWorks=(r.results||[]).filter(w=>w.title); list.innerHTML=reviewWorks.length? reviewWorks.map(w=>paperCard(w)).join('') : '<div class="state">未找到相关文献，换个关键词试试</div>'; const c=document.getElementById('reviewCount'); if(c) c.textContent=reviewWorks.length?('（'+reviewWorks.length+' 篇）'):''; const b=document.getElementById('btnReviewOutline'); if(b) b.disabled=!reviewWorks.length; }).catch(e=>{ list.innerHTML='<div class="state">检索失败：'+esc(e.message)+'</div>'; }); }
@@ -3150,6 +3249,7 @@ function dismissNewJournals(){
 function initSettings(){
   $('#setBase').value=settings.base; $('#setKey').value=settings.key;
   $('#setModel').value=settings.model; $('#setMail').value=settings.mail||'';
+  { const k=$('#setOaKey'); if(k) k.value=settings.oaKey||''; }
   $('#setShowIF').checked = settings.showIF !== false;
   if($('#setShowDanmu')) $('#setShowDanmu').checked = settings.showDanmu !== false;
   // 兼容旧版：单一「学期目标」自动升级为年度目标
@@ -3231,6 +3331,7 @@ function petEvolve(){
 function saveSettings(){
   settings.base=$('#setBase').value.trim(); settings.key=$('#setKey').value.trim();
   settings.model=$('#setModel').value.trim(); settings.mail=$('#setMail').value.trim();
+  { const k=$('#setOaKey'); if(k) settings.oaKey=k.value.trim(); }
   settings.showIF = !!($('#setShowIF') && $('#setShowIF').checked);
   settings.showDanmu = !($('#setShowDanmu') && $('#setShowDanmu').checked === false);
   // 保险：保存前恢复全量渲染，避免搜索/过滤状态下漏掉未显示的期刊
@@ -3266,6 +3367,7 @@ async function testAi(){
 function saveQuiet(){
   settings.base=$('#setBase').value.trim(); settings.key=$('#setKey').value.trim();
   settings.model=$('#setModel').value.trim(); settings.mail=$('#setMail').value.trim();
+  { const k=$('#setOaKey'); if(k) settings.oaKey=k.value.trim(); }
   store.set('settings',settings);
 }
 
@@ -3373,38 +3475,76 @@ const METHODS = [
   {cat:'中文社区', type:'社区', name:'科学网博客', url:'https://blog.sciencenet.cn', desc:'实名科研社区，经管学者常发方法讨论、读书笔记与科研心得'},
   {cat:'中文社区', type:'视频', name:'B 站 · 计量与 Stata', url:'https://www.bilibili.com', desc:'搜「计量经济学」「面板数据」「Stata 实证」有大量免费中文视频教程'},
 ];
-function renderDB(){
-  const cats=[...new Set(DBS.map(d=>d.cat))];
-  $('#dbGrid').innerHTML = cats.map(cat=>{
-    const cards=DBS.filter(d=>d.cat===cat).map(d=>`
-      <a class="dbcard" href="${esc(d.url)}" target="_blank" rel="noopener noreferrer">
-        <span class="dbcat">${esc(cat)}</span>
-        <b>${esc(d.name)}</b>
-        <div class="dbdesc">${esc(d.desc)}</div>
-        <div class="dburl">${esc(d.url)}</div>
-      </a>`).join('');
-    return `<div class="sect" style="margin:18px 0 12px">${esc(cat)}</div><div class="dbgrid">${cards}</div>`;
-  }).join('');
+/* 分类一句话说明（选中该分类页签时显示） */
+const DB_CAT_NOTE={
+  '综合/宏观':'宏观与区域层面的总量数据：GDP、价格、就业、财政、贸易与不平等，做宏观 / 政策类选题的起点。',
+  '金融/市场':'上市公司财务与市场数据、交易所与监管披露文件、债券与货币市场行情，公司金融与资产定价必备。',
+  '微观调查':'家庭 / 个人 / 企业层面的微观调查数据（CFPS、CHARLS、CEPS、HRS、PSID 等），做实证微观研究的主数据源。',
+  '学术检索':'文献发现与追踪：找论文、看引用、设提醒；中文通道受数据源限制，仅作补充。',
+  '行业/贸易':'行业与国际贸易流量、关税与专利数据，适合产业组织、国际贸易与创新选题。',
+  '📺 在线学习平台 · 公开课':'附带站点（非学术数据平台）：课程视频与公开教材，用来补方法、软件与理论基础。',
+  '📦 开放数据仓储 · 复现素材':'附带站点：找论文作者公开的复现数据与代码，也用于存放你自己的研究素材。'
+};
+const M_CAT_NOTE={
+  '因果推断 · 识别策略':'DID、IV、RDD、合成控制等识别策略的系统教程、公开课与经典讲义。',
+  '软件与工具':'Stata / R / Python 的官方文档、命令索引与免费教程，查语法与实操首选。',
+  '顶刊复现 · 开放数据':'顶刊论文的复现数据与代码索引，学习别人的实证设计与数据处理流程。',
+  '中文社区':'国内经管学术论坛与中文教程：经验帖、方法讨论、数据求助与视频课程。'
+};
+/* 通用：给列表按 cat 生成「浏览器页签」风格分类条（含「全部」），状态记在 settings[key] */
+function dbTabInit(list, tabsId, key, notes, renderFn){
+  const box=$('#'+tabsId); if(!box) return;
+  const cats=[]; list.forEach(d=>{ if(cats.indexOf(d.cat)<0) cats.push(d.cat); });
+  const items=[{k:'all',label:'📋 全部',n:list.length}].concat(cats.map(c=>({
+    k:c, label:c, n:list.filter(d=>d.cat===c).length
+  })));
+  let cur=null;
+  try{ cur=settings[key]; }catch(_){}
+  if(!items.some(it=>it.k===cur)) cur='all';
+  box.innerHTML=items.map((it,i)=>'<button type="button" class="set-tab'+(it.k===cur?' on':'')+
+    '" data-di="'+i+'" title="'+esc(it.k==='all'?'查看全部站点':it.k)+'">'+esc(it.label)+
+    '<span class="tnum">'+it.n+'</span></button>').join('');
+  box._items=items;
+  if(!box._bound){
+    box._bound=true;
+    box.addEventListener('click',function(e){
+      const b=(e.target&&e.target.closest)? e.target.closest('.set-tab') : null; if(!b) return;
+      const it=box._items[+b.getAttribute('data-di')]; if(!it) return;
+      try{ settings[key]=it.k; store.set('settings',settings); }catch(_){}
+      Array.prototype.slice.call(box.querySelectorAll('.set-tab')).forEach(x=>x.classList.toggle('on', x===b));
+      renderFn(it.k);
+    });
+  }
+  renderFn(cur);
 }
-function renderMethods(){
-  const cats=[...new Set(METHODS.map(d=>d.cat))];
-  $('#methodGrid').innerHTML = cats.map(cat=>{
-    const cards=METHODS.filter(d=>d.cat===cat).map(d=>`
-      <a class="mcard" href="${esc(d.url)}" target="_blank" rel="noopener noreferrer">
-        <span class="mtype">${esc(d.type)}</span>
+function dbCardHtml(d,cls,type){
+  return `<a class="${cls}" href="${esc(d.url)}" target="_blank" rel="noopener noreferrer">
+        <span class="${type==='m'?'mtype':'dbcat'}">${esc(type==='m'?d.type:d.cat)}</span>
         <b>${esc(d.name)}</b>
-        <div class="mdesc">${esc(d.desc)}</div>
-        <div class="murl">${esc(d.url)}</div>
-      </a>`).join('');
-    return `<div class="sect" style="margin:18px 0 12px">${esc(cat)}</div><div class="mgrid">${cards}</div>`;
-  }).join('');
+        <div class="${type==='m'?'mdesc':'dbdesc'}">${esc(d.desc)}</div>
+        <div class="${type==='m'?'murl':'dburl'}">${esc(d.url)}</div>
+      </a>`;
 }
+function dbRenderList(list, cat, gridId, cls, type, noteAll, noteCat, notes){
+  const all=(!cat||cat==='all');
+  const cats=[]; if(all){ list.forEach(d=>{ if(cats.indexOf(d.cat)<0) cats.push(d.cat); }); } else cats.push(cat);
+  $('#'+gridId).innerHTML = cats.map(c=>{
+    const cards=list.filter(d=>d.cat===c).map(d=>dbCardHtml(d,cls,type)).join('');
+    const n=list.filter(d=>d.cat===c).length;
+    return `<div class="sect" style="margin:${all?'18px 0 12px':'4px 0 12px'}">${esc(c)} <small>${n} 个站点</small></div><div class="${type==='m'?'mgrid':'dbgrid'}">${cards}</div>`;
+  }).join('');
+  const na=$(noteAll), nc=$(noteCat);
+  if(na) na.classList.toggle('hidden', !all);
+  if(nc){ nc.classList.toggle('hidden', all); if(!all) nc.innerHTML=esc(notes[cat]||''); }
+}
+function renderDB(cat){ dbRenderList(DBS, cat, 'dbGrid', 'dbcard', 'db', '#dbNoteAll', '#dbNoteCat', DB_CAT_NOTE); }
+function renderMethods(cat){ dbRenderList(METHODS, cat, 'methodGrid', 'mcard', 'm', '#mNoteAll', '#mNoteCat', M_CAT_NOTE); }
 function switchDBView(v){
   document.querySelectorAll('#dbSeg button').forEach(b=>b.classList.toggle('on', b.dataset.view===v));
   $('#dbView').classList.toggle('hidden', v!=='db');
   $('#methodView').classList.toggle('hidden', v!=='method');
-  if(v==='db') renderDB();
-  if(v==='method') renderMethods();
+  if(v==='db') dbTabInit(DBS,'dbTabs','dbCat',DB_CAT_NOTE,renderDB);
+  if(v==='method') dbTabInit(METHODS,'mTabs','mCat',M_CAT_NOTE,renderMethods);
 }
 
 /* ================= 作者 / 团队追踪 ================= */
@@ -3635,7 +3775,7 @@ async function renderClassic(){
     classicItems=resolved; classicShown=CLASSIC_PAGE;
     store.set(cacheKey, resolved);
     renderClassicChunk();
-  }catch(e){ list.innerHTML=`<div class="state">⚠️ ${esc(e.message)}</div>`; }
+  }catch(e){ list.innerHTML=`<div class="state" style="white-space:pre-line;text-align:left;line-height:1.7">⚠️ ${esc(e.message)}</div>`; }
 }
 function renderClassicChunk(){
   const list=$('#classicList');
@@ -4057,7 +4197,7 @@ tabs:`<h4>顶栏各页签是干什么的</h4>
 <tr><td class="k">🗄️ 数据库</td><td>常用数据库与实证方法资源入口（找数据、查手册）。</td></tr>
 <tr><td class="k">📁 文件夹</td><td>按课程或项目归类论文，如「发展经济学 seminar」「毕业论文」。</td></tr>
 <tr><td class="k">📊 阅读统计</td><td>你读了哪些、什么趋势，自动生成图表。</td></tr>
-<tr><td class="k">📒 我的笔记</td><td>富文本笔记，可导出 Markdown / Word / TXT。</td></tr>
+<tr><td class="k">📒 我的笔记</td><td>仿飞书文档的富文本笔记：左侧<b>搜索正文</b>、文件夹归类、置顶；右侧实时<b>字数统计</b>、自动保存、误删可<b>撤销</b>；可导出 Word / Markdown / PDF / TXT。</td></tr>
 <tr><td class="k">⚙️ 设置</td><td>期刊订阅、AI 接口、外观主题、每日一签档案、数据备份与留言墙。</td></tr>
 </table>
 <div class="gtips">找新论文去「今日推荐」，找特定主题去「研究助手」，找经典去「经典必读」。</div>`,
@@ -4070,7 +4210,7 @@ write:`<h4>写课程论文 / 毕业论文时，这些最省时间</h4>
 <tr><td class="k">🤖 AI 读后三点</td><td>一句话讲清核心结论、贡献、局限（需先填 AI Key）。</td></tr>
 <tr><td class="k">📖 概念词典</td><td>摘要与速读里的术语，点一下就有中文解释。</td></tr>
 <tr><td class="k">📁 文件夹</td><td>按课程 / 项目分门别类存论文，写不同章节时各取所需。</td></tr>
-<tr><td class="k">📒 我的笔记</td><td>每篇论文可单独记笔记，支持导出成 Markdown / Word 交给老师或放进自己的文档里。</td></tr>
+<tr><td class="k">📒 我的笔记</td><td>像在线文档一样随意写：标题、清单、待办、六种模板（文献综述 / 读书笔记 / 论文提纲 / 文献卡片 / 周月计划）。忘了起名也没关系，列表会自动拿正文首句当标题；导出 Markdown 可直接放进 Obsidian、语雀。</td></tr>
 </table>
 <div class="gtips">典型流程：研究助手搜主题 → 勾进引用篮 → 综述助手搭框架 → 导出 GB-T 7714 参考文献列表。</div>`,
 fun:`<h4>几个顺手的小东西</h4>
@@ -5021,12 +5161,23 @@ function petInit(){
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',petInit); else petInit();
 
 /* ================= 我的笔记（富文本 + 云端同步） ================= */
-const NOTE_KEY='mynotes', NOTE_SEL='mynotes_sel', FOLDER_KEY='mynotes_folders', FOLDER_CUR='mynotes_cur';
-let myNotes = store.get(NOTE_KEY, []);   // [{id,title,html,updated,fid?}]
+const NOTE_KEY='mynotes', NOTE_SEL='mynotes_sel', FOLDER_KEY='mynotes_folders', FOLDER_CUR='mynotes_cur', NOTE_Q='mynotes_q';
+let myNotes = store.get(NOTE_KEY, []);   // [{id,title,html,updated,fid?,pin?}]
 let myNoteSel = store.get(NOTE_SEL, null);
 let noteFolders = store.get(FOLDER_KEY, []);   // [{id,name}]
 let myNoteCur = store.get(FOLDER_CUR, null);    // 当前筛选：null=全部, 'uncat'=未分类, 或文件夹 id
+let noteQuery = store.get(NOTE_Q, '') || '';    // 侧栏搜索关键词
 let _noteSaveT=null, _cloud=null;
+
+/* 模板清单：工具栏下拉与空状态引导共用 */
+const TPL_META=[
+  {k:'review', i:'📝',  n:'文献综述', d:'梳理脉络 → 找缺口'},
+  {k:'reading',i:'📖',  n:'读书笔记', d:'核心论点 + 金句'},
+  {k:'outline',i:'🧱',  n:'论文提纲', d:'引言 → 参考文献'},
+  {k:'card',   i:'🃏',  n:'文献卡片', d:'单篇速记五问'},
+  {k:'week',   i:'🗓️', n:'周计划',   d:'七天待办清单'},
+  {k:'month',  i:'📅',  n:'月计划',   d:'四周待办清单'}
+];
 
 const NOTE_TPLS = {
   review: `<h1>文献综述写作逻辑</h1><h3>一、研究背景与意义</h3><p>（说明选题缘起、现实/理论意义）</p><h3>二、文献梳理</h3><p>• 按主题 / 流派 / 时间脉络归类</p><p>• 代表性文献与核心观点</p><h3>三、研究缺口（Gap）</h3><p>（已有研究尚未解决的问题）</p><h3>四、本文定位</h3><p>（你的研究如何填补缺口）</p><h3>五、评述结论</h3><p>（总结并指向下一步）</p>`,
@@ -5041,6 +5192,66 @@ function noteById(id){ return myNotes.find(n=>n.id===id); }
 function saveNotesLocal(){ store.set(NOTE_KEY, myNotes); if(myNoteSel) store.set(NOTE_SEL, myNoteSel); }
 function saveFoldersLocal(){ store.set(FOLDER_KEY, noteFolders); store.set(FOLDER_CUR, myNoteCur); }
 function fmtNoteDate(ts){ try{ const d=new Date(ts); return (d.getMonth()+1)+'/'+d.getDate()+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'); }catch(e){return '';} }
+
+/* ---- 列表展示用：纯文本处理 ---- */
+function noteFlatText(html){
+  const d=document.createElement('div');
+  d.innerHTML=noteCleanHtml(html||'');
+  return (d.textContent||'').replace(/\s+/g,' ').trim();
+}
+/* 没起标题时，自动用正文首句当标题（避免清一色「无标题笔记」） */
+function dispTitle(n){
+  const t=((n&&n.title)||'').trim();
+  if(t && t!=='无标题笔记') return t;
+  const first=(noteFlatText(n?n.html:'').split(/[。！？；?!;]/)[0]||'').trim();
+  return first? first.slice(0,22) : '无标题笔记';
+}
+function dispSub(n){ return noteFlatText(n?n.html:'').slice(0,60); }
+/* 中文字数 + 英文词数 */
+function noteWords(html){
+  const t=noteFlatText(html);
+  return (t.match(/[\u4e00-\u9fa5]/g)||[]).length + (t.match(/[A-Za-z0-9]+/g)||[]).length;
+}
+function noteBlocks(html){
+  const d=document.createElement('div'); d.innerHTML=noteCleanHtml(html||'');
+  return d.querySelectorAll('h1,h2,h3,p,li,pre,blockquote,div').length;
+}
+function setNoteState(dirty){
+  const sv=$('#nfState'), tx=$('#nfStateTxt');
+  if(sv) sv.classList.toggle('dirty', !!dirty);
+  if(tx) tx.textContent = dirty? '输入中…' : '已保存';
+}
+function updateNoteFoot(){
+  const n=noteById(myNoteSel), ed=$('#noteEditor');
+  const html = ed? ed.innerHTML : (n? n.html : '');
+  const w=$('#nfWords'), b=$('#nfBlocks'), tm=$('#nfTime');
+  if(w) w.textContent = noteWords(html)+' 字';
+  if(b) b.textContent = noteBlocks(html)+' 段';
+  if(tm) tm.textContent = n? ('更新于 '+fmtNoteDate(n.updated)) : '—';
+}
+/* 无笔记时的引导页开关 */
+function toggleEmptyState(){
+  const body=$('#noteBody'), emp=$('#noteEmpty'), empty=!myNotes.length;
+  if(body) body.classList.toggle('hidden', empty);
+  if(emp){
+    emp.classList.toggle('hidden', !empty);
+    if(empty && !emp._built){
+      emp._built=true;
+      const grid=$('#emptyTpls');
+      if(grid){
+        grid.innerHTML = '<button type="button" data-tpl="">📄 空白笔记<span>从零开始写</span></button>'
+          + TPL_META.map(t=>`<button type="button" data-tpl="${t.k}">${t.i} ${t.n}<span>${t.d}</span></button>`).join('');
+        grid.onclick=(e)=>{ const b=e.target.closest('[data-tpl]'); if(b) newNote(b.dataset.tpl); };
+      }
+    }
+  }
+}
+function noteScopeName(){
+  if(myNoteCur===null) return '全部笔记';
+  if(myNoteCur==='uncat') return '未分类';
+  const f=noteFolders.find(x=>x.id===myNoteCur);
+  return f? f.name : '全部笔记';
+}
 
 /* 侧边栏文件夹列表 */
 function renderNoteFolders(){
@@ -5088,17 +5299,42 @@ function setNoteFolder(fid){
 
 function renderNoteList(){
   const list=$('#noteList'); if(!list) return;
-  const all=myNotes.slice().sort((a,b)=>b.updated-a.updated);
-  const arr = myNoteCur===null ? all
-            : myNoteCur==='uncat' ? all.filter(n=>!n.fid)
-            : all.filter(n=>n.fid===myNoteCur);
-  if(!arr.length){ list.innerHTML='<div style="color:var(--ink3);font-size:12.5px;padding:8px 4px">'+(myNotes.length?'该文件夹还没有笔记，点「新建笔记」添加～':'还没有笔记，点「新建笔记」开始～')+'</div>'; return; }
-  list.innerHTML = arr.map(n=>`
-    <div class="note-item ${n.id===myNoteSel?'on':''}" data-id="${n.id}" draggable="true" title="点击打开 · 按住可拖到文件夹">
-      <span class="nt">${esc(n.title||'无标题笔记')}</span>
-      <span class="nd">${fmtNoteDate(n.updated)}</span>
-      <button class="ndel" data-del="${n.id}" title="删除" draggable="false">✕</button>
-    </div>`).join('');
+  const kw=(noteQuery||'').trim();
+  const scope = myNoteCur===null ? myNotes.slice()
+              : myNoteCur==='uncat' ? myNotes.filter(n=>!n.fid)
+              : myNotes.filter(n=>n.fid===myNoteCur);
+  let arr = kw
+    ? scope.filter(n=>{
+        const k=kw.toLowerCase();
+        return ((n.title||'')+' '+dispTitle(n)+' '+noteFlatText(n.html)).toLowerCase().includes(k);
+      })
+    : scope.slice();
+  arr.sort((a,b)=>{ const p=(b.pin?1:0)-(a.pin?1:0); return p? p : (b.updated-a.updated); });
+
+  const cnt=$('#noteCount'); if(cnt) cnt.textContent = arr.length + (arr.length!==scope.length? (' / '+scope.length) : '');
+  const snm=$('#noteScopeName'); if(snm) snm.textContent = noteScopeName() + (kw?' · 搜索中':'');
+  const clr=$('#btnNoteSearchClear'); if(clr) clr.style.display = kw? '' : 'none';
+  toggleEmptyState();
+
+  if(!arr.length){
+    list.innerHTML='<div style="color:var(--ink3);font-size:12.5px;padding:10px 4px;line-height:1.8">'
+      + (kw ? '没有包含「'+esc(kw)+'」的笔记<br>换个关键词试试～'
+            : (myNotes.length ? '这个文件夹还没有笔记<br>点上方「新建笔记」添加～' : '还没有笔记，点上方「新建笔记」开始～'))
+      + '</div>';
+    return;
+  }
+  list.innerHTML = arr.map(n=>{
+    const sub=dispSub(n), pin=!!n.pin;
+    return `
+    <div class="note-item ${n.id===myNoteSel?'on':''} ${pin?'pinned':''}" data-id="${n.id}" draggable="true" title="点击打开 · 按住可拖到文件夹归类">
+      <div class="nm">${pin?'<span class="npin">⭐</span>':''}<span class="nt">${kw?hlKw(dispTitle(n),kw):esc(dispTitle(n))}</span><span class="nd">${fmtNoteDate(n.updated)}</span></div>
+      <div class="nsub" ${sub?'':'style="opacity:.55"'}>${sub?(kw?hlKw(sub,kw):esc(sub)):'空白笔记'}</div>
+      <div class="ni-acts">
+        <button type="button" data-pin="${n.id}" title="${pin?'取消置顶':'置顶这篇'}" draggable="false">${pin?'★':'☆'}</button>
+        <button type="button" class="ndel" data-del="${n.id}" title="删除" draggable="false">✕</button>
+      </div>
+    </div>`;
+  }).join('');
 }
 
 /* 把指定笔记移动到某文件夹（fid 为空 / 'uncat' 表示移到未分类） */
@@ -5165,27 +5401,54 @@ function initNoteDrag(){
 function openNote(id){
   const n=noteById(id); if(!n) return;
   myNoteSel=id; saveNotesLocal();
-  const ti=$('#noteTitle'); if(ti) ti.value=n.title||'';
+  const ti=$('#noteTitle'); if(ti) ti.value=(n.title==='无标题笔记')?'':(n.title||'');
   const ed=$('#noteEditor'); if(ed) ed.innerHTML=n.html||'';
   renderNoteList(); renderNoteFolders(); setSyncTxt();
+  setNoteState(false); updateNoteFoot();
 }
 
-function newNote(){
+function newNote(tplKey){
   let fid=null;
   if(myNoteCur && myNoteCur!=='uncat' && noteFolders.some(f=>f.id===myNoteCur)) fid=myNoteCur;
   const n={id:'n'+Date.now()+Math.random().toString(36).slice(2,7), title:'无标题笔记', html:'', updated:Date.now(), fid};
+  if(tplKey && NOTE_TPLS[tplKey]) n.html=NOTE_TPLS[tplKey];
   myNotes.push(n); saveNotesLocal(); openNote(n.id);
-  const ti=$('#noteTitle'); if(ti){ ti.focus(); ti.select(); }
+  const ti=$('#noteTitle');
+  if(ti && (!tplKey)) { ti.focus(); ti.select(); }
   pushCloud();
+  return n;
 }
 
 async function delNote(id){
-  if(!await askConfirm('确定删除这篇笔记？此操作不可撤销。','删除笔记')) return;
-  myNotes=myNotes.filter(n=>n.id!==id);
-  if(myNoteSel===id){ myNoteSel = myNotes.length? myNotes[0].id : null; }
+  const n=noteById(id); if(!n) return;
+  const idx=myNotes.findIndex(x=>x.id===id);
+  if(!await askConfirm('删除「'+dispTitle(n)+'」？删除后可在底部提示条里点「撤销」找回。','删除笔记')) return;
+  myNotes=myNotes.filter(x=>x.id!==id);
+  const restore=()=>{
+    if(noteById(id)) return;
+    myNotes.splice(Math.min(idx,myNotes.length),0,n);
+    myNoteSel=id; saveNotesLocal(); openNote(id); pushCloud();
+    toast('已恢复「'+dispTitle(n)+'」↩');
+  };
+  if(myNoteSel===id){
+    const rest=myNotes.slice().sort((a,b)=>b.updated-a.updated);
+    myNoteSel = rest.length? rest[0].id : null;
+  }
   saveNotesLocal();
-  if(myNoteSel) openNote(myNoteSel); else { const ed=$('#noteEditor'); if(ed) ed.innerHTML=''; const ti=$('#noteTitle'); if(ti) ti.value=''; }
-  renderNoteList(); pushCloud();
+  if(myNoteSel) openNote(myNoteSel); else clearNoteEditor();
+  renderNoteList(); renderNoteFolders(); pushCloud();
+  toast('已删除「'+dispTitle(n)+'」', {label:'↩ 撤销', fn:restore});
+}
+function clearNoteEditor(){
+  const ed=$('#noteEditor'); if(ed) ed.innerHTML='';
+  const ti=$('#noteTitle'); if(ti) ti.value='';
+  setNoteState(false); updateNoteFoot();
+}
+function togglePin(id){
+  const n=noteById(id); if(!n) return;
+  n.pin = n.pin? 0 : 1;
+  saveNotesLocal(); renderNoteList(); pushCloud();
+  toast(n.pin? '已置顶「'+dispTitle(n)+'」⭐' : '已取消置顶');
 }
 
 function noteSave(){
@@ -5195,8 +5458,13 @@ function noteSave(){
   n.html=ed?ed.innerHTML:'';
   n.updated=Date.now();
   saveNotesLocal(); renderNoteList(); setSyncTxt(); pushCloud();
+  setNoteState(false); updateNoteFoot();
 }
-function noteScheduleSave(){ if(_noteSaveT) clearTimeout(_noteSaveT); _noteSaveT=setTimeout(noteSave, 700); }
+function noteScheduleSave(){
+  setNoteState(true);
+  if(_noteSaveT) clearTimeout(_noteSaveT);
+  _noteSaveT=setTimeout(noteSave, 700);
+}
 
 function noteExec(cmd, val){
   const ed=$('#noteEditor'); if(ed) ed.focus();
@@ -5265,6 +5533,44 @@ function exportNoteTxt(){
     document.body.appendChild(a); a.click(); a.remove();
   }catch(e){ return toast('导出失败：'+e.message); }
   toast('已导出纯文本（.txt）');
+}
+/* 富文本 → Markdown（放 Obsidian / Typora / 语雀都能直接用） */
+function noteToMd(html){
+  const d=document.createElement('div');
+  d.innerHTML=noteCleanHtml(html||'');
+  let out='';
+  (function walk(node){
+    (node.childNodes||[]).forEach(nd=>{
+      if(nd.nodeType===3){ out+=nd.nodeValue.replace(/\s+/g,' '); return; }
+      if(nd.nodeType!==1) return;
+      const tag=(nd.tagName||'').toLowerCase();
+      if(tag==='br'){ out+='\n'; return; }
+      if(/^h[1-6]$/.test(tag)){ out+='\n\n'+'#'.repeat(+tag[1])+' '; walk(nd); out+='\n'; return; }
+      if(tag==='b'||tag==='strong'){ out+='**'; walk(nd); out+='**'; return; }
+      if(tag==='i'||tag==='em'){ out+='*'; walk(nd); out+='*'; return; }
+      if(tag==='s'||tag==='del'||tag==='strike'){ out+='~~'; walk(nd); out+='~~'; return; }
+      if(tag==='u'){ out+='<u>'; walk(nd); out+='</u>'; return; }
+      if(tag==='code'){ out+='`'; walk(nd); out+='`'; return; }
+      if(tag==='pre'){ out+='\n\n```\n'+(nd.textContent||'').trim()+'\n```\n'; return; }
+      if(tag==='blockquote'){ out+='\n\n> '; walk(nd); out+='\n'; return; }
+      if(tag==='li'){ const p=nd.parentElement, pn=p?(p.tagName||'').toLowerCase():''; out+='\n'+(pn==='ol'?'1. ':'- '); walk(nd); return; }
+      if(tag==='ul'||tag==='ol'){ walk(nd); out+='\n'; return; }
+      if(tag==='p'||tag==='div'){ out+='\n\n'; walk(nd); return; }
+      walk(nd);
+    });
+  })(d);
+  return out.replace(/[ \t]+/g,' ').replace(/\n{3,}/g,'\n\n').trim();
+}
+function exportNoteMd(){
+  noteSave();
+  const n=noteById(myNoteSel); if(!n) return toast('请先选择一篇笔记');
+  const md='# '+(n.title||'无标题笔记')+'\n\n'+(noteToMd(n.html)||'（空笔记）')+'\n';
+  try{
+    const blob=new Blob([md],{type:'text/markdown;charset=utf-8'});
+    const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=fname(n.title)+'.md';
+    document.body.appendChild(a); a.click(); a.remove();
+  }catch(e){ return toast('导出失败：'+e.message); }
+  toast('已导出 Markdown（.md）');
 }
 function exportNotePdf(){
   noteSave();
@@ -5383,12 +5689,21 @@ function initNotes(){
     document.querySelectorAll('#tplMenu [data-tpl]').forEach(b=> b.onclick=()=> insertTpl(b.dataset.tpl));
     document.addEventListener('click', e=>{ const m=$('#tplMenu'); if(m&&m.style.display!=='none'&&!e.target.closest('#tplMenu')&&!e.target.closest('#btnTpl')) m.style.display='none'; });
     const exBtn=$('#btnExportNote'); if(exBtn) exBtn.onclick=(e)=>{ e.stopPropagation(); const m=$('#exportMenu'); if(m) m.style.display = (m.style.display==='none'?'block':'none'); };
-    document.querySelectorAll('#exportMenu [data-x]').forEach(b=> b.onclick=()=>{ const m=$('#exportMenu'); if(m) m.style.display='none'; if(b.dataset.x==='word') exportNoteWord(); else if(b.dataset.x==='txt') exportNoteTxt(); else exportNotePdf(); });
+    document.querySelectorAll('#exportMenu [data-x]').forEach(b=> b.onclick=()=>{ const m=$('#exportMenu'); if(m) m.style.display='none'; if(b.dataset.x==='word') exportNoteWord(); else if(b.dataset.x==='md') exportNoteMd(); else if(b.dataset.x==='txt') exportNoteTxt(); else exportNotePdf(); });
     document.addEventListener('click', e=>{ const m=$('#exportMenu'); if(m&&m.style.display!=='none'&&!e.target.closest('#exportMenu')&&!e.target.closest('#btnExportNote')) m.style.display='none'; });
+    /* 侧栏搜索 */
+    const nsi=$('#noteSearch');
+    if(nsi){ nsi.value=noteQuery||''; nsi.oninput=()=>{ noteQuery=nsi.value||''; store.set(NOTE_Q,noteQuery); renderNoteList(); }; }
+    const nsc=$('#btnNoteSearchClear');
+    if(nsc) nsc.onclick=()=>{ noteQuery=''; store.set(NOTE_Q,''); const i=$('#noteSearch'); if(i){ i.value=''; i.focus(); } renderNoteList(); };
     const ed=$('#noteEditor'); if(ed) ed.oninput=noteScheduleSave;
     const ti=$('#noteTitle'); if(ti) ti.oninput=noteScheduleSave;
     const list=$('#noteList');
-    if(list) list.onclick=(e)=>{ const del=e.target.closest('[data-del]'); if(del){ e.stopPropagation(); delNote(del.dataset.del); return; } const it=e.target.closest('[data-id]'); if(it) openNote(it.dataset.id); };
+    if(list) list.onclick=(e)=>{
+      const del=e.target.closest('[data-del]'); if(del){ e.stopPropagation(); delNote(del.dataset.del); return; }
+      const pin=e.target.closest('[data-pin]'); if(pin){ e.stopPropagation(); togglePin(pin.dataset.pin); return; }
+      const it=e.target.closest('[data-id]'); if(it) openNote(it.dataset.id);
+    };
     const nb=$('#btnNewNote'); if(nb) nb.onclick=newNote;
     const nfBtn=$('#btnNewNoteFolder'); if(nfBtn) nfBtn.onclick=newFolder;
     const fbox=$('#noteFolders');
@@ -5400,6 +5715,7 @@ function initNotes(){
   renderNoteList();
   if(myNoteSel && noteById(myNoteSel)) openNote(myNoteSel);
   else if(myNotes.length) openNote(myNotes[0].id);
+  else clearNoteEditor();
   renderSbUI();
   if((settings.supabaseUrl||'').trim() && (settings.supabaseKey||'').trim() && !_cloud) connectCloud();
   setSyncTxt();
@@ -5419,13 +5735,19 @@ bootAskModal(); bootFortune(); wallBoot(); applyTheme(); initSettings(); updateF
       <h3>📒 我的笔记</h3>
       <div class="notes-side-btns">
         <button class="btn pri" id="btnNewNote" title="新建一篇笔记">📄 新建笔记</button>
-        <button class="btn" id="btnNewNoteFolder" title="新建一个文件夹">📁 新建文件夹</button>
+        <button class="btn" id="btnNewNoteFolder" title="新建一个文件夹">📁 文件夹</button>
+      </div>
+      <div class="note-search">
+        <input type="text" id="noteSearch" placeholder="🔍 搜索标题 / 正文…" autocomplete="off">
+        <button type="button" class="nsc" id="btnNoteSearchClear" title="清除搜索" style="display:none">✕</button>
       </div>
       <div class="note-folders" id="noteFolders"></div>
-      <div class="note-drag-tip">💡 按住笔记可拖到上方文件夹里归类</div>
+      <div class="note-drag-tip" id="noteDragTip">💡 按住笔记可拖到上方文件夹归类</div>
+      <div class="notes-list-head"><b id="noteScopeName">全部笔记</b><span class="zc" id="noteCount"></span></div>
       <div class="notes-list" id="noteList"></div>
     </aside>
     <section class="notes-main">
+      <div id="noteBody" style="display:flex;flex-direction:column;flex:1 1 auto;min-height:0">
       <div class="notes-top">
         <input class="notes-title" id="noteTitle" placeholder="无标题笔记">
         <select class="notes-folder-sel" id="noteFolderSel" title="所属文件夹"><option value="">未分类</option></select>
@@ -5434,6 +5756,7 @@ bootAskModal(); bootFortune(); wallBoot(); applyTheme(); initSettings(); updateF
           <button type="button" class="tplbtn" id="btnExportNote">📤 导出 ▾</button>
           <div class="mp" id="exportMenu" style="display:none;position:absolute;top:42px;right:0;left:auto;z-index:90;background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:6px;min-width:180px">
             <button class="btn" data-x="word" style="display:block;width:100%;text-align:left;margin:2px 0">📄 导出 Word (.doc)</button>
+            <button class="btn" data-x="md" style="display:block;width:100%;text-align:left;margin:2px 0">⬇️ 导出 Markdown (.md)</button>
             <button class="btn" data-x="pdf" style="display:block;width:100%;text-align:left;margin:2px 0">📑 导出 PDF（打印）</button>
             <button class="btn" data-x="txt" style="display:block;width:100%;text-align:left;margin:2px 0">📃 导出 TXT (.txt)</button>
           </div>
@@ -5477,7 +5800,20 @@ bootAskModal(); bootFortune(); wallBoot(); applyTheme(); initSettings(); updateF
           <button class="btn" data-tpl="month" style="display:block;width:100%;text-align:left;margin:2px 0">📅 月计划</button>
         </div>
       </div>
-      <div class="notes-editor" id="noteEditor" contenteditable="true" data-ph="在这里自由书写，像飞书云文档一样～ 支持标题、字号、清单、模板，输入自动保存。"></div>
+      <div class="notes-editor" id="noteEditor" contenteditable="true" data-ph="在这里自由书写，像飞书云文档一样～ 支持标题、字号、清单、模板，输入自动保存。" style="flex:1 1 auto"></div>
+      <div class="notes-foot">
+        <span id="nfWords">0 字</span>
+        <span id="nfBlocks">0 段</span>
+        <span id="nfTime">—</span>
+        <span class="sv" id="nfState"><i class="dot"></i><span id="nfStateTxt">已保存</span></span>
+      </div>
+      </div>
+      <div class="notes-empty hidden" id="noteEmpty">
+        <div class="ne-ic">📒</div>
+        <h4>还没有笔记，写下第一篇吧</h4>
+        <p>笔记只存在你自己的浏览器里，输入自动保存，可导出 Word / Markdown / PDF / TXT。</p>
+        <div class="ntpl-grid" id="emptyTpls"></div>
+      </div>
     </section>
   </div>
 </div>
